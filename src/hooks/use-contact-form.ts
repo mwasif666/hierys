@@ -3,7 +3,7 @@ import { toast } from "sonner";
 
 export const CONTACT_FORM_ACTION =
   "https://api.rootsbmd.com/public/SaveContactForm";
-export const CONTACT_FORM_EMAIL_TO = "wasif@rootsbmd.com";
+export const CONTACT_FORM_EMAIL_TO = "Ahsan.ahmed@hierys.com";
 
 type ContactFormValues = Record<string, string>;
 
