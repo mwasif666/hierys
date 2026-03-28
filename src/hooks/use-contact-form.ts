@@ -23,6 +23,7 @@ type ContactFormError = Error & {
 type UseContactFormOptions = {
   buildSubject?: (formData: FormData) => string;
   successMessage?: string;
+  
   errorMessage?: string;
   getErrorMessage?: (error: unknown) => string;
   onSuccess?: (payload: ContactFormSuccessPayload) => void;
