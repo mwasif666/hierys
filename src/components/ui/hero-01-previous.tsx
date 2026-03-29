@@ -18,7 +18,7 @@ const impactWords = [
   "Designs",
 ] as const;
 
-export function HeroSection01() {
+export function HeroSection01Previous() {
   const { formRef, handleSubmit, isSubmitting } = useContactForm({
     buildSubject: (formData) => {
       const email = formData.get("email");
@@ -34,14 +34,23 @@ export function HeroSection01() {
   });
 
   return (
-    <section className="relative isolate flex min-h-screen w-full items-center justify-center overflow-hidden">
+    <section className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-[rgb(254,248,223)] isolate">
       <GradientWave
-        colors={["#ffffff", "#fb7185", "#e879f9", "#a3e635", "#ffffff"]}
+        colors={["#dfdbcf", "#a2b4f9", "#fef8df", "#fdf55a", "#dfdbcf"]}
         shadowPower={4}
         darkenTop={false}
         noiseFrequency={[0.0001, 0.0002]}
-        deform={{ incline: 0.2, noiseAmp: 100, noiseFlow: 2 }}
+        noiseSpeed={0.00004}
+        deform={{ incline: 0.2, noiseAmp: 100, noiseFlow: 3.2 }}
       />
+
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(254,248,223,0.52),rgba(254,248,223,0.88))]" />
+      <div className="coming-soon-color-cycle absolute inset-0">
+        <div className="coming-soon-color-orb coming-soon-color-orb-1" />
+        <div className="coming-soon-color-orb coming-soon-color-orb-2" />
+        <div className="coming-soon-color-orb coming-soon-color-orb-3" />
+        <div className="coming-soon-color-orb coming-soon-color-orb-4" />
+      </div>
 
       <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 py-14 text-center sm:px-10 lg:px-12">
         <h1 className="max-w-4xl font-display text-3xl font-semibold tracking-[-0.035em] text-slate-950 sm:text-5xl lg:text-6xl">
@@ -62,7 +71,7 @@ export function HeroSection01() {
             Have a question or want to connect with us?
           </h2>
 
-          <p className="mt-3 text-base text-center leading-7 text-slate-700">
+          <p className="mt-3 text-base leading-7 text-slate-700">
             Send us your email and message, and we will get back to you soon.
           </p>
 
