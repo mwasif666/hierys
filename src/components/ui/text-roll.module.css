@@ -1,0 +1,52 @@
+.root {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  color: inherit;
+  vertical-align: top;
+}
+
+.layer {
+  display: block;
+  white-space: pre;
+}
+
+.layerBottom {
+  position: absolute;
+  inset: 0;
+}
+
+.char {
+  display: inline-block;
+  white-space: pre;
+  will-change: transform, opacity, filter;
+}
+
+.changeRoot {
+  display: inline-grid;
+  place-items: center;
+}
+
+.changeTrack {
+  grid-area: 1 / 1;
+  display: inline-flex;
+  white-space: pre;
+}
+
+.changeSlot {
+  display: inline-block;
+  overflow: hidden;
+  white-space: pre;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

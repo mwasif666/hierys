@@ -57,7 +57,7 @@ export function HeroSection01() {
           We will be live soon.
         </p>
 
-        <div className="mt-12 w-full max-w-2xl rounded-[32px] border border-white/70 bg-white/72 p-6 text-left shadow-[0_24px_60px_rgba(17,24,39,0.08)] backdrop-blur sm:p-8">
+        <div className="mt-12 w-full max-w-lg rounded-[32px] border border-white/70 bg-white/72 p-6 text-left shadow-[0_24px_60px_rgba(17,24,39,0.08)] backdrop-blur sm:p-8">
           <h2 className="font-display text-center text-2xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-3xl">
             Have a question or want to connect with us?
           </h2>
@@ -99,7 +99,7 @@ export function HeroSection01() {
               <textarea
                 id="message"
                 name="message"
-                rows={5}
+                rows={2}
                 required
                 disabled={isSubmitting}
                 className="w-full rounded-3xl border border-black/10 bg-white/90 px-4 py-3 text-base text-slate-950 outline-none transition focus:border-black/20 focus:ring-2 focus:ring-[rgba(162,180,249,0.35)]"

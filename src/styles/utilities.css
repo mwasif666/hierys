@@ -1,0 +1,52 @@
+.u-hideScrollbar {
+  scrollbar-width: none;
+}
+
+.u-hideScrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.u-letterSpacing2 {
+  letter-spacing: 2px !important;
+}
+
+.u-iconSwap {
+  overflow: hidden;
+  position: relative;
+}
+
+.u-iconSwap__a,
+.u-iconSwap__b {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transition:
+    transform 0.22s ease,
+    opacity 0.22s ease;
+  will-change: transform, opacity;
+}
+
+.u-iconSwap__a {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.u-iconSwap__b {
+  transform: translateY(130%);
+  opacity: 0;
+}
+
+.u-iconSwapTrigger:hover .u-iconSwap__a,
+.u-iconSwapTrigger:focus-visible .u-iconSwap__a,
+.u-iconSwapOpen .u-iconSwap__a {
+  transform: translateY(-130%);
+  opacity: 0;
+}
+
+.u-iconSwapTrigger:hover .u-iconSwap__b,
+.u-iconSwapTrigger:focus-visible .u-iconSwap__b,
+.u-iconSwapOpen .u-iconSwap__b {
+  transform: translateY(0);
+  opacity: 1;
+}
