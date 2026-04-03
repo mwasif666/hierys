@@ -9,8 +9,8 @@ import {
 import { GoArrowDown, GoArrowUp } from "react-icons/go";
 import { PiSparkleFill } from "react-icons/pi";
 
-import { CTA_PREVIEW, NAV_ITEMS } from "@/components/homepage/homepageData";
-import styles from "@/components/homepage/Navbar.module.css";
+import { CTA_PREVIEW, NAV_ITEMS } from "@/components/homepage/data/homepageData";
+import styles from "@/components/homepage/navbar/Navbar.module.css";
 import { cn } from "@/lib/utils";
 
 const cardVisual = (menuKey, title) =>

@@ -1,16 +1,15 @@
 "use client";
 
-import React from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 import { cn } from "@/lib/utils";
 import styles from "@/components/ui/text-roll.module.css";
 
 const STAGGER = 0.035;
-const EASE = [0.22, 1, 0.36, 1];
+const EASE = [0.22, 1, 0.36, 1] as const;
 const MotionSpan = motion.span;
 
-function getDelay(index, length, center) {
+function getDelay(index: number, length: number, center: boolean) {
   if (center) {
     return STAGGER * Math.abs(index - (length - 1) / 2);
   }
@@ -18,9 +17,17 @@ function getDelay(index, length, center) {
   return STAGGER * index;
 }
 
-function toChars(text) {
+function toChars(text: string): string[] {
   return Array.from(text);
 }
+
+type TextRollProps = {
+  children: string;
+  className?: string;
+  center?: boolean;
+  animateOnChange?: boolean;
+  animateKey?: string;
+};
 
 export default function TextRoll({
   children,
@@ -28,7 +35,7 @@ export default function TextRoll({
   center = false,
   animateOnChange = false,
   animateKey,
-}) {
+}: TextRollProps) {
   const chars = toChars(children);
 
   if (animateOnChange) {
@@ -42,11 +49,7 @@ export default function TextRoll({
       >
         <span className={styles.srOnly}>{children}</span>
         <AnimatePresence initial={false} mode="sync">
-          <MotionSpan
-            key={key}
-            aria-hidden="true"
-            className={styles.changeTrack}
-          >
+          <MotionSpan key={key} aria-hidden="true" className={styles.changeTrack}>
             {chars.map((letter, index) => (
               <span className={styles.changeSlot} key={`${key}-${index}`}>
                 <MotionSpan

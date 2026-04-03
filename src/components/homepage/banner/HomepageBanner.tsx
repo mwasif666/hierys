@@ -1,10 +1,13 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
 import gsap from "gsap";
 import { HiMiniArrowRight, HiMiniArrowUpRight } from "react-icons/hi2";
 
-import { HERO_SCENES } from "@/components/homepage/homepageData";
-import styles from "@/components/homepage/HomepageBanner.module.css";
+import {
+  HERO_SCENES,
+  type HeroScene,
+} from "@/components/homepage/data/homepageData";
+import styles from "@/components/homepage/banner/HomepageBanner.module.css";
 import TextRoll from "@/components/ui/text-roll";
 import { cn } from "@/lib/utils";
 
@@ -16,7 +19,14 @@ const cardLayoutClasses = [
   styles.card4,
 ];
 
-function CtaButton({ href, icon, label, tone }) {
+type CtaButtonProps = {
+  href: string;
+  icon: ReactNode;
+  label: string;
+  tone: "yellow" | "pink";
+};
+
+function CtaButton({ href, icon, label, tone }: CtaButtonProps) {
   const toneClass = tone === "yellow" ? styles.ctaYellow : styles.ctaPink;
 
   return (
@@ -31,12 +41,14 @@ function CtaButton({ href, icon, label, tone }) {
 }
 
 export default function HomepageBanner() {
-  const [activeIndex, setActiveIndex] = useState(3);
-  const cardRefs = useRef([]);
-  const scene = useMemo(() => HERO_SCENES[activeIndex], [activeIndex]);
+  const [activeIndex, setActiveIndex] = useState<number>(3);
+  const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const scene = useMemo<HeroScene>(() => HERO_SCENES[activeIndex]!, [activeIndex]);
 
   useEffect(() => {
-    const cards = cardRefs.current.filter(Boolean);
+    const cards = cardRefs.current.filter(
+      (card): card is HTMLDivElement => card !== null,
+    );
     const sceneNodes = [...cards];
 
     gsap.killTweensOf(sceneNodes);
@@ -116,7 +128,11 @@ export default function HomepageBanner() {
                   <span className={styles.noteLabel}>{card.label}</span>
                 </div>
               ) : (
-                <img className={styles.cardImage} src={card.src} alt={card.alt} />
+                <img
+                  className={styles.cardImage}
+                  src={card.src}
+                  alt={card.alt}
+                />
               )}
             </div>
           ))}
@@ -154,8 +170,6 @@ export default function HomepageBanner() {
             <strong>marketing,</strong> and the in-between work that keeps
             startups, companies, contractors, and personal brands moving.
           </p>
-
-          <p className={styles.kicker}>{scene.strap}</p>
 
           <div
             className={cn(

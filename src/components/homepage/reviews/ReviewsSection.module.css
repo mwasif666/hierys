@@ -1,0 +1,358 @@
+.section {
+  background: #003512;
+  color: #d9f0df;
+  padding: clamp(84px, 8vw, 116px) 0 clamp(120px, 10vw, 164px);
+}
+
+.inner {
+  width: min(1360px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.header {
+  position: relative;
+  width: min(1320px, 100%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sticker {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -28%) rotate(-5deg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 126px;
+  height: 46px;
+  padding: 0 16px;
+  border-radius: 6px;
+  background: #fff1c7;
+  color: #ff4ba6;
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: clamp(18px, 1vw, 22px);
+  line-height: 1;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.18);
+}
+
+.heading {
+  margin: 0 auto;
+  width: min(1280px, 100%);
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: clamp(42px, 6.9vw, 100px);
+  line-height: 0.94;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  color: #d7efe0;
+}
+
+.stack {
+  margin-top: clamp(52px, 6vw, 82px);
+  padding-bottom: clamp(120px, 12vw, 180px);
+}
+
+.stack :global(.scroll-stack-inner) {
+  min-height: auto;
+  padding: 0 0 clamp(120px, 12vw, 180px);
+}
+
+.stackItem {
+  width: min(1160px, 100%);
+  margin: 0 auto;
+  height: auto;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.reviewCard {
+  width: 100%;
+}
+
+.cardInner {
+  padding: clamp(34px, 3.4vw, 46px);
+  border-radius: 36px;
+  border: 2px solid rgba(217, 240, 223, 0.24);
+  background:
+    linear-gradient(180deg, rgba(0, 58, 21, 0.98) 0%, rgba(0, 44, 16, 0.98) 100%);
+  box-shadow: 0 28px 42px rgba(0, 0, 0, 0.2);
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.person {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 2px solid rgba(255, 241, 199, 0.56);
+  background: #fff1c7;
+}
+
+.personCopy {
+  min-width: 0;
+}
+
+.personName {
+  margin: 0;
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: clamp(20px, 1.5vw, 28px);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.personRole {
+  margin: 8px 0 0;
+  font-size: clamp(14px, 1vw, 18px);
+  line-height: 1.25;
+  color: rgba(217, 240, 223, 0.74);
+}
+
+.personCompany {
+  display: inline;
+  margin-left: 6px;
+}
+
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.ratingStarFilled,
+.ratingStarEmpty {
+  width: 22px;
+  height: 22px;
+  stroke-width: 1.8;
+}
+
+.ratingStarFilled {
+  color: #d7efe0;
+  fill: currentColor;
+}
+
+.ratingStarEmpty {
+  color: rgba(215, 239, 224, 0.35);
+}
+
+.quote {
+  max-width: 980px;
+  margin: clamp(26px, 2.8vw, 36px) 0 0;
+  font-size: clamp(22px, 2.25vw, 40px);
+  line-height: 1.16;
+  letter-spacing: -0.045em;
+  color: #d9f0df;
+}
+
+.caseStudy {
+  display: grid;
+  grid-template-columns: clamp(150px, 12vw, 188px) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(18px, 2vw, 28px);
+  margin-top: clamp(30px, 3vw, 40px);
+  padding: clamp(12px, 1.2vw, 14px);
+  border-radius: 18px;
+  background: #d5eed8;
+  color: #05240f;
+  text-decoration: none;
+}
+
+.caseStudyImage {
+  width: 100%;
+  aspect-ratio: 1.2;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.caseStudyBody {
+  min-width: 0;
+}
+
+.caseStudyTitle {
+  margin: 0;
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: clamp(26px, 2.2vw, 42px);
+  line-height: 0.96;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.caseStudyLink {
+  display: inline-grid;
+  justify-items: end;
+  gap: 2px;
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.caseStudyIcon {
+  width: 18px;
+  height: 18px;
+  margin-top: 6px;
+}
+
+@media (max-width: 1440px) {
+  .heading {
+    width: min(1080px, 100%);
+    font-size: clamp(38px, 6vw, 82px);
+  }
+
+  .quote {
+    max-width: 920px;
+    font-size: clamp(20px, 2vw, 32px);
+  }
+
+  .caseStudyTitle {
+    font-size: clamp(22px, 1.95vw, 34px);
+  }
+}
+
+@media (max-width: 1180px) {
+  .inner {
+    width: min(100%, calc(100% - 40px));
+  }
+
+  .heading {
+    width: min(920px, 100%);
+    font-size: clamp(34px, 5.6vw, 66px);
+  }
+
+  .cardInner {
+    border-radius: 30px;
+  }
+
+  .quote {
+    font-size: clamp(19px, 2.2vw, 28px);
+  }
+
+  .caseStudy {
+    grid-template-columns: 144px minmax(0, 1fr);
+  }
+
+  .caseStudyLink {
+    justify-items: start;
+    text-align: left;
+  }
+}
+
+@media (max-width: 991px) {
+  .section {
+    padding: 78px 0 96px;
+  }
+
+  .inner {
+    width: min(100%, calc(100% - 32px));
+  }
+
+  .sticker {
+    min-width: 108px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .heading {
+    width: min(700px, 100%);
+    font-size: clamp(30px, 7.6vw, 54px);
+  }
+
+  .stack {
+    margin-top: 44px;
+  }
+
+  .stackItem {
+    width: 100%;
+  }
+
+  .cardInner {
+    padding: 26px 22px;
+    border-radius: 26px;
+  }
+
+  .metaRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .quote {
+    font-size: clamp(18px, 4vw, 24px);
+    line-height: 1.22;
+  }
+
+  .caseStudy {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .caseStudyImage {
+    aspect-ratio: 1.7;
+  }
+}
+
+@media (max-width: 640px) {
+  .inner {
+    width: min(100%, calc(100% - 24px));
+  }
+
+  .sticker {
+    min-width: 92px;
+    height: 34px;
+    padding: 0 12px;
+    font-size: 14px;
+  }
+
+  .heading {
+    width: min(100%, 340px);
+    font-size: clamp(26px, 10.6vw, 42px);
+  }
+
+  .person {
+    gap: 14px;
+  }
+
+  .avatar {
+    width: 58px;
+    height: 58px;
+  }
+
+  .personName {
+    font-size: clamp(18px, 5vw, 22px);
+  }
+
+  .personRole {
+    margin-top: 6px;
+    font-size: clamp(13px, 3.7vw, 15px);
+  }
+
+  .quote {
+    margin-top: 22px;
+    font-size: clamp(17px, 5vw, 21px);
+  }
+
+  .caseStudyTitle {
+    font-size: clamp(22px, 7vw, 28px);
+  }
+}

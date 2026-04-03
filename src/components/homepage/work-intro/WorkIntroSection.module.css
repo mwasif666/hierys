@@ -1,0 +1,544 @@
+.headingSection,
+.cardsSection {
+  --heading-stage-height: 224vh;
+  --cards-overlap: 112vh;
+  background: #fff6d6;
+  color: #19050d;
+}
+
+.headingSection {
+  position: relative;
+  min-height: var(--heading-stage-height);
+  z-index: 1;
+  isolation: isolate;
+}
+
+.headingSticky {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.headingInner,
+.cardsInner {
+  width: min(1720px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.headingInner {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(48px, 5vw, 72px) 0;
+  text-align: center;
+}
+
+.cardsSection {
+  position: relative;
+  z-index: 3;
+  margin-top: calc(var(--cards-overlap) * -1);
+  padding-bottom: clamp(84px, 8vw, 120px);
+  background: #fff6d6;
+}
+
+.primaryHeading,
+.secondaryHeading {
+  margin: 0;
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: clamp(40px, 6.2vw, 96px);
+  line-height: 1;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+}
+
+.primaryHeading {
+  width: min(1619px, 100%);
+  margin-inline: auto;
+}
+
+.secondaryWrap {
+  --sticker-anchor-x: 42px;
+  --sticker-anchor-y: 18px;
+  --sticker-shift-x: -58%;
+  --sticker-shift-y: -46%;
+  position: relative;
+  width: fit-content;
+  max-width: min(1250px, 100%);
+  margin: clamp(92px, 9vw, 132px) auto 0;
+  padding-top: clamp(16px, 2vw, 30px);
+}
+
+.sticker {
+  position: absolute;
+  top: var(--sticker-anchor-y);
+  left: var(--sticker-anchor-x);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 122px;
+  height: 42px;
+  padding: 0 14px;
+  border-radius: 5px;
+  background: #e03b8f;
+  color: #fff6d6;
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: clamp(14px, 1vw, 20px);
+  line-height: 1;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  transform: translate(var(--sticker-shift-x), var(--sticker-shift-y)) rotate(-7deg);
+  box-shadow: 0 10px 18px rgba(224, 59, 143, 0.2);
+  z-index: 0;
+}
+
+.secondaryHeading {
+  width: fit-content;
+  max-width: min(1120px, 100%);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(34px, 3.2vw, 48px);
+  margin-top: 0;
+  width: min(1580px, 100%);
+  margin-inline: auto;
+  text-align: left;
+}
+
+.projectCard {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.projectMedia {
+  position: relative;
+  overflow: hidden;
+  background: rgba(25, 5, 13, 0.06);
+  aspect-ratio: 0.82;
+}
+
+.projectImage {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.projectMeta {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(220px, 0.9fr);
+  align-items: start;
+  gap: 22px;
+}
+
+.projectTitle {
+  margin: 0;
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: clamp(24px, 2vw, 34px);
+  line-height: 0.98;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+}
+
+.projectServices {
+  margin: 0;
+  font-size: clamp(13px, 0.92vw, 16px);
+  line-height: 1.45;
+  font-weight: 500;
+  text-align: right;
+}
+
+.ctaRow {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(36px, 4vw, 52px);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  border: 0;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.cta:hover,
+.cta:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 22px 42px rgba(0, 0, 0, 0.2);
+}
+
+.cta:focus-visible {
+  outline: 2px solid rgba(66, 18, 31, 0.28);
+  outline-offset: 2px;
+}
+
+.ctaPink {
+  background: #efb2df;
+  color: #2a1118;
+}
+
+.ctaLabel {
+  padding: 16px 22px;
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+.ctaIcon {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  margin: 4px;
+  border-radius: 14px;
+  background: #42121f;
+  color: #fff6d6;
+  font-size: 24px;
+}
+
+@media (max-width: 1440px) {
+  .headingSection,
+  .cardsSection {
+    --heading-stage-height: 218vh;
+    --cards-overlap: 108vh;
+  }
+
+  .headingSection {
+    min-height: var(--heading-stage-height);
+  }
+
+  .headingInner,
+  .cardsInner {
+    width: min(100%, calc(100% - 44px));
+  }
+
+  .primaryHeading,
+  .secondaryHeading {
+    font-size: 42px;
+  }
+
+  .primaryHeading {
+    width: min(1280px, 100%);
+  }
+
+  .secondaryWrap {
+    --sticker-anchor-x: 38px;
+    --sticker-anchor-y: 16px;
+    max-width: min(980px, 100%);
+    margin-top: clamp(72px, 8vw, 108px);
+  }
+
+  .secondaryHeading {
+    max-width: 900px;
+  }
+
+  .sticker {
+    min-width: 80px;
+    height: 30px;
+  }
+
+  .projectsGrid {
+    width: min(1380px, 100%);
+  }
+
+  .projectMeta {
+    grid-template-columns: minmax(0, 1.15fr) minmax(200px, 0.95fr);
+  }
+
+  .projectTitle {
+    font-size: clamp(22px, 1.75vw, 30px);
+  }
+
+  .projectServices {
+    font-size: clamp(12px, 0.86vw, 14px);
+  }
+
+  .ctaLabel {
+    font-size: 18px;
+  }
+
+  .ctaIcon {
+    width: 54px;
+    height: 54px;
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .headingSection,
+  .cardsSection {
+    --heading-stage-height: 208vh;
+    --cards-overlap: 104vh;
+  }
+
+  .headingSection {
+    min-height: var(--heading-stage-height);
+  }
+
+  .headingInner,
+  .cardsInner {
+    width: min(100%, calc(100% - 40px));
+  }
+
+  .headingInner {
+    padding: 60px 0 84px;
+  }
+
+  .primaryHeading,
+  .secondaryHeading {
+    font-size: clamp(32px, 5vw, 60px);
+  }
+
+  .primaryHeading {
+    width: min(1020px, 100%);
+  }
+
+  .secondaryWrap {
+    --sticker-anchor-x: 32px;
+    --sticker-anchor-y: 14px;
+    max-width: min(820px, 100%);
+    margin-top: 68px;
+  }
+
+  .secondaryHeading {
+    max-width: 760px;
+  }
+
+  .sticker {
+    min-width: 96px;
+    height: 34px;
+    font-size: 13px;
+  }
+
+  .cardsSection {
+    padding-bottom: 94px;
+  }
+
+  .projectsGrid {
+    gap: 28px;
+    width: min(1180px, 100%);
+  }
+
+  .projectMeta {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .projectTitle {
+    font-size: clamp(22px, 2.4vw, 28px);
+  }
+
+  .projectServices {
+    font-size: clamp(13px, 1.2vw, 15px);
+    text-align: left;
+  }
+
+  .ctaRow {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 991px) {
+  .headingSection,
+  .cardsSection {
+    --heading-stage-height: auto;
+    --cards-overlap: 0px;
+  }
+
+  .headingSection {
+    min-height: auto;
+  }
+
+  .headingSticky {
+    position: relative;
+    top: auto;
+    min-height: auto;
+    display: block;
+    pointer-events: auto;
+  }
+
+  .headingInner,
+  .cardsInner {
+    width: min(100%, calc(100% - 32px));
+  }
+
+  .headingInner {
+    padding: 68px 0 82px;
+  }
+
+  .primaryHeading,
+  .secondaryHeading {
+    font-size: clamp(28px, 6.8vw, 48px);
+    line-height: 0.98;
+  }
+
+  .primaryHeading {
+    width: min(760px, 100%);
+  }
+
+  .secondaryWrap {
+    --sticker-anchor-x: 26px;
+    --sticker-anchor-y: 12px;
+    max-width: min(640px, 100%);
+    margin-top: 58px;
+    padding-top: 34px;
+  }
+
+  .secondaryHeading {
+    max-width: 620px;
+  }
+
+  .sticker {
+    min-width: 88px;
+    height: 32px;
+    padding: 0 12px;
+    font-size: 12px;
+  }
+
+  .cardsSection {
+    margin-top: 34px;
+    padding-bottom: 82px;
+  }
+
+  .projectsGrid {
+    grid-template-columns: 1fr;
+    gap: 34px;
+    margin-top: 0;
+    width: min(760px, 100%);
+  }
+
+  .projectCard {
+    gap: 16px;
+  }
+
+  .projectMeta {
+    gap: 12px;
+  }
+
+  .projectTitle {
+    font-size: clamp(22px, 5.2vw, 32px);
+  }
+
+  .projectServices {
+    font-size: clamp(13px, 2.4vw, 15px);
+  }
+
+  .ctaRow {
+    margin-top: 34px;
+  }
+
+  .ctaLabel {
+    padding: 14px 18px;
+    font-size: 18px;
+  }
+
+  .ctaIcon {
+    width: 54px;
+    height: 54px;
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 640px) {
+  .headingInner,
+  .cardsInner {
+    width: min(100%, calc(100% - 24px));
+  }
+
+  .headingInner {
+    padding: 56px 0 68px;
+  }
+
+  .primaryHeading,
+  .secondaryHeading {
+    font-size: clamp(22px, 9vw, 34px);
+    letter-spacing: -0.04em;
+  }
+
+  .primaryHeading {
+    width: min(100%, 340px);
+  }
+
+  .secondaryWrap {
+    --sticker-anchor-x: 24px;
+    --sticker-anchor-y: 12px;
+    max-width: min(100%, 340px);
+    margin-top: 46px;
+    padding-top: 28px;
+  }
+
+  .secondaryHeading {
+    max-width: min(100%, 320px);
+  }
+
+  .sticker {
+    min-width: 82px;
+    height: 30px;
+    padding: 0 10px;
+    border-radius: 7px;
+    font-size: 11px;
+  }
+
+  .cardsSection {
+    padding-bottom: 68px;
+  }
+
+  .projectsGrid {
+    gap: 28px;
+    margin-top: 0;
+  }
+
+  .projectCard {
+    gap: 14px;
+  }
+
+  .projectMeta {
+    gap: 10px;
+  }
+
+  .projectTitle {
+    font-size: clamp(20px, 6.8vw, 26px);
+  }
+
+  .projectServices {
+    font-size: clamp(12px, 3.7vw, 14px);
+    line-height: 1.4;
+  }
+
+  .ctaRow {
+    margin-top: 30px;
+  }
+
+  .ctaLabel {
+    padding: 13px 16px;
+    font-size: 16px;
+  }
+
+  .ctaIcon {
+    width: 50px;
+    height: 50px;
+    margin: 3px;
+    border-radius: 12px;
+    font-size: 20px;
+  }
+}

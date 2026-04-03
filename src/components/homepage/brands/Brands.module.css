@@ -1,0 +1,452 @@
+.section {
+  position: relative;
+  background: #dfd8c8;
+  color: #230d15;
+  padding: 84px 0 64px;
+  overflow: hidden;
+}
+
+.inner {
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.headingWrap {
+  --sticker-width: 220px;
+  --sticker-overhang: 22px;
+  --sticker-gap: 20px;
+  position: relative;
+  width: fit-content;
+  max-width: min(1740px, calc(100% - 56px));
+  margin: 0 auto 52px;
+  padding: 0 8px;
+}
+
+.stickerMeasureGroup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.stickerMeasure {
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: 47.9px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.sticker {
+  position: absolute;
+  top: -8px;
+  left: calc(-1 * var(--sticker-overhang));
+  z-index: 2;
+  width: var(--sticker-width);
+  height: 78px;
+  border-radius: 8px;
+  background: #2769ba;
+  color: #fff5d8;
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: 47.9px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  line-height: 1;
+  transform: rotate(-6.32deg);
+  box-shadow: 0 10px 22px rgba(39, 105, 186, 0.14);
+  overflow: hidden;
+}
+
+.stickerWordViewport {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+  text-align: center;
+}
+
+.stickerWord {
+  display: inline-grid;
+  place-items: center;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.headingStack {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0;
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: 54.09px;
+  line-height: 1;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #1a0a10;
+}
+
+.headingLineTop,
+.headingLineBottom {
+  display: block;
+}
+
+.headingLineTop {
+  padding-left: calc(
+    var(--sticker-width) - var(--sticker-overhang) + var(--sticker-gap)
+  );
+  white-space: nowrap;
+}
+
+.headingLineBottom {
+  padding-left: 0;
+  margin-top: 24px;
+  white-space: nowrap;
+}
+
+.rows {
+  display: grid;
+  gap: 20px;
+}
+
+.rowViewport {
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 1) 8%,
+    rgba(0, 0, 0, 1) 92%,
+    transparent 100%
+  );
+}
+
+.rowTrack {
+  --loop-distance: 0px;
+  --marquee-duration: 60s;
+  --row-gap: 22px;
+  display: flex;
+  align-items: center;
+  gap: var(--row-gap);
+  width: max-content;
+  will-change: transform;
+}
+
+.rowGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--row-gap);
+  width: max-content;
+}
+
+.rowTrackForward,
+.rowTrackReverse {
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-duration: var(--marquee-duration);
+  animation-fill-mode: both;
+}
+
+.rowTrackForward {
+  animation-name: marqueeLeft;
+}
+
+.rowTrackReverse {
+  animation-name: marqueeRight;
+}
+
+.pill {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  min-width: 254px;
+  height: 106px;
+  padding: 16px 28px;
+  border-radius: 999px;
+  background: rgba(250, 246, 236, 0.92);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 10px 22px rgba(35, 13, 21, 0.06);
+}
+
+.logoWrap {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 8px 18px rgba(35, 13, 21, 0.08);
+  flex: 0 0 auto;
+}
+
+.logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.pillText {
+  font-size: 19px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  color: #1f1d20;
+  white-space: nowrap;
+}
+
+@keyframes marqueeLeft {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(calc(-1 * var(--loop-distance)), 0, 0);
+  }
+}
+
+@keyframes marqueeRight {
+  from {
+    transform: translate3d(calc(-1 * var(--loop-distance)), 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (min-width: 1600px) {
+  .heading {
+    font-size: 54.09px;
+  }
+
+  .headingLineTop {
+    padding-left: calc(
+      var(--sticker-width) - var(--sticker-overhang) + var(--sticker-gap)
+    );
+  }
+}
+
+@media (max-width: 1366px) {
+  .section {
+    padding: 72px 0 56px;
+  }
+
+  .headingWrap {
+    max-width: calc(100% - 44px);
+    margin-bottom: 42px;
+  }
+
+  .sticker {
+    top: -4px;
+    height: 68px;
+    font-size: 40px;
+  }
+
+  .stickerMeasure {
+    font-size: 40px;
+  }
+
+  .heading {
+    font-size: 46px;
+  }
+
+  .headingLineTop {
+    padding-left: calc(
+      var(--sticker-width) - var(--sticker-overhang) + var(--sticker-gap)
+    );
+  }
+
+  .headingLineBottom {
+    margin-top: 20px;
+  }
+
+  .pill {
+    min-width: 228px;
+    height: 96px;
+    gap: 18px;
+    padding: 14px 24px;
+  }
+
+  .logoWrap {
+    width: 54px;
+    height: 54px;
+  }
+
+  .pillText {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .headingWrap {
+    max-width: calc(100% - 36px);
+  }
+
+  .sticker {
+    height: 60px;
+    font-size: 36px;
+  }
+
+  .stickerMeasure {
+    font-size: 36px;
+  }
+
+  .heading {
+    font-size: 40px;
+    line-height: 1;
+  }
+
+  .headingLineTop {
+    padding-left: calc(
+      var(--sticker-width) - var(--sticker-overhang) + var(--sticker-gap)
+    );
+  }
+
+  .headingLineBottom {
+    margin-top: 16px;
+  }
+
+  .rowTrack {
+    --row-gap: 18px;
+  }
+
+  .pill {
+    min-width: 212px;
+    height: 90px;
+    gap: 16px;
+    padding: 12px 20px;
+  }
+}
+
+@media (max-width: 991px) {
+  .section {
+    padding: 60px 0 48px;
+  }
+
+  .headingWrap {
+    width: calc(100% - 32px);
+    max-width: calc(100% - 32px);
+    margin-bottom: 40px;
+  }
+
+  .sticker {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-bottom: 18px;
+    height: 68px;
+    font-size: 34px;
+  }
+
+  .stickerMeasure {
+    font-size: 34px;
+  }
+
+  .stickerWord {
+    position: absolute;
+  }
+
+  .heading {
+    font-size: clamp(28px, 5.2vw, 36px);
+    line-height: 0.98;
+  }
+
+  .headingLineTop,
+  .headingLineBottom {
+    padding-left: 0;
+    white-space: normal;
+  }
+
+  .rows {
+    gap: 16px;
+  }
+
+  .pill {
+    min-width: 196px;
+    height: 84px;
+    gap: 16px;
+    padding: 12px 18px;
+  }
+
+  .logoWrap {
+    width: 48px;
+    height: 48px;
+  }
+
+  .logo {
+    width: 24px;
+    height: 24px;
+  }
+
+  .pillText {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 52px 0 40px;
+  }
+
+  .headingWrap {
+    width: calc(100% - 24px);
+    max-width: calc(100% - 24px);
+    margin-bottom: 32px;
+  }
+
+  .sticker {
+    height: 52px;
+    font-size: 30px;
+    margin-bottom: 14px;
+  }
+
+  .stickerMeasure {
+    font-size: 30px;
+  }
+
+  .heading {
+    font-size: clamp(24px, 8vw, 32px);
+    line-height: 1;
+  }
+
+  .rows {
+    gap: 14px;
+  }
+
+  .rowTrack {
+    --row-gap: 14px;
+  }
+
+  .pill {
+    min-width: 170px;
+    height: 74px;
+    gap: 12px;
+    padding: 10px 16px;
+  }
+
+  .logoWrap {
+    width: 42px;
+    height: 42px;
+  }
+
+  .logo {
+    width: 22px;
+    height: 22px;
+  }
+
+  .pillText {
+    font-size: 15px;
+  }
+}

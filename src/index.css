@@ -1,4 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap");
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
 
 html,
 body,
@@ -17,9 +46,27 @@ body,
 :root {
   --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Inter Tight", "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --heading-letter-spacing: clamp(0.6px, 0.14vw, 2px);
+  --radius: 1rem;
   --background: #451627;
   --foreground: #f7eed4;
+  --card: #f9f0dc;
+  --card-foreground: #201315;
+  --popover: #fff7e8;
+  --popover-foreground: #201315;
+  --primary: #451627;
+  --primary-foreground: #f7eed4;
+  --secondary: #fff1c7;
+  --secondary-foreground: #451627;
+  --muted: rgba(247, 238, 212, 0.18);
   --muted-foreground: rgba(247, 238, 212, 0.72);
+  --accent: #d7efe0;
+  --accent-foreground: #05240f;
+  --destructive: #b42318;
+  --destructive-foreground: #fff7f7;
+  --border: rgba(247, 238, 212, 0.18);
+  --input: rgba(247, 238, 212, 0.16);
+  --ring: #ff4ba6;
   color: var(--foreground);
   background: var(--background);
   font-synthesis: none;
