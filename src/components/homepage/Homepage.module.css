@@ -1,12 +1,11 @@
 .page {
   min-height: 100%;
-  background:
-    radial-gradient(circle at 50% 18%, rgba(186, 97, 235, 0.22), transparent 28%),
-    radial-gradient(circle at 18% 88%, rgba(229, 145, 71, 0.2), transparent 26%),
-    linear-gradient(180deg, #4f1a2c 0%, #3c1222 100%);
+  background-color: var(--app-surface-color, #451627);
   color: var(--foreground);
   position: relative;
   overflow-x: hidden;
+  transition: background-color 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: background-color;
 }
 
 .page::before {
@@ -19,4 +18,17 @@
   background-size: 88px 88px;
   pointer-events: none;
   opacity: 0.55;
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.themeSection {
+  position: relative;
+  background-color: var(--app-surface-color, #451627);
+  transition: background-color 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: background-color;
+}
+
+.themeSection > section {
+  background: transparent !important;
+  background-color: transparent !important;
 }

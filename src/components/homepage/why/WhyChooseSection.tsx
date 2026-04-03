@@ -44,41 +44,35 @@ export default function WhyChooseSection() {
     const context = gsap.context(() => {
       media.add("(min-width: 992px)", () => {
         gsap.set(cards, {
-          x: (index) => window.innerWidth * 0.92 + index * 140,
-          opacity: 1,
+          x: (index) => window.innerWidth * 1.12 + index * 180,
+          autoAlpha: 0,
         });
-        gsap.set(headingRef.current, { x: 80, y: 56, opacity: 0.42 });
+        gsap.set(headingRef.current, { x: 0, y: 0, opacity: 0.96 });
 
         const timeline = gsap.timeline({
           scrollTrigger: {
             trigger: stageRef.current,
-            start: "top 90%",
-            end: "bottom bottom",
+            start: "top top",
+            end: () => `+=${window.innerHeight * 2.35}`,
+            pin: stageRef.current,
+            pinSpacing: true,
+            anticipatePin: 1,
             scrub: 1.1,
             invalidateOnRefresh: true,
           },
         });
 
-        timeline
-          .to(
-            headingRef.current,
-            {
-              x: 0,
-              y: 0,
-              opacity: 0.92,
-              ease: "none",
-            },
-            0,
-          )
-          .to(
-            cards,
-            {
-              x: 0,
-              stagger: 0.08,
-              ease: "none",
-            },
-            0.04,
-          );
+        timeline.to(
+          cards,
+          {
+            x: 0,
+            autoAlpha: 1,
+            stagger: 0.1,
+            ease: "none",
+            duration: 0.72,
+          },
+          0,
+        );
       });
 
       media.add("(max-width: 991px)", () => {

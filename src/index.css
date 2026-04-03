@@ -44,10 +44,14 @@ body,
 }
 
 :root {
+  --app-surface-color: #451627;
   --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Inter Tight", "Archivo", ui-sans-serif, system-ui, sans-serif;
   --heading-letter-spacing: clamp(0.6px, 0.14vw, 2px);
   --heading-word-spacing: clamp(0.06em, 0.18vw, 0.14em);
+  --section-heading-size-desktop: clamp(42px, 4.8vw, 64px);
+  --section-heading-size-tablet: clamp(38px, 6.4vw, 56px);
+  --section-heading-size-mobile: clamp(32px, 9.2vw, 44px);
   --radius: 1rem;
   --background: #451627;
   --foreground: #f7eed4;
@@ -89,8 +93,10 @@ html {
 body {
   min-height: 100svh;
   font-family: var(--font-sans);
-  background: var(--background);
+  background: var(--app-surface-color, var(--background));
   color: var(--foreground);
+  transition: background-color 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: background-color;
 }
 
 body.drawer-open {

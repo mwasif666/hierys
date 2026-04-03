@@ -1,0 +1,326 @@
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  color: #f7eed4;
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #2b0d1a;
+  z-index: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: min(1520px, calc(100% - clamp(40px, 4vw, 72px)));
+  margin: 0 auto;
+  padding: clamp(52px, 5vw, 68px) 0 0;
+}
+
+.inner {
+  width: 100%;
+}
+
+.servicesGrid,
+.linksGrid {
+  border-bottom: 1px solid rgba(247, 238, 212, 0.14);
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(4, max-content);
+  justify-content: space-between;
+  align-items: start;
+  gap: 32px;
+  padding: 0 0 clamp(52px, 5vw, 70px);
+}
+
+.serviceColumn {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.servicePill {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 40px;
+  padding: 4px 16px 4px 4px;
+  border-radius: 4px;
+  background: #f7eed4;
+  color: #2a1118;
+  font-size: clamp(13px, 0.88vw, 15px);
+  line-height: 1;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.serviceIcon {
+  width: 28px;
+  height: 28px;
+  margin-right: 10px;
+  border-radius: 3px;
+  background: #2a1118;
+  flex: 0 0 auto;
+}
+
+.linksGrid {
+  display: grid;
+  grid-template-columns: repeat(4, max-content);
+  justify-content: space-between;
+  align-items: start;
+  gap: clamp(26px, 3vw, 54px);
+  padding: clamp(40px, 4vw, 58px) 0 clamp(44px, 4vw, 62px);
+}
+
+.linkColumn {
+  min-width: 0;
+}
+
+.columnTitle,
+.contactTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 1.8vw, 30px);
+  line-height: 0.98;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #f7eed4;
+}
+
+.linkList,
+.contactBlock {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.footerLink {
+  width: fit-content;
+  max-width: 100%;
+  font-size: clamp(13px, 0.92vw, 15px);
+  line-height: 1.25;
+  color: rgba(247, 238, 212, 0.9);
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+.footerLink:hover {
+  opacity: 0.72;
+  transform: translateY(-1px);
+}
+
+.bottomStage {
+  position: relative;
+  overflow: clip;
+  padding: clamp(28px, 3vw, 36px) 0 clamp(165px, 18vw, 260px);
+}
+
+.bottomStage::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  border-top: 1px solid rgba(247, 238, 212, 0.14);
+}
+
+.contactRow {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: max-content repeat(4, max-content);
+  justify-content: space-between;
+  align-items: start;
+  gap: clamp(20px, 2vw, 38px);
+}
+
+.contactBlock {
+  margin-top: 0;
+}
+
+.watermark {
+  position: absolute;
+  left: 50%;
+  bottom: -16px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(18px, 2vw, 34px);
+  width: max-content;
+  max-width: 100%;
+  color: rgba(247, 238, 212, 0.06);
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  transform: translateX(-50%);
+}
+
+.watermarkGlyph {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(88px, 7vw, 118px);
+  height: clamp(110px, 10vw, 150px);
+}
+
+.watermarkGlyph::before {
+  content: "";
+  position: absolute;
+  left: 10%;
+  bottom: 0;
+  width: 76%;
+  aspect-ratio: 1;
+  background: currentColor;
+  clip-path: polygon(50% 0, 64% 36%, 100% 50%, 64% 64%, 50% 100%, 36% 64%, 0 50%, 36% 36%);
+}
+
+.watermarkPlusPrimary,
+.watermarkPlusSecondary {
+  position: absolute;
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.watermarkPlusPrimary::before,
+.watermarkPlusPrimary::after,
+.watermarkPlusSecondary::before,
+.watermarkPlusSecondary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  background: currentColor;
+  border-radius: 999px;
+}
+
+.watermarkPlusPrimary::before,
+.watermarkPlusSecondary::before {
+  width: 100%;
+  height: 4px;
+}
+
+.watermarkPlusPrimary::after,
+.watermarkPlusSecondary::after {
+  width: 4px;
+  height: 100%;
+}
+
+.watermarkPlusPrimary {
+  left: 54%;
+  top: 14%;
+}
+
+.watermarkPlusSecondary {
+  left: 76%;
+  top: 34%;
+  width: 13px;
+  height: 13px;
+}
+
+.watermarkText {
+  font-family: var(--font-display);
+  font-size: clamp(170px, 20vw, 360px);
+  line-height: 0.78;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+@media (max-width: 1180px) {
+  .container {
+    width: min(100%, calc(100% - 32px));
+  }
+
+  .servicesGrid,
+  .linksGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: stretch;
+  }
+
+  .contactRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: stretch;
+  }
+
+  .servicePill {
+    white-space: normal;
+  }
+
+  .bottomStage {
+    padding-bottom: clamp(130px, 19vw, 190px);
+  }
+
+  .watermarkText {
+    font-size: clamp(120px, 20vw, 240px);
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    width: calc(100% - 24px);
+    padding-top: 34px;
+  }
+
+  .servicesGrid,
+  .linksGrid,
+  .contactRow {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .servicesGrid {
+    padding-bottom: 34px;
+  }
+
+  .linksGrid {
+    padding: 30px 0 34px;
+  }
+
+  .columnTitle,
+  .contactTitle {
+    font-size: clamp(20px, 7vw, 28px);
+  }
+
+  .linkList,
+  .contactBlock {
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .bottomStage {
+    padding: 24px 0 88px;
+  }
+
+  .watermark {
+    left: 50%;
+    bottom: -4px;
+    gap: 10px;
+  }
+
+  .watermarkGlyph {
+    width: 68px;
+    height: 92px;
+  }
+
+  .watermarkPlusPrimary {
+    left: 48%;
+    top: 10%;
+  }
+
+  .watermarkPlusSecondary {
+    left: 70%;
+    top: 28%;
+  }
+
+  .watermarkText {
+    font-size: clamp(88px, 24vw, 144px);
+    line-height: 0.84;
+  }
+}

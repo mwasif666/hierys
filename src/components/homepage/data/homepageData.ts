@@ -149,6 +149,25 @@ export type FaqSectionData = {
   items: FaqItem[];
 };
 
+export type FooterLink = {
+  label: string;
+  href: string;
+  external?: boolean;
+};
+
+export type FooterColumn = {
+  title: string;
+  links: FooterLink[];
+};
+
+export type FooterSectionData = {
+  serviceColumns: string[][];
+  linkColumns: FooterColumn[];
+  contactTitle: string;
+  contactBlocks: FooterLink[][];
+  watermarkLabel: string;
+};
+
 export const NAV_ITEMS: NavItem[] = [
   {
     key: "services",
@@ -890,4 +909,106 @@ export const FAQ_SECTION: FaqSectionData = {
         "That's fine. We can help you clarify the ask, shape the scope, and figure out what actually needs to be done.",
     },
   ],
+};
+
+export const FOOTER_SECTION: FooterSectionData = {
+  serviceColumns: [
+    [
+      "Ad Creatives",
+      "Social Media Design",
+      "Brand Guidelines",
+      "Pitch Decks",
+    ],
+    [
+      "Brand Identity",
+      "Presentation Design",
+      "Logo Design",
+      "Website Design",
+    ],
+    [
+      "Website Development",
+      "Copywriting",
+      "Content Writing",
+      "SEO & AEO",
+    ],
+    [
+      "Packaging Design",
+      "Marketing",
+      "Creative Strategy",
+      "Custom Requests",
+    ],
+  ],
+  linkColumns: [
+    {
+      title: "Built For",
+      links: [
+        { label: "Startups", href: "#contact" },
+        { label: "Companies", href: "#contact" },
+        { label: "Contractors", href: "#contact" },
+        { label: "Founders", href: "#contact" },
+        { label: "Personal Brands", href: "#contact" },
+        { label: "Individuals", href: "#contact" },
+      ],
+    },
+    {
+      title: "Get Started",
+      links: [
+        { label: "Start a Project", href: "#contact" },
+        { label: "Book a Call", href: "#contact" },
+        { label: "Get a Quote", href: "#contact" },
+        { label: "Custom Request", href: "#contact" },
+      ],
+    },
+    {
+      title: "Navigation",
+      links: [
+        { label: "Home", href: "#top" },
+        { label: "Services", href: "#services" },
+        { label: "How We Work", href: "#process" },
+        { label: "Work", href: "#work-intro" },
+        { label: "About", href: "#why" },
+        { label: "Contact", href: "#contact" },
+        { label: "Pricing", href: "#comparison" },
+      ],
+    },
+    {
+      title: "Learn More",
+      links: [
+        { label: "Case Studies", href: "#work-intro" },
+        { label: "FAQs", href: "#faq" },
+        { label: "Blog", href: "#comparison" },
+        { label: "Process", href: "#workflow" },
+        { label: "Pricing", href: "#comparison" },
+        { label: "Guide", href: "#process" },
+      ],
+    },
+  ],
+  contactTitle: "Contact Us",
+  contactBlocks: [
+    [
+      { label: "+43 (0)512 345583", href: "tel:+430512345583" },
+      { label: "hello@hierys.com", href: "mailto:hello@hierys.com" },
+    ],
+    [
+      { label: "LinkedIn", href: "https://www.linkedin.com", external: true },
+      { label: "Instagram", href: "https://www.instagram.com", external: true },
+    ],
+    [
+      { label: "Behance", href: "https://www.behance.net", external: true },
+      { label: "Youtube", href: "https://www.youtube.com", external: true },
+    ],
+    [
+      {
+        label: "Reichenauer Straße 95a",
+        href: "https://maps.google.com/?q=Reichenauer+Stra%C3%9Fe+95a+Innsbruck+Austria",
+        external: true,
+      },
+      {
+        label: "Innsbruck, Austria",
+        href: "https://maps.google.com/?q=Innsbruck+Austria",
+        external: true,
+      },
+    ],
+  ],
+  watermarkLabel: "Hierys",
 };

@@ -4,15 +4,6 @@
   color: #fff6d6;
 }
 
-.section::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto;
-  height: 6px;
-  background: #e23c8d;
-  z-index: 2;
-}
-
 .stage {
   min-height: 100vh;
   display: flex;
@@ -30,7 +21,7 @@
   margin: 0 auto;
   text-align: center;
   font-family: "Inter Tight", system-ui, sans-serif;
-  font-size: clamp(44px, 7.4vw, 120px);
+  font-size: var(--section-heading-size-desktop);
   line-height: 1;
   font-weight: 800;
   text-transform: uppercase;
@@ -162,7 +153,7 @@
 @media (max-width: 1600px) {
   .heading {
     width: min(1140px, 100%);
-    font-size: clamp(40px, 6.2vw, 92px);
+    font-size: var(--section-heading-size-desktop);
   }
 }
 
@@ -174,7 +165,7 @@
 
   .heading {
     width: min(980px, 100%);
-    font-size: clamp(38px, 6.2vw, 78px);
+    font-size: var(--section-heading-size-tablet);
   }
 
   .steps {
@@ -199,7 +190,7 @@
 
   .heading {
     width: min(760px, 100%);
-    font-size: clamp(32px, 6.8vw, 72px);
+    font-size: var(--section-heading-size-tablet);
   }
 
   .steps {
@@ -234,10 +225,6 @@
 }
 
 @media (max-width: 640px) {
-  .section::before {
-    height: 5px;
-  }
-
   .inner {
     width: min(100%, calc(100% - 24px));
     padding: 64px 0 72px;
@@ -245,7 +232,7 @@
 
   .heading {
     width: min(100%, 320px);
-    font-size: clamp(24px, 9.8vw, 44px);
+    font-size: var(--section-heading-size-mobile);
     line-height: 1;
   }
 

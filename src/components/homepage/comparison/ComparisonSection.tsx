@@ -53,7 +53,13 @@ export default function ComparisonSection() {
     <section className={styles.section} id="comparison">
       <div className={styles.inner}>
         <header className={styles.header}>
-          <h2 className={styles.heading}>{renderLines(titleLines)}</h2>
+          <h2 className={styles.heading}>
+            {titleLines.map((line) => (
+              <span className={styles.headingLine} key={line}>
+                {line}
+              </span>
+            ))}
+          </h2>
           <p className={styles.copy}>{description}</p>
         </header>
 

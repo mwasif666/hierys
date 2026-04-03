@@ -40,7 +40,7 @@
 .measureText {
   display: block;
   font-family: var(--font-display);
-  font-size: clamp(34px, 4.15vw, 64px);
+  font-size: var(--section-heading-size-desktop);
   line-height: 0.9;
   font-weight: 900;
   letter-spacing: var(--heading-letter-spacing);
@@ -61,7 +61,7 @@
   align-items: center;
   gap: clamp(8px, 1vw, 14px);
   margin: 0;
-  font-size: clamp(34px, 4.15vw, 64px);
+  font-size: var(--section-heading-size-desktop);
   line-height: 0.9;
   font-weight: 900;
   text-transform: uppercase;
@@ -183,7 +183,7 @@
 
   .heading,
   .measureText {
-    font-size: clamp(28px, 6.2vw, 50px);
+    font-size: var(--section-heading-size-tablet);
     line-height: 0.94;
   }
 
@@ -205,7 +205,7 @@
 
   .heading,
   .measureText {
-    font-size: clamp(22px, 7.8vw, 34px);
+    font-size: var(--section-heading-size-mobile);
     line-height: 0.98;
   }
 
