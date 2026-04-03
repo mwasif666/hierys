@@ -1,0 +1,249 @@
+.section {
+  background: #9fb5ff;
+  color: #1335d3;
+  padding: clamp(84px, 9vw, 120px) 24px clamp(96px, 10vw, 132px);
+}
+
+.inner {
+  width: min(1440px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(360px, 0.84fr) minmax(0, 1.16fr);
+  gap: clamp(44px, 5vw, 88px);
+}
+
+.sidebar {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+.headingWrap {
+  position: sticky;
+  top: 110px;
+  width: min(560px, 100%);
+}
+
+.sticker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 6px;
+  background: #f33e8b;
+  color: #fff8ea;
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0;
+  transform: rotate(-9deg) translateY(6px);
+}
+
+.heading {
+  margin: 0;
+  max-width: 100%;
+  font-size: clamp(30px, 3vw, 54px);
+  line-height: 0.92;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.heading span,
+.contactCopy span {
+  display: block;
+}
+
+.heading span {
+  white-space: nowrap;
+}
+
+.contactBlock {
+  width: min(360px, 100%);
+}
+
+.contactCopy {
+  margin: 0;
+  font-size: clamp(18px, 1.8vw, 28px);
+  line-height: 1.02;
+}
+
+.contactEmail {
+  display: inline-block;
+  margin-top: 10px;
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: clamp(26px, 2.2vw, 42px);
+  line-height: 0.98;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.accordion {
+  width: 100%;
+  padding-top: 10px;
+}
+
+.item {
+  border-top: 1px solid rgba(255, 248, 234, 0.34);
+}
+
+.item:last-child {
+  border-bottom: 1px solid rgba(255, 248, 234, 0.34);
+}
+
+.itemButton {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 32px;
+  padding: 28px 0 18px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.question {
+  max-width: min(760px, 100%);
+  font-size: clamp(19px, 1.64vw, 30px);
+  line-height: 0.98;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.marker {
+  width: 26px;
+  height: 26px;
+  position: relative;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: rgba(255, 248, 234, 0.5);
+  transition: transform 0.18s ease, background-color 0.18s ease;
+}
+
+.markerLineHorizontal,
+.markerLineVertical {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: #1335d3;
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.markerLineHorizontal {
+  width: 10px;
+  height: 2px;
+}
+
+.markerLineVertical {
+  width: 2px;
+  height: 10px;
+}
+
+.markerOpen {
+  background: rgba(255, 248, 234, 0.78);
+}
+
+.markerOpen .markerLineVertical {
+  transform: translate(-50%, -50%) scaleY(0);
+  opacity: 0;
+}
+
+.answerWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 0.22s ease;
+}
+
+.answerWrapOpen {
+  grid-template-rows: 1fr;
+}
+
+.answerInner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.answer {
+  width: min(690px, 100%);
+  margin: 0;
+  padding: 0 68px 26px 0;
+  font-size: clamp(15px, 0.9vw, 17px);
+  line-height: 1.3;
+  font-style: italic;
+  color: rgba(19, 53, 211, 0.8);
+}
+
+@media (max-width: 1180px) {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+
+  .sidebar {
+    gap: 34px;
+  }
+
+  .headingWrap {
+    position: relative;
+    top: auto;
+    width: min(560px, 100%);
+  }
+
+  .contactBlock {
+    width: min(520px, 100%);
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 74px 16px 86px;
+  }
+
+  .heading {
+    font-size: clamp(24px, 8vw, 34px);
+  }
+
+  .heading span {
+    white-space: normal;
+  }
+
+  .contactCopy {
+    font-size: clamp(16px, 4.6vw, 20px);
+  }
+
+  .contactEmail {
+    font-size: clamp(22px, 6.2vw, 30px);
+  }
+
+  .itemButton {
+    gap: 16px;
+    padding: 20px 0 14px;
+  }
+
+  .question {
+    max-width: 100%;
+    font-size: clamp(17px, 5vw, 24px);
+  }
+
+  .marker {
+    width: 18px;
+    height: 18px;
+  }
+
+  .answer {
+    width: 100%;
+    padding: 0 0 20px;
+    font-size: 15px;
+    line-height: 1.22;
+  }
+}

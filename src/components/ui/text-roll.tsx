@@ -27,6 +27,7 @@ type TextRollProps = {
   center?: boolean;
   animateOnChange?: boolean;
   animateKey?: string;
+  lineHeight?: number;
 };
 
 export default function TextRoll({
@@ -35,6 +36,7 @@ export default function TextRoll({
   center = false,
   animateOnChange = false,
   animateKey,
+  lineHeight = 0.85,
 }: TextRollProps) {
   const chars = toChars(children);
 
@@ -45,16 +47,22 @@ export default function TextRoll({
       <span
         aria-label={children}
         className={cn(styles.root, styles.changeRoot, className)}
-        style={{ lineHeight: 0.85 }}
+        style={{ lineHeight }}
       >
         <span className={styles.srOnly}>{children}</span>
         <AnimatePresence initial={false} mode="sync">
           <MotionSpan key={key} aria-hidden="true" className={styles.changeTrack}>
             {chars.map((letter, index) => (
-              <span className={styles.changeSlot} key={`${key}-${index}`}>
+              <span
+                className={cn(
+                  styles.changeSlot,
+                  letter === " " && styles.spaceSlot,
+                )}
+                key={`${key}-${index}`}
+              >
                 <MotionSpan
                   animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
-                  className={styles.char}
+                  className={cn(styles.char, letter === " " && styles.spaceChar)}
                   exit={{ y: "-100%", opacity: 0, filter: "blur(8px)" }}
                   initial={{ y: "100%", opacity: 0, filter: "blur(8px)" }}
                   transition={{
@@ -78,13 +86,13 @@ export default function TextRoll({
       aria-label={children}
       className={cn(styles.root, className)}
       initial="initial"
-      style={{ lineHeight: 0.85 }}
+      style={{ lineHeight }}
       whileHover="hovered"
     >
       <span aria-hidden="true" className={styles.layer}>
         {chars.map((letter, index) => (
           <MotionSpan
-            className={styles.char}
+            className={cn(styles.char, letter === " " && styles.spaceChar)}
             key={`top-${index}`}
             transition={{
               ease: "easeInOut",
@@ -103,7 +111,7 @@ export default function TextRoll({
       <span aria-hidden="true" className={cn(styles.layer, styles.layerBottom)}>
         {chars.map((letter, index) => (
           <MotionSpan
-            className={styles.char}
+            className={cn(styles.char, letter === " " && styles.spaceChar)}
             key={`bottom-${index}`}
             transition={{
               ease: "easeInOut",

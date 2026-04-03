@@ -52,6 +52,7 @@ const DEFAULT_TRANSFORM: TransformSnapshot = {
   blur: 0,
 };
 
+const INNER_SELECTOR = ".scroll-stack-inner";
 const SCROLL_END_SELECTOR = ".scroll-stack-end";
 const CARD_SELECTOR = ".scroll-stack-card";
 const MIN_SCALE_TRAVEL = 96;
@@ -150,8 +151,20 @@ export default function ScrollStack({
 
     measurementsRef.current = cardsRef.current.map((card) => measureElement(card));
 
+    const content = scroller.querySelector(INNER_SELECTOR) as HTMLElement | null;
     const endElement = scroller.querySelector(SCROLL_END_SELECTOR) as HTMLElement | null;
-    endMeasurementRef.current = endElement ? measureElement(endElement).top : 0;
+    const paddingBottom = content
+      ? Number.parseFloat(window.getComputedStyle(content).paddingBottom) || 0
+      : 0;
+
+    if (!endElement) {
+      endMeasurementRef.current = 0;
+      return;
+    }
+
+    const endMeasurement = measureElement(endElement);
+    endMeasurementRef.current =
+      endMeasurement.top + endMeasurement.height + paddingBottom;
   }, [measureElement]);
 
   const updateCardTransforms = useCallback(() => {
@@ -326,7 +339,7 @@ export default function ScrollStack({
     }
 
     const scroller = scrollerRef.current;
-    const content = scroller?.querySelector(".scroll-stack-inner") as HTMLElement | null;
+    const content = scroller?.querySelector(INNER_SELECTOR) as HTMLElement | null;
 
     if (!scroller || !content) return;
 

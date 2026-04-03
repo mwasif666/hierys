@@ -47,6 +47,7 @@ body,
   --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Inter Tight", "Archivo", ui-sans-serif, system-ui, sans-serif;
   --heading-letter-spacing: clamp(0.6px, 0.14vw, 2px);
+  --heading-word-spacing: clamp(0.06em, 0.18vw, 0.14em);
   --radius: 1rem;
   --background: #451627;
   --foreground: #f7eed4;
@@ -94,6 +95,22 @@ body {
 
 body.drawer-open {
   overflow: hidden;
+}
+
+body.start-here-open {
+  overflow: hidden;
+}
+
+.u-displayHeading {
+  font-family: var(--font-display);
+  letter-spacing: var(--heading-letter-spacing);
+  word-spacing: var(--heading-word-spacing);
+}
+
+.u-displayHeading,
+.u-displayHeading * {
+  letter-spacing: inherit;
+  word-spacing: inherit;
 }
 
 a {

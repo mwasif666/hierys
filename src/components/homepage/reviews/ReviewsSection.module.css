@@ -1,7 +1,7 @@
 .section {
   background: #003512;
   color: #d9f0df;
-  padding: clamp(84px, 8vw, 116px) 0 clamp(120px, 10vw, 164px);
+  padding: clamp(84px, 8vw, 116px) 0 clamp(156px, 13vw, 220px);
 }
 
 .inner {
@@ -53,12 +53,12 @@
 
 .stack {
   margin-top: clamp(52px, 6vw, 82px);
-  padding-bottom: clamp(120px, 12vw, 180px);
+  padding-bottom: clamp(180px, 16vw, 260px);
 }
 
 .stack :global(.scroll-stack-inner) {
   min-height: auto;
-  padding: 0 0 clamp(120px, 12vw, 180px);
+  padding: 0 0 clamp(180px, 16vw, 260px);
 }
 
 .stackItem {
@@ -261,7 +261,7 @@
 
 @media (max-width: 991px) {
   .section {
-    padding: 78px 0 96px;
+    padding: 78px 0 128px;
   }
 
   .inner {

@@ -124,6 +124,31 @@ export type ReviewsSectionData = {
   reviews: Review[];
 };
 
+export type NeedPrompt = {
+  subject: string;
+  outcome: string;
+};
+
+export type NeedPromptSectionData = {
+  prompts: NeedPrompt[];
+  subtitle: string;
+  ctaLabel: string;
+  ctaHref: string;
+};
+
+export type FaqItem = {
+  question: string;
+  answer: string;
+};
+
+export type FaqSectionData = {
+  stickerLabel: string;
+  headingLines: string[];
+  contactLines: string[];
+  contactEmail: string;
+  items: FaqItem[];
+};
+
 export const NAV_ITEMS: NavItem[] = [
   {
     key: "services",
@@ -765,6 +790,104 @@ export const REVIEWS_SECTION: ReviewsSectionData = {
       caseStudyImage:
         "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80",
       href: "#work-intro",
+    },
+  ],
+};
+
+export const NEED_PROMPT_SECTION: NeedPromptSectionData = {
+  prompts: [
+    {
+      subject: "A PITCH DECK",
+      outcome: "ACTUALLY LANDS",
+    },
+    {
+      subject: "AD CREATIVES",
+      outcome: "ACTUALLY GET CLICKS",
+    },
+    {
+      subject: "A BRAND",
+      outcome: "PEOPLE WILL REMEMBER",
+    },
+    {
+      subject: "A STRATEGY",
+      outcome: "YOU CAN ACTUALLY USE",
+    },
+    {
+      subject: "DESIGNS",
+      outcome: "AS GOOD AS YOUR PRODUCT",
+    },
+  ],
+  subtitle:
+    "Tell us what you need, pick what fits, and we'll take it from there.",
+  ctaLabel: "Start Here",
+  ctaHref: "#services",
+};
+
+export const FAQ_SECTION: FaqSectionData = {
+  stickerLabel: "FAQs",
+  headingLines: ["SOME QUESTIONS", "WE COMMONLY GET"],
+  contactLines: ["GOT MORE QUESTIONS?", "FEEL FREE TO REACH OUT"],
+  contactEmail: "INQUIRE@HIERYS.COM",
+  items: [
+    {
+      question: "WHAT KIND OF WORK CAN I BRING TO HIERYS?",
+      answer:
+        "Pretty much anything across design, branding, websites, content, presentations, creative support, and strategy. Big project, small fix, ongoing help, or something hard to explain, if it needs doing, send it over.",
+    },
+    {
+      question: "WHO IS HIREYS FOR?",
+      answer:
+        "Startups, businesses, teams, founders, creators, contractors, and anyone who needs strong creative and strategic support without building a full in-house setup.",
+    },
+    {
+      question: "DO YOU ONLY WORK ON BIG PROJECTS?",
+      answer:
+        "No. We handle both bigger builds and smaller one-off needs, whether that's a full website, a pitch deck, a quick campaign asset, or an urgent fix.",
+    },
+    {
+      question: "CAN I COME TO YOU WITH SOMETHING THAT’S NOT LISTED ON THE SITE?",
+      answer:
+        "Yes. If it's adjacent to design, content, websites, branding, strategy, or marketing support, there's a strong chance we can help or shape the right solution with you.",
+    },
+    {
+      question: "HOW DO WE GET STARTED?",
+      answer:
+        "Start with the project flow or send us a brief. Once we understand what you need, we align on scope, timing, and the best next step.",
+    },
+    {
+      question: "DO YOU OFFER ONGOING SUPPORT OR JUST ONE-OFF WORK?",
+      answer:
+        "Both. Some clients come in for a specific project, others need ongoing creative support over weeks or months.",
+    },
+    {
+      question: "HOW FAST CAN YOU USUALLY DELIVER?",
+      answer:
+        "It depends on the scope, but we move fast. Smaller items can often be turned around quickly, and larger projects get a clear phased timeline upfront.",
+    },
+    {
+      question: "DO YOU OFFER REVISIONS?",
+      answer:
+        "Yes. Revisions are part of the process, and we use them to refine the work until it lands where it should.",
+    },
+    {
+      question: "CAN YOU WORK WITH OUR EXISTING TEAM OR TOOLS?",
+      answer:
+        "Yes. We can plug into your current workflow, tools, and team setup instead of forcing you into a new system.",
+    },
+    {
+      question: "HOW MUCH DOES IT COST?",
+      answer:
+        "Pricing depends on the scope, speed, and type of support needed. Once we know what you're trying to get done, we can recommend the best fit.",
+    },
+    {
+      question: "DO I NEED A FULL BRIEF BEFORE REACHING OUT?",
+      answer:
+        "No. A polished brief helps, but rough notes, a voice note, a messy doc, or even a half-formed idea is enough to start.",
+    },
+    {
+      question: "WHAT IF I’M NOT SURE WHAT I NEED YET?",
+      answer:
+        "That's fine. We can help you clarify the ask, shape the scope, and figure out what actually needs to be done.",
     },
   ],
 };

@@ -1,0 +1,393 @@
+.overlay {
+  --wizard-bg: #111;
+  --wizard-text: #fff;
+  --wizard-muted: rgba(255, 255, 255, 0.82);
+  --wizard-chip-bg: rgba(255, 255, 255, 0.18);
+  --wizard-chip-text: rgba(255, 255, 255, 0.84);
+  --wizard-chip-selected-bg: #fff;
+  --wizard-chip-selected-text: #111;
+  --wizard-button-bg: #fff;
+  --wizard-button-text: #111;
+  --wizard-button-icon-bg: #111;
+  --wizard-button-icon-text: #fff;
+  --wizard-sticker-bg: #ff4d97;
+  --wizard-sticker-text: #fff;
+  --wizard-input-bg: rgba(255, 255, 255, 0.12);
+  --wizard-input-text: #fff;
+  --wizard-input-placeholder: rgba(255, 255, 255, 0.5);
+  --wizard-input-border: rgba(255, 255, 255, 0.1);
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  height: 100svh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  scrollbar-gutter: stable;
+  background: var(--wizard-bg);
+  color: var(--wizard-text);
+}
+
+.overlay::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 74px 74px;
+  opacity: 0.24;
+  pointer-events: none;
+}
+
+.panel {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.iconButton {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.14);
+  color: var(--wizard-text);
+  cursor: pointer;
+  transition:
+    transform 0.16s ease,
+    background-color 0.16s ease;
+}
+
+.iconButton:hover {
+  transform: translateY(-1px);
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.iconButtonHidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.iconButton :global(svg) {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2.2;
+}
+
+.content {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: clamp(18px, 2vw, 30px) 0 clamp(38px, 4vw, 54px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: wizardStepIn 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sticker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 58px;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 6px;
+  background: var(--wizard-sticker-bg);
+  color: var(--wizard-sticker-text);
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  transform: rotate(-9deg) translateY(4px);
+}
+
+.header {
+  width: min(860px, 100%);
+  margin-top: 10px;
+  text-align: center;
+}
+
+.heading {
+  margin: 0;
+  font-size: clamp(44px, 6vw, 82px);
+  line-height: 0.92;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.heading span {
+  display: block;
+}
+
+.description {
+  width: min(620px, 100%);
+  margin: 28px auto 0;
+  font-size: clamp(22px, 2.2vw, 28px);
+  line-height: 1.18;
+  letter-spacing: -0.04em;
+  color: var(--wizard-muted);
+}
+
+.optionWrap {
+  width: min(1080px, 100%);
+  margin-top: clamp(42px, 4vw, 58px);
+}
+
+.optionGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.option {
+  min-height: 56px;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--wizard-chip-bg);
+  color: var(--wizard-chip-text);
+  font-size: clamp(18px, 1.85vw, 28px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  cursor: pointer;
+  transition:
+    transform 0.16s ease,
+    background-color 0.16s ease,
+    color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.option:hover {
+  transform: translateY(-1px);
+}
+
+.optionSelected {
+  background: var(--wizard-chip-selected-bg);
+  color: var(--wizard-chip-selected-text);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+}
+
+.actionRow {
+  margin-top: clamp(42px, 4vw, 58px);
+  display: flex;
+  justify-content: center;
+}
+
+.primaryAction {
+  display: inline-flex;
+  align-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: var(--wizard-button-bg);
+  color: var(--wizard-button-text);
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 22px 36px rgba(0, 0, 0, 0.16);
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    opacity 0.16s ease;
+}
+
+.primaryAction:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.2);
+}
+
+.primaryAction:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.primaryActionLabel {
+  padding: 16px 28px;
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.primaryActionIcon {
+  width: 58px;
+  height: 58px;
+  margin: 4px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: var(--wizard-button-icon-bg);
+  color: var(--wizard-button-icon-text);
+  font-size: 24px;
+}
+
+.primaryActionIcon :global(svg) {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2.3;
+}
+
+.formWrap {
+  width: min(860px, 100%);
+  margin-top: clamp(34px, 3vw, 44px);
+}
+
+.form {
+  display: grid;
+  gap: 10px;
+}
+
+.rowSingle,
+.rowDouble,
+.rowTriple {
+  display: grid;
+  gap: 10px;
+}
+
+.rowDouble {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.rowTriple {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.input {
+  width: 100%;
+  min-height: 54px;
+  border: 1px solid var(--wizard-input-border);
+  border-radius: 12px;
+  background: var(--wizard-input-bg);
+  color: var(--wizard-input-text);
+  padding: 14px 18px;
+  outline: none;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.input:focus {
+  border-color: rgba(19, 53, 211, 0.3);
+  box-shadow: 0 0 0 3px rgba(19, 53, 211, 0.12);
+}
+
+.input::placeholder {
+  color: var(--wizard-input-placeholder);
+}
+
+.input:disabled {
+  opacity: 0.7;
+}
+
+.textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+@keyframes wizardStepIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 991px) {
+  .panel {
+    padding: 18px;
+  }
+
+  .heading {
+    font-size: clamp(34px, 8.6vw, 58px);
+  }
+
+  .description {
+    font-size: clamp(18px, 4vw, 24px);
+  }
+
+  .option {
+    min-height: 50px;
+    font-size: clamp(17px, 3.6vw, 24px);
+  }
+
+  .primaryActionLabel {
+    font-size: 24px;
+  }
+
+  .rowTriple {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .panel {
+    padding: 14px;
+  }
+
+  .iconButton {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+  }
+
+  .content {
+    justify-content: flex-start;
+    padding-top: 16px;
+  }
+
+  .heading {
+    font-size: clamp(28px, 10.2vw, 42px);
+  }
+
+  .description {
+    margin-top: 18px;
+    font-size: clamp(17px, 5vw, 21px);
+  }
+
+  .optionWrap {
+    margin-top: 30px;
+  }
+
+  .option {
+    width: 100%;
+    min-height: 52px;
+    justify-content: center;
+  }
+
+  .actionRow {
+    margin-top: 34px;
+  }
+
+  .primaryActionLabel {
+    padding: 14px 24px;
+    font-size: 20px;
+  }
+
+  .primaryActionIcon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .rowDouble {
+    grid-template-columns: 1fr;
+  }
+}
