@@ -165,10 +165,17 @@ export default function HomepageBanner() {
           </div>
 
           <p className={styles.subtitle}>
-            Hierys is your go-to team for{" "}
-            <strong>design, content, websites, branding,</strong>{" "}
-            <strong>marketing,</strong> and the in-between work that keeps
-            startups, companies, contractors, and personal brands moving.
+            <span className={styles.subtitleLine}>
+              Hierys is your go-to team for{" "}
+              <strong>design, content, websites, branding,</strong>
+            </span>
+            <span className={styles.subtitleLine}>
+              <strong>marketing,</strong> and the in-between work that keeps
+              startups,
+            </span>
+            <span className={styles.subtitleLine}>
+              companies, contractors, and personal brands moving.
+            </span>
           </p>
 
           <div

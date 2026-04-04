@@ -5,7 +5,7 @@
 }
 
 .stage {
-  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
 }
@@ -40,9 +40,15 @@
 
 .step {
   --step-progress: 0;
+  --step-icon-progress: 0;
+  --step-title-progress: 0;
+  --step-description-progress: 0;
   display: flex;
   flex-direction: column;
   gap: 30px;
+  opacity: calc(0.26 + var(--step-progress) * 0.74);
+  transform: translateY(calc((1 - var(--step-progress)) * 16px));
+  will-change: opacity, transform;
 }
 
 .iconWrap {
@@ -60,8 +66,7 @@
   position: absolute;
   inset: 0;
   background: #e23c8d;
-  opacity: var(--step-progress);
-  transition: opacity 0.18s linear;
+  opacity: var(--step-icon-progress);
 }
 
 .pipBoard {
@@ -129,7 +134,7 @@
 .titleActive {
   width: 100%;
   color: #fff6d6;
-  clip-path: inset(0 calc((1 - var(--step-progress)) * 100%) 0 0);
+  clip-path: inset(0 calc((1 - var(--step-title-progress)) * 100%) 0 0);
 }
 
 .descriptionBase,
@@ -147,7 +152,7 @@
 
 .descriptionActive {
   color: rgba(255, 246, 214, 0.82);
-  clip-path: inset(0 calc((1 - var(--step-progress)) * 100%) 0 0);
+  clip-path: inset(0 calc((1 - var(--step-description-progress)) * 100%) 0 0);
 }
 
 @media (max-width: 1600px) {
@@ -275,11 +280,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .iconGlow {
-    transition: none;
-  }
-
   .step {
     --step-progress: 1;
+    --step-icon-progress: 1;
+    --step-title-progress: 1;
+    --step-description-progress: 1;
   }
 }

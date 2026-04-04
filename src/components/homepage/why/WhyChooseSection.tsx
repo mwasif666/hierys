@@ -45,7 +45,7 @@ export default function WhyChooseSection() {
       media.add("(min-width: 992px)", () => {
         gsap.set(cards, {
           x: (index) => window.innerWidth * 1.12 + index * 180,
-          autoAlpha: 0,
+          opacity: 1,
         });
         gsap.set(headingRef.current, { x: 0, y: 0, opacity: 0.96 });
 
@@ -66,7 +66,6 @@ export default function WhyChooseSection() {
           cards,
           {
             x: 0,
-            autoAlpha: 1,
             stagger: 0.1,
             ease: "none",
             duration: 0.72,

@@ -39,8 +39,11 @@ const STEP_DOTS: DotPosition[][] = [
   ],
 ];
 
-const DESKTOP_PROGRESS_GAIN = 1.18;
-const MOBILE_PROGRESS_GAIN = 1.14;
+const ICON_PHASE = 0.24;
+const TITLE_PHASE = 0.34;
+const DESCRIPTION_PHASE_START = ICON_PHASE + TITLE_PHASE;
+const DESKTOP_SCROLL_MULTIPLIER = 2.1;
+const MOBILE_PROGRESS_GAIN = 1.08;
 
 function renderLines(lines: string[]) {
   return lines.map((line, index) => (
@@ -73,6 +76,7 @@ function StepDots({ index }: StepDotsProps) {
 
 export default function WorkflowSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const stageRef = useRef<HTMLDivElement | null>(null);
   const stepRefs = useRef<Array<HTMLElement | null>>([]);
 
   useEffect(() => {
@@ -83,26 +87,34 @@ export default function WorkflowSection() {
     if (!steps.length) return undefined;
 
     const setStepProgress = (node: HTMLElement, value: number) => {
-      node.style.setProperty("--step-progress", value.toFixed(4));
+      const progress = gsap.utils.clamp(0, 1, value);
+      const iconProgress = gsap.utils.clamp(0, 1, progress / ICON_PHASE);
+      const titleProgress = gsap.utils.clamp(
+        0,
+        1,
+        (progress - ICON_PHASE) / TITLE_PHASE,
+      );
+      const descriptionProgress = gsap.utils.clamp(
+        0,
+        1,
+        (progress - DESCRIPTION_PHASE_START) / (1 - DESCRIPTION_PHASE_START),
+      );
+
+      node.style.setProperty("--step-progress", progress.toFixed(4));
+      node.style.setProperty("--step-icon-progress", iconProgress.toFixed(4));
+      node.style.setProperty("--step-title-progress", titleProgress.toFixed(4));
+      node.style.setProperty(
+        "--step-description-progress",
+        descriptionProgress.toFixed(4),
+      );
     };
 
     const setDesktopProgress = (overallProgress: number) => {
       steps.forEach((node, index) => {
-        if (index === 0) {
-          setStepProgress(node, 1);
-          return;
-        }
-
-        const acceleratedProgress = gsap.utils.clamp(
-          0,
-          1,
-          overallProgress * DESKTOP_PROGRESS_GAIN,
-        );
-
         const localProgress = gsap.utils.clamp(
           0,
           1,
-          acceleratedProgress * (steps.length - 1) - (index - 1),
+          overallProgress * steps.length - index,
         );
 
         setStepProgress(node, localProgress);
@@ -116,9 +128,11 @@ export default function WorkflowSection() {
 
       const trigger = ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: "top 82%",
-        end: "bottom 46%",
-        scrub: true,
+        pin: stageRef.current,
+        start: "top top",
+        end: () => `+=${Math.round(window.innerHeight * DESKTOP_SCROLL_MULTIPLIER)}`,
+        scrub: 0.35,
+        anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => setDesktopProgress(self.progress),
         onRefresh: (self) => setDesktopProgress(self.progress),
@@ -128,23 +142,24 @@ export default function WorkflowSection() {
     });
 
     media.add("(max-width: 991px)", () => {
-      steps.forEach((node, index) => setStepProgress(node, index === 0 ? 1 : 0));
+      steps.forEach((node) => setStepProgress(node, 0));
 
-      const triggers = steps.map((node, index) =>
+      const triggers = steps.map((node) =>
         ScrollTrigger.create({
           trigger: node,
-          start: "top 88%",
-          end: "top 48%",
+          start: "top 86%",
+          end: "top 44%",
           scrub: true,
           onUpdate: (self) => {
-            const progress =
-              index === 0
-                ? 1
-                : gsap.utils.clamp(0, 1, self.progress * MOBILE_PROGRESS_GAIN);
+            const progress = gsap.utils.clamp(
+              0,
+              1,
+              self.progress * MOBILE_PROGRESS_GAIN,
+            );
             setStepProgress(node, progress);
           },
           onLeave: () => setStepProgress(node, 1),
-          onLeaveBack: () => setStepProgress(node, index === 0 ? 1 : 0),
+          onLeaveBack: () => setStepProgress(node, 0),
         }),
       );
 
@@ -156,7 +171,7 @@ export default function WorkflowSection() {
 
   return (
     <section className={styles.section} id="workflow" ref={sectionRef}>
-      <div className={styles.stage}>
+      <div className={styles.stage} ref={stageRef}>
         <div className={styles.inner}>
           <h2 className={styles.heading}>
             <span>BUT USUALLY IT GOES</span>
