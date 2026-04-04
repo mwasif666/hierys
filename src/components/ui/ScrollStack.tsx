@@ -28,6 +28,7 @@ interface ScrollStackProps {
   rotationAmount?: number;
   blurAmount?: number;
   useWindowScroll?: boolean;
+  smoothScroll?: boolean;
   onStackComplete?: () => void;
 }
 
@@ -88,6 +89,7 @@ export default function ScrollStack({
   rotationAmount = 0,
   blurAmount = 0,
   useWindowScroll = false,
+  smoothScroll = true,
   onStackComplete,
 }: ScrollStackProps) {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
@@ -313,6 +315,8 @@ export default function ScrollStack({
   }, [updateCardTransforms]);
 
   const setupLenis = useCallback(() => {
+    if (!smoothScroll) return;
+
     if (useWindowScroll) {
       const lenis = new Lenis({
         duration: 1.2,
@@ -367,7 +371,7 @@ export default function ScrollStack({
 
     animationFrameRef.current = requestAnimationFrame(raf);
     lenisRef.current = lenis;
-  }, [handleScroll, useWindowScroll]);
+  }, [handleScroll, smoothScroll, useWindowScroll]);
 
   useLayoutEffect(() => {
     const scroller = scrollerRef.current;
@@ -418,12 +422,16 @@ export default function ScrollStack({
     window.addEventListener("resize", resizeHandler);
     if (useWindowScroll) {
       window.addEventListener("scroll", handleScroll, { passive: true });
+    } else if (!smoothScroll) {
+      scroller.addEventListener("scroll", handleScroll, { passive: true });
     }
 
     return () => {
       window.removeEventListener("resize", resizeHandler);
       if (useWindowScroll) {
         window.removeEventListener("scroll", handleScroll);
+      } else if (!smoothScroll) {
+        scroller.removeEventListener("scroll", handleScroll);
       }
 
       resizeObserver?.disconnect();
@@ -454,6 +462,7 @@ export default function ScrollStack({
     stackPosition,
     updateCardTransforms,
     useWindowScroll,
+    smoothScroll,
   ]);
 
   return (

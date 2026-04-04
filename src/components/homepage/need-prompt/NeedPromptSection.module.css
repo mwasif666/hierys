@@ -71,11 +71,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(8px, 0.7vw, 12px);
+  gap: 0;
   max-width: 100%;
   min-width: 0;
   white-space: nowrap;
-  transition: gap 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .headingLineBottom {
@@ -94,7 +93,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.08em clamp(18px, 1.7vw, 30px) 0.14em;
+  padding: 0.08em clamp(14px, 1.3vw, 22px) 0.14em;
   border-radius: 0.24em;
   background: linear-gradient(135deg, #cb90ff 0%, #b46cff 54%, #9854ff 100%);
   box-shadow:

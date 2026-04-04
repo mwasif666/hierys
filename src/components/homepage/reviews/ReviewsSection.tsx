@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useRef, type CSSProperties } from "react";
 
 import { ArrowUpRight, Star } from "lucide-react";
 
@@ -7,7 +7,6 @@ import {
   type Review,
 } from "@/components/homepage/data/homepageData";
 import styles from "@/components/homepage/reviews/ReviewsSection.module.css";
-import ScrollStack, { ScrollStackItem } from "@/components/ui/ScrollStack";
 
 function renderLines(lines: string[]) {
   return lines.map((line, index) => (
@@ -31,7 +30,9 @@ function Rating({ value }: RatingProps) {
         return (
           <Star
             aria-hidden="true"
-            className={isFilled ? styles.ratingStarFilled : styles.ratingStarEmpty}
+            className={
+              isFilled ? styles.ratingStarFilled : styles.ratingStarEmpty
+            }
             key={`${value}-${index}`}
           />
         );
@@ -86,8 +87,7 @@ function ReviewCard({ review }: ReviewCardProps) {
           </div>
 
           <span className={styles.caseStudyLink}>
-            <span>Read Full</span>
-            <span>Review</span>
+            <span>Read Full Review</span>
             <ArrowUpRight aria-hidden="true" className={styles.caseStudyIcon} />
           </span>
         </a>
@@ -98,34 +98,92 @@ function ReviewCard({ review }: ReviewCardProps) {
 
 export default function ReviewsSection() {
   const { stickerLabel, headingLines, reviews } = REVIEWS_SECTION;
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const stackShellRef = useRef<HTMLDivElement | null>(null);
+  const stackRef = useRef<HTMLDivElement | null>(null);
+  const stackSpacerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const stack = stackRef.current;
+
+    if (!stack) return undefined;
+
+    const handleWheel = (event: WheelEvent) => {
+      const section = sectionRef.current;
+      const stackShell = stackShellRef.current;
+
+      if (!section || !stackShell || !stack) return;
+      if (window.getComputedStyle(stackShell).position === "static") return;
+
+      const maxScrollTop = stack.scrollHeight - stack.clientHeight;
+      if (maxScrollTop <= 0) return;
+      const spacerHeight = stackSpacerRef.current?.offsetHeight ?? 0;
+      const releaseScrollTop = Math.max(0, maxScrollTop - spacerHeight);
+
+      const sectionRect = section.getBoundingClientRect();
+      const shellRect = stackShell.getBoundingClientRect();
+      const stickyTopThreshold = 52;
+      const isStickyActive =
+        shellRect.top <= stickyTopThreshold &&
+        sectionRect.top < stickyTopThreshold &&
+        sectionRect.bottom > shellRect.bottom + 24;
+
+      if (!isStickyActive) return;
+
+      const isScrollingDown = event.deltaY > 0;
+      const isScrollingUp = event.deltaY < 0;
+      const canScrollDown = stack.scrollTop < releaseScrollTop - 1;
+      const canScrollUp = stack.scrollTop > 1;
+
+      if (
+        (isScrollingDown && canScrollDown) ||
+        (isScrollingUp && canScrollUp)
+      ) {
+        event.preventDefault();
+        stack.scrollTop = Math.max(
+          0,
+          Math.min(releaseScrollTop, stack.scrollTop + event.deltaY),
+        );
+      }
+    };
+
+    stack.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      stack.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
 
   return (
-    <section className={styles.section} id="reviews">
+    <section className={styles.section} id="reviews" ref={sectionRef}>
       <div className={styles.inner}>
         <header className={styles.header}>
           <span className={styles.sticker}>{stickerLabel}</span>
           <h2 className={styles.heading}>{renderLines(headingLines)}</h2>
         </header>
 
-        <ScrollStack
-          className={styles.stack}
-          useWindowScroll
-          itemDistance={42}
-          itemScale={0.03}
-          itemStackDistance={22}
-          stackPosition="18%"
-          scaleEndPosition="8%"
-          baseScale={0.9}
-        >
-          {reviews.map((review, index) => (
-            <ScrollStackItem
-              key={`${review.name}-${review.company}-${index}`}
-              itemClassName={styles.stackItem}
-            >
-              <ReviewCard review={review} />
-            </ScrollStackItem>
-          ))}
-        </ScrollStack>
+        <div className={styles.stackShell} ref={stackShellRef}>
+          <div className={styles.stack} ref={stackRef}>
+            {reviews.map((review, index) => (
+              <div
+                className={styles.stackItem}
+                key={`${review.name}-${review.company}-${index}`}
+                style={
+                  {
+                    "--review-stack-index": index,
+                  } as CSSProperties
+                }
+              >
+                <ReviewCard review={review} />
+              </div>
+            ))}
+            <div
+              aria-hidden="true"
+              className={styles.stackSpacer}
+              ref={stackSpacerRef}
+            />
+          </div>
+        </div>
       </div>
     </section>
   );

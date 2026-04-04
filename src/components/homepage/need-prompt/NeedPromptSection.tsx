@@ -31,15 +31,15 @@ export default function NeedPromptSection({
 }: NeedPromptSectionProps) {
   const { prompts, subtitle, ctaLabel } = NEED_PROMPT_SECTION;
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [subjectWidth, setSubjectWidth] = useState<number>(320);
-  const subjectMeasureRef = useRef<HTMLSpanElement | null>(null);
-  const subjectWidthsRef = useRef<number[]>([]);
+  const [topPromptWidth, setTopPromptWidth] = useState<number>(320);
+  const topPromptMeasureRef = useRef<HTMLSpanElement | null>(null);
+  const topPromptWidthsRef = useRef<number[]>([]);
 
   const applyWidths = useCallback((index: number) => {
-    const nextSubjectWidth = subjectWidthsRef.current[index];
+    const nextTopPromptWidth = topPromptWidthsRef.current[index];
 
-    if (nextSubjectWidth) {
-      setSubjectWidth(nextSubjectWidth + 72);
+    if (nextTopPromptWidth) {
+      setTopPromptWidth(nextTopPromptWidth + 44);
     }
   }, []);
 
@@ -53,7 +53,7 @@ export default function NeedPromptSection({
 
   useEffect(() => {
     const updateWidths = () => {
-      subjectWidthsRef.current = getTextWidths(subjectMeasureRef.current);
+      topPromptWidthsRef.current = getTextWidths(topPromptMeasureRef.current);
       applyWidths(activeIndex);
     };
 
@@ -64,7 +64,7 @@ export default function NeedPromptSection({
         ? new ResizeObserver(() => updateWidths())
         : null;
 
-    [subjectMeasureRef.current].forEach((group) => {
+    [topPromptMeasureRef.current].forEach((group) => {
       if (!group || !resizeObserver) {
         return;
       }
@@ -86,22 +86,23 @@ export default function NeedPromptSection({
   }, [activeIndex, applyWidths]);
 
   const activePrompt = prompts[activeIndex]!;
+  const topPrompt = `NEED ${activePrompt.subject}`;
   const bottomPrompt = `THAT ${activePrompt.outcome}?`;
   const subjectStyle = {
-    width: `${subjectWidth}px`,
+    width: `${topPromptWidth}px`,
   } as SlotStyle;
 
   return (
     <section className={styles.section} id="contact">
       <div className={styles.inner}>
         <span
-          ref={subjectMeasureRef}
+          ref={topPromptMeasureRef}
           aria-hidden="true"
           className={styles.measureGroup}
         >
           {prompts.map((prompt) => (
             <span className={styles.measureText} key={`subject-${prompt.subject}`}>
-              {prompt.subject}
+              {`NEED ${prompt.subject}`}
             </span>
           ))}
         </span>
@@ -109,16 +110,15 @@ export default function NeedPromptSection({
         <div className={styles.copy}>
           <h2 className={cn(styles.heading, "u-displayHeading")}>
             <span className={styles.headingLine}>
-              <span>NEED</span>
               <span className={styles.wordChip} style={subjectStyle}>
                 <TextRoll
-                  animateKey={`need-subject-${activePrompt.subject}`}
+                  animateKey={`need-subject-${topPrompt}`}
                   animateOnChange
                   center
                   className={styles.word}
                   lineHeight={1}
                 >
-                  {activePrompt.subject}
+                  {topPrompt}
                 </TextRoll>
               </span>
             </span>
