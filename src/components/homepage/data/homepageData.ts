@@ -170,15 +170,10 @@ export type FooterSectionData = {
 
 export const NAV_ITEMS: NavItem[] = [
   {
-    key: "services",
+    key: "services-page",
     label: "Services",
     hoverLabel: "Services →",
-    cards: [
-      { title: "Brand Strategy", href: "#" },
-      { title: "Content Design", href: "#" },
-      { title: "Web Experiences", href: "#" },
-      { title: "Growth Support", href: "#" },
-    ],
+    cards: [],
   },
   {
     key: "work",
@@ -864,7 +859,8 @@ export const FAQ_SECTION: FaqSectionData = {
         "No. We handle both bigger builds and smaller one-off needs, whether that's a full website, a pitch deck, a quick campaign asset, or an urgent fix.",
     },
     {
-      question: "CAN I COME TO YOU WITH SOMETHING THAT’S NOT LISTED ON THE SITE?",
+      question:
+        "CAN I COME TO YOU WITH SOMETHING THAT’S NOT LISTED ON THE SITE?",
       answer:
         "Yes. If it's adjacent to design, content, websites, branding, strategy, or marketing support, there's a strong chance we can help or shape the right solution with you.",
     },
@@ -913,30 +909,10 @@ export const FAQ_SECTION: FaqSectionData = {
 
 export const FOOTER_SECTION: FooterSectionData = {
   serviceColumns: [
-    [
-      "Ad Creatives",
-      "Social Media Design",
-      "Brand Guidelines",
-      "Pitch Decks",
-    ],
-    [
-      "Brand Identity",
-      "Presentation Design",
-      "Logo Design",
-      "Website Design",
-    ],
-    [
-      "Website Development",
-      "Copywriting",
-      "Content Writing",
-      "SEO & AEO",
-    ],
-    [
-      "Packaging Design",
-      "Marketing",
-      "Creative Strategy",
-      "Custom Requests",
-    ],
+    ["Ad Creatives", "Social Media Design", "Brand Guidelines", "Pitch Decks"],
+    ["Brand Identity", "Presentation Design", "Logo Design", "Website Design"],
+    ["Website Development", "Copywriting", "Content Writing", "SEO & AEO"],
+    ["Packaging Design", "Marketing", "Creative Strategy", "Custom Requests"],
   ],
   linkColumns: [
     {
