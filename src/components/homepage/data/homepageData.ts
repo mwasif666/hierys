@@ -170,7 +170,7 @@ export type FooterSectionData = {
 
 export const NAV_ITEMS: NavItem[] = [
   {
-    key: "services-page",
+    key: "service",
     label: "Services",
     hoverLabel: "Services →",
     cards: [],

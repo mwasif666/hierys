@@ -27,6 +27,7 @@ export default function ServiceSlide({
             alt={`${service.title} ${index + 1}`}
             key={`${service.title}-image-${image.src}`}
             loading="lazy"
+            draggable={false}
             style={{
               opacity: index === displayImageIndex ? 1 : 0,
               ...(image.position ? { objectPosition: image.position } : undefined),

@@ -97,6 +97,13 @@
 .viewport {
   width: 100%;
   overflow: hidden;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.viewportDragging {
+  cursor: grabbing;
 }
 
 .track {

@@ -414,6 +414,7 @@
   align-items: center;
   gap: 10px;
   color: #41111f;
+  text-decoration: none;
 }
 
 .drawerBrand .mark {

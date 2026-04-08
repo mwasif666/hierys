@@ -11,6 +11,12 @@ import { PiSparkleFill } from "react-icons/pi";
 
 import { CTA_PREVIEW, NAV_ITEMS } from "@/components/homepage/data/homepageData";
 import styles from "@/components/homepage/navbar/Navbar.module.css";
+import {
+  SERVICE_PAGE_KEY,
+  SERVICE_PAGE_PATH,
+  navigateToHomepage,
+  navigateToServicePage,
+} from "@/lib/serviceRoute";
 import { cn } from "@/lib/utils";
 
 const cardVisual = (menuKey, title) =>
@@ -138,6 +144,35 @@ export default function Navbar() {
   const active = navItems.find((item) => item.key === openKey);
   const activeHasCards = !compactNav && Boolean(active?.cards?.length);
 
+  const shouldHandleServiceNavigation = (event) =>
+    event.button === 0 &&
+    !event.metaKey &&
+    !event.ctrlKey &&
+    !event.shiftKey &&
+    !event.altKey;
+
+  const handleServiceNavigation = (event) => {
+    if (!shouldHandleServiceNavigation(event)) {
+      return;
+    }
+
+    event.preventDefault();
+    closeAll();
+    setMobileOpen(false);
+    navigateToServicePage();
+  };
+
+  const handleHomeNavigation = (event) => {
+    if (!shouldHandleServiceNavigation(event)) {
+      return;
+    }
+
+    event.preventDefault();
+    closeAll();
+    setMobileOpen(false);
+    navigateToHomepage();
+  };
+
   useEffect(() => {
     if (!openKey) return undefined;
 
@@ -154,7 +189,7 @@ export default function Navbar() {
     >
       <header className={styles.header}>
         <div className={styles.wrap} ref={wrapRef}>
-          <a className={styles.brand} href="#top">
+          <a className={styles.brand} href="/" onClick={handleHomeNavigation}>
             <span className={styles.mark}>
               <PiSparkleFill />
             </span>
@@ -169,6 +204,9 @@ export default function Navbar() {
             {navItems.map((item) => {
               const hasDrop = Boolean(item.cards?.length);
               const isOpen = openKey === item.key;
+              const isServiceLink = item.key === SERVICE_PAGE_KEY;
+              const navHref =
+                isServiceLink ? SERVICE_PAGE_PATH : `#${item.key}`;
 
               return (
                 <div
@@ -183,7 +221,7 @@ export default function Navbar() {
                   onMouseLeave={() => (hasDrop ? scheduleClose() : null)}
                 >
                   <a
-                    href={`#${item.key}`}
+                    href={navHref}
                     className={cn(
                       styles.pill,
                       hasDrop && "u-iconSwapTrigger",
@@ -191,7 +229,14 @@ export default function Navbar() {
                     )}
                     onBlur={() => (hasDrop ? scheduleClose() : null)}
                     onClick={(event) => {
-                      if (hasDrop) event.preventDefault();
+                      if (hasDrop) {
+                        event.preventDefault();
+                        return;
+                      }
+
+                      if (isServiceLink) {
+                        handleServiceNavigation(event);
+                      }
                     }}
                     onFocus={(event) =>
                       hasDrop
@@ -312,12 +357,16 @@ export default function Navbar() {
         <aside className={styles.drawerPanel} role="dialog" aria-modal="true">
           <div className={styles.drawerInner}>
             <div className={styles.drawerTop}>
-              <div className={styles.drawerBrand}>
+              <a
+                className={styles.drawerBrand}
+                href="/"
+                onClick={handleHomeNavigation}
+              >
                 <span className={styles.mark}>
                   <PiSparkleFill />
                 </span>
                 <span className={styles.brandText}>Hierys</span>
-              </div>
+              </a>
 
               <button
                 type="button"
@@ -333,14 +382,23 @@ export default function Navbar() {
               {navItems.map((item) => {
                 const hasDrop = Boolean(item.cards?.length);
                 const isOpen = mobileKey === item.key;
+                const isServiceLink = item.key === SERVICE_PAGE_KEY;
 
                 if (!hasDrop) {
+                  const navHref = isServiceLink ? SERVICE_PAGE_PATH : `#${item.key}`;
                   return (
                     <a
                       key={item.key}
                       className={styles.mobileLink}
-                      href={`#${item.key}`}
-                      onClick={() => setMobileOpen(false)}
+                      href={navHref}
+                      onClick={(event) => {
+                        if (isServiceLink) {
+                          handleServiceNavigation(event);
+                          return;
+                        }
+
+                        setMobileOpen(false);
+                      }}
                     >
                       {item.label}
                     </a>

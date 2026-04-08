@@ -2,27 +2,42 @@ import { useEffect, useState } from "react";
 import Homepage from "@/components/homepage/Homepage";
 import ScopeOfServicePage from "@/components/services/ScopeOfServicePage";
 import { Toaster } from "@/components/ui/sonner";
-
-const SERVICE_PAGE_HASH = "#services-page";
+import {
+  APP_NAVIGATION_EVENT,
+  isServicePageRoute,
+  replaceWithCanonicalServicePageRoute,
+} from "@/lib/serviceRoute";
 
 export default function App() {
-  const [currentHash, setCurrentHash] = useState(
-    typeof window !== "undefined" ? window.location.hash : "",
+  const [isServicePage, setIsServicePage] = useState(
+    () => typeof window !== "undefined" && isServicePageRoute(window.location),
   );
 
   useEffect(() => {
-    const handleHashChange = () => setCurrentHash(window.location.hash);
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
+    const syncRoute = () => {
+      const shouldShowServicePage = isServicePageRoute(window.location);
+
+      if (shouldShowServicePage) {
+        replaceWithCanonicalServicePageRoute();
+      }
+
+      setIsServicePage(shouldShowServicePage);
+    };
+
+    syncRoute();
+    window.addEventListener("hashchange", syncRoute);
+    window.addEventListener("popstate", syncRoute);
+    window.addEventListener(APP_NAVIGATION_EVENT, syncRoute);
+    return () => {
+      window.removeEventListener("hashchange", syncRoute);
+      window.removeEventListener("popstate", syncRoute);
+      window.removeEventListener(APP_NAVIGATION_EVENT, syncRoute);
+    };
   }, []);
 
   return (
     <>
-      {currentHash === SERVICE_PAGE_HASH ? (
-        <ScopeOfServicePage />
-      ) : (
-        <Homepage />
-      )}
+      {isServicePage ? <ScopeOfServicePage /> : <Homepage />}
       <Toaster />
     </>
   );

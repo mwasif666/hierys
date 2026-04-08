@@ -47,7 +47,7 @@
 .heading {
   margin: 0;
   max-width: 100%;
-  font-size: var(--section-heading-size-desktop);
+  font-size: clamp(52px, 5.2vw, 55px);
   line-height: 0.92;
   font-weight: 900;
   text-transform: uppercase;
@@ -200,7 +200,7 @@
   }
 
   .heading {
-    font-size: var(--section-heading-size-tablet);
+    font-size: clamp(42px, 6.2vw, 68px);
   }
 
   .contactBlock {
@@ -214,7 +214,7 @@
   }
 
   .heading {
-    font-size: var(--section-heading-size-mobile);
+    font-size: clamp(30px, 9.5vw, 44px);
   }
 
   .heading span {

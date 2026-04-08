@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./ScopeOfServicePage.module.css";
 import { FiX } from "react-icons/fi";
+import { HiMiniArrowRight } from "react-icons/hi2";
 import Navbar from "@/components/homepage/Navbar";
 import FooterSection from "@/components/homepage/footer/FooterSection";
 
@@ -616,12 +617,23 @@ export default function ScopeOfServicePage() {
         <div className={styles.heroInner}>
           <div className={styles.heroCopy}>
             <h1>Scope of service</h1>
-            <p>Over 120+ design services covered!</p>
+            <p>WE CAN DO EVERYTHING YOU NEED</p>
+            <a href="#services-content" className={`${styles.readMoreBtn} u-iconSwapTrigger`}>
+              <span className={styles.readMoreLabel}>Read More</span>
+              <span className={`${styles.readMoreIcon} u-iconSwap`} aria-hidden="true">
+                <span className="u-iconSwap__a">
+                  <HiMiniArrowRight />
+                </span>
+                <span className="u-iconSwap__b">
+                  <HiMiniArrowRight />
+                </span>
+              </span>
+            </a>
           </div>
         </div>
       </section>
 
-      <main className={styles.main}>
+      <main className={styles.main} id="services-content">
         <div className={styles.container}>
           <div className={styles.layout}>
             <section className={styles.contentArea}>
