@@ -1,9 +1,95 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import styles from "./ScopeOfServicePage.module.css";
-import { FiX } from "react-icons/fi";
-import { HiMiniArrowRight } from "react-icons/hi2";
+import { FiX, FiSearch } from "react-icons/fi";
+import { HiMiniArrowDown } from "react-icons/hi2";
+import {
+  Megaphone,
+  Monitor,
+  BookOpen,
+  Newspaper,
+  Printer,
+  Target,
+  ThumbsUp,
+  Search,
+  Play,
+  Film,
+  Sparkles,
+  Clapperboard,
+  Hexagon,
+  Type,
+  ALargeSmall,
+  CreditCard,
+  Tag,
+  FileText,
+  PenTool,
+  Package,
+  BookMarked,
+  BookImage,
+  BookText,
+  Book,
+  Tablet,
+  Drama,
+  Paintbrush,
+  Shapes,
+  Disc,
+  MessageSquare,
+  Palette,
+  BarChart3,
+  Frame,
+  Shirt,
+  Smartphone,
+  Gift,
+  Coffee,
+  ShoppingBag,
+  Crown,
+  Mail,
+  Presentation,
+  MonitorPlay,
+  Layers,
+  FileSpreadsheet,
+  Signpost,
+  ImagePlus,
+  TrendingUp,
+  Heart,
+  Store,
+  Award,
+  MailOpen,
+  UtensilsCrossed,
+  Send,
+  Image,
+  Sticker,
+  Flag,
+  Repeat,
+  ScrollText,
+  Car,
+  Gamepad2,
+  Ticket,
+  Leaf,
+  Video,
+  Share2,
+  MessageCircle,
+  Aperture,
+  Tv,
+  CircleUser,
+  Briefcase,
+  AtSign,
+  Layout,
+  Globe,
+  ShoppingCart,
+  LayoutDashboard,
+  Square,
+  MousePointerClick,
+  FileImage,
+  GalleryHorizontal,
+  Camera,
+  Mic,
+  Wrench,
+  Spline,
+  type LucideIcon,
+} from "lucide-react";
 import Navbar from "@/components/homepage/Navbar";
 import FooterSection from "@/components/homepage/footer/FooterSection";
+import { VerticalCutReveal } from "@/components/ui/vertical-cut-reveal";
 
 type ServiceSection = {
   title: string;
@@ -414,9 +500,612 @@ const FigmaIcon = () => (
   </svg>
 );
 
-const BrownSquareBullet = () => (
-  <span className={styles.squareBullet} aria-hidden="true" />
+const AfterEffectsIcon = () => (
+  <svg
+    width="25"
+    height="24"
+    viewBox="0 0 25 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="24.6" height="24" rx="4.36" fill="#00005B" />
+    <path
+      d="M11.06 14.36H7.82l-.7 2.5c-.02.08-.09.14-.18.14H5.12c-.1 0-.13-.06-.1-.17L8.14 7.26c.03-.1.06-.22.1-.35a3 3 0 00.06-.67c-.01-.05.03-.1.08-.11h2.84c.08 0 .12.03.13.08l3.34 10.62c.03.1 0 .16-.1.16h-2.06a.16.16 0 01-.16-.13l-.77-2.5zm-2.65-2.08h2.22c-.05-.22-.14-.48-.23-.76l-.54-1.77-.53-1.58c-.1-.32-.18-.59-.25-.84h-.02c-.09.44-.19.88-.33 1.32-.15.5-.3 1.01-.45 1.52-.14.52-.29 1.01-.43 1.45l.56.66z"
+      fill="#9999FF"
+    />
+    <path
+      d="M17.96 14.88c.28.27.63.42 1 .42.8 0 1.22-.54 1.22-1.6v-.62c-.22.04-.43.1-.64.18-.72.26-1.12.67-1.12 1.18 0 .18.06.34.18.46l-.64-.02zm.5-4.48c.46-.24.98-.38 1.5-.38.42 0 .76.06 1.04.2.26.12.48.3.62.54.14.24.22.5.26.8.04.3.06.62.06.96v3.94c-.16.04-.42.08-.8.14-.38.06-.82.08-1.32.08-.34 0-.64-.04-.92-.1a1.82 1.82 0 01-.68-.3 1.3 1.3 0 01-.42-.54c-.1-.22-.14-.48-.14-.78 0-.28.06-.54.18-.76.12-.22.3-.4.52-.54.22-.14.48-.24.78-.3.3-.06.62-.1.96-.1.14 0 .28 0 .42.02.14.02.28.04.42.08v-.18c0-.16-.02-.32-.04-.46a.87.87 0 00-.16-.36.68.68 0 00-.32-.24c-.14-.06-.32-.08-.54-.08-.3 0-.58.02-.84.08-.26.06-.46.12-.6.18h-.08c-.06 0-.1-.04-.1-.1v-1.04c.08-.02.26-.08.52-.14.28-.08.58-.12.92-.16l-.24.22z"
+      fill="#9999FF"
+    />
+  </svg>
 );
+
+const PremiereProIcon = () => (
+  <svg
+    width="25"
+    height="24"
+    viewBox="0 0 25 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="24.6" height="24" rx="4.36" fill="#00005B" />
+    <path
+      d="M8.06 16.83V6.28c0-.07.03-.11.1-.11.18 0 .34 0 .58-.01.24 0 .5-.01.78-.01.28-.01.57-.01.89-.02.32 0 .63-.01.94-.01.84 0 1.54.1 2.11.32.51.17.99.46 1.38.84.33.33.58.73.75 1.17.16.43.24.87.24 1.34 0 .88-.2 1.61-.62 2.18-.41.57-.98 1-1.66 1.25-.7.26-1.47.35-2.31.35-.25 0-.41 0-.51-.01-.1-.01-.25-.01-.44-.01v3.29c.01.07-.04.13-.12.14h-1.99c-.08 0-.12-.04-.12-.13zm2.24-8.69v3.45c.14.01.28.02.4.02h.55c.4 0 .8-.06 1.18-.19.33-.09.61-.29.84-.55.21-.26.32-.6.32-1.05 0-.32-.08-.64-.24-.92a1.4 1.4 0 00-.72-.58c-.38-.15-.79-.22-1.21-.21-.28 0-.52 0-.72.01-.2-.01-.35 0-.41.02z"
+      fill="#9999FF"
+    />
+    <path
+      d="M18.94 10.88c-.06-.02-.14-.04-.24-.06a2.6 2.6 0 00-.48-.04c-.12 0-.24.02-.38.04l-.24.06v6.02c0 .08-.04.12-.14.12h-1.78c-.1 0-.14-.04-.14-.12V9.58c0-.16.04-.28.14-.34.36-.16.76-.28 1.18-.36.42-.08.86-.12 1.3-.12h.32l.3.02c.12 0 .2.06.2.16v1.82c0 .08-.02.12-.04.12z"
+      fill="#9999FF"
+    />
+  </svg>
+);
+
+const LightroomIcon = () => (
+  <svg
+    width="25"
+    height="24"
+    viewBox="0 0 25 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="24.6" height="24" rx="4.36" fill="#001D26" />
+    <path
+      d="M6.36 6.14h1.98c.1 0 .14.04.14.14v8.68h4.22c.08 0 .12.04.12.12v1.66c0 .08-.04.14-.12.14H6.36c-.08 0-.12-.04-.12-.12V6.28c0-.1.04-.14.12-.14z"
+      fill="#31A8FF"
+    />
+    <path
+      d="M14.44 10.88c-.06-.02-.14-.04-.24-.06a2.6 2.6 0 00-.48-.04c-.12 0-.24.02-.38.04l-.24.06v6.02c0 .08-.04.12-.14.12h-1.78c-.1 0-.14-.04-.14-.12V9.58c0-.16.04-.28.14-.34.36-.16.76-.28 1.18-.36.42-.08.86-.12 1.3-.12h.32l.3.02c.12 0 .2.06.2.16v1.82c0 .08-.02.12-.04.12z"
+      fill="#31A8FF"
+    />
+  </svg>
+);
+
+const SketchIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M6.5 2.5L12 1l5.5 1.5L23 9l-11 14L1 9l5.5-6.5z" fill="#FDB300" />
+    <path
+      d="M5.16 9L12 23 1 9h4.16zM18.84 9L12 23l11-14h-4.16z"
+      fill="#EA6C00"
+    />
+    <path d="M5.16 9h13.68L12 23 5.16 9z" fill="#FDAD00" />
+    <path
+      d="M12 1L6.5 2.5 5.16 9H12V1zM12 1l5.5 1.5L18.84 9H12V1z"
+      fill="#FDD231"
+    />
+    <path d="M1 9l5.5-6.5L5.16 9H1zM23 9l-5.5-6.5L18.84 9H23z" fill="#FDAD00" />
+  </svg>
+);
+
+const WordPressIcon = () => (
+  <svg
+    viewBox="0 0 48 48"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    fill="#000000"
+  >
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></g>
+    <g id="SVGRepo_iconCarrier">
+      {" "}
+      <title>Wordpress-color</title> <desc>Created with Sketch.</desc>{" "}
+      <defs> </defs>{" "}
+      <g
+        id="Icons"
+        stroke="none"
+        stroke-width="1"
+        fill="none"
+        fill-rule="evenodd"
+      >
+        {" "}
+        <g
+          id="Color-"
+          transform="translate(-400.000000, -760.000000)"
+          fill="#00759D"
+        >
+          {" "}
+          <path
+            d="M400,783.99925 C400,793.499047 405.520173,801.708803 413.525923,805.598425 L402.077565,774.232445 C400.747023,777.216038 400,780.519141 400,783.99925 Z M440.201556,782.788712 C440.201556,779.821619 439.135023,777.768055 438.222994,776.170505 C437.006456,774.191943 435.864921,772.517891 435.864921,770.540829 C435.864921,768.33426 437.537473,766.280696 439.895547,766.280696 C440.00205,766.280696 440.102553,766.294197 440.206056,766.300197 C435.936923,762.388075 430.247245,760 423.99955,760 C415.614288,760 408.238557,764.302134 403.946923,770.816838 C404.510941,770.834839 405.041958,770.845339 405.491972,770.845339 C408.00155,770.845339 411.888172,770.540829 411.888172,770.540829 C413.181212,770.464327 413.334217,772.366386 412.041176,772.517891 C412.041176,772.517891 410.740636,772.670896 409.29459,772.747398 L418.033864,798.743211 L423.287028,782.991218 L419.548911,772.747398 C418.25587,772.670896 417.030332,772.517891 417.030332,772.517891 C415.737292,772.441389 415.888797,770.464327 417.183337,770.540829 C417.183337,770.540829 421.146461,770.845339 423.504535,770.845339 C426.014113,770.845339 429.900734,770.540829 429.900734,770.540829 C431.195275,770.464327 431.34678,772.366386 430.053739,772.517891 C430.053739,772.517891 428.751698,772.670896 427.307153,772.747398 L435.980424,798.545205 L438.375999,790.546955 C439.411032,787.225851 440.201556,784.842276 440.201556,782.788712 Z M445.059908,772.48534 C445.163411,773.250364 445.221913,774.06939 445.221913,774.952917 C445.221913,777.387493 444.765899,780.125079 443.396356,783.549686 L436.065627,804.743848 C443.20135,800.584218 448,792.852977 448,783.9997 C448,779.82657 446.933467,775.903947 445.059908,772.48534 Z M424.421063,786.098716 L417.219338,807.022869 C419.370405,807.655889 421.644476,808.0009 423.99955,808.0009 C426.794137,808.0009 429.474721,807.517885 431.969299,806.640358 C431.906297,806.536854 431.846295,806.428851 431.798294,806.310347 L424.421063,786.098716 Z"
+            id="Wordpress"
+          >
+            {" "}
+          </path>{" "}
+        </g>{" "}
+      </g>{" "}
+    </g>
+  </svg>
+);
+
+const ShopifyIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M16.79 3.47s-.04.01-.1.03c-.06-.18-.14-.38-.24-.58-.36-.68-.88-1.04-1.52-1.04h-.02c-.04-.05-.09-.1-.14-.14-.32-.3-.72-.44-1.2-.42-.92.04-1.84.7-2.58 1.86-.52.82-.92 1.84-1.04 2.64l-2.14.66c-.64.2-.66.22-.74.82-.06.46-1.74 13.36-1.74 13.36L15.28 22l6.96-1.52S16.84 3.58 16.8 3.47zm-2.82.86c-.38.12-.8.24-1.24.38.24-.92.7-1.84 1.26-2.44.2-.22.5-.46.82-.6.34.7.38 1.68.16 2.66zm-1.98-2.22c.26 0 .5.06.7.18-.3.16-.6.4-.88.7-.74.78-1.3 1.98-1.52 3.14l-1.84.56c.36-1.64 1.78-4.52 3.54-4.58zm.66 10.34c-.08-.56-.58-.96-1.24-.96-.66 0-1.36.28-1.92.78.4-1.52 1.18-3.02 2.12-3.94.36-.34.82-.68 1.32-.86.26.82.06 2.3-.28 4.98zm1.8-6.42c.06.02.1.04.14.08.02 3.1-1.26 6.76-2.34 8.64a4.1 4.1 0 011.12-1.8c1.42-1.3 1.92-3.24 1.92-4.18 0-.82-.32-2.16-.84-2.74z"
+      fill="#95BF47"
+    />
+    <path
+      d="M16.68 3.5s-.04.01-.1.03c-.06-.18-.14-.38-.24-.58a3.3 3.3 0 00-.62-.82l.38.08s5.38 16.88 5.42 17l-6.24 1.52.28.27L22.24 19 16.68 3.5z"
+      fill="#5E8E3E"
+    />
+  </svg>
+);
+
+const WebflowIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="24" height="24" rx="4" fill="#4353FF" />
+    <path
+      d="M17.36 7.8c0 0-2.66 8.16-2.76 8.5-.06-.42-.96-8.5-.96-8.5a3.42 3.42 0 00-3.36-2.54c0 0 1.62 5.18 1.86 5.96-.28.36-3.04 5.06-3.04 5.06-.06-.42-2.1-11.02-2.1-11.02A3.38 3.38 0 003.7 2.74l2.66 14.02a3.48 3.48 0 003.42 2.48c0 0-1.1-1.86-1-1.86.32-.52 3.16-5.34 3.16-5.34.06.42.94 7.2.94 7.2a3.44 3.44 0 003.34 2.5l4.1-11.42A3.46 3.46 0 0017.36 7.8z"
+      fill="#fff"
+    />
+  </svg>
+);
+
+const HTML5Icon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M2.8 0L4.64 20.67 12 23l7.36-2.33L21.2 0H2.8z" fill="#E34F26" />
+    <path d="M12 21.16l5.94-1.65L19.4 2.1H12v19.06z" fill="#EF652A" />
+    <path
+      d="M12 9.03h-3.3l-.23-2.56H12V4.2H6.08l.06.63.6 6.47H12V9.03zM12 15.5l-.01.01-2.77-.75-.18-1.98H6.77l.35 3.9 4.87 1.35.01-.01V15.5z"
+      fill="#EBEBEB"
+    />
+    <path
+      d="M11.98 9.03v2.27h3.05l-.29 3.2-2.76.75v2.52l4.87-1.35.04-.4.56-6.25.06-.63.11-1.31h-.63-5.01v1.2z"
+      fill="#fff"
+    />
+  </svg>
+);
+
+const CSS3Icon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M2.8 0L4.64 20.67 12 23l7.36-2.33L21.2 0H2.8z" fill="#1572B6" />
+    <path d="M12 21.16l5.94-1.65L19.4 2.1H12v19.06z" fill="#33A9DC" />
+    <path
+      d="M12 9.73H8.18l-.25-2.82h4.05V4.68H5.66l.06.66.66 7.36H12V9.73zM12 16.14l-.02.01-3.17-.86-.2-2.27H6.34l.4 4.45L12 18.86v-2.72z"
+      fill="#EBEBEB"
+    />
+    <path
+      d="M11.98 12.7v2.97h2.96l-.28 3.1-2.68.72v2.72l4.93-1.37.04-.42.56-6.32.06-.66.13-1.44H11.98V12.7z"
+      fill="#fff"
+    />
+  </svg>
+);
+
+const JavaScriptIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="24" height="24" fill="#F7DF1E" />
+    <path
+      d="M6.3 19.78l1.84-1.12c.36.63.68 1.16 1.46 1.16.74 0 1.22-.3 1.22-1.44V11.2h2.26v7.22c0 2.38-1.4 3.46-3.44 3.46-1.84 0-2.9-.96-3.44-2.1h.1zM14.82 19.5l1.84-1.06c.48.8 1.12 1.38 2.24 1.38.94 0 1.54-.48 1.54-1.12 0-.78-.62-1.06-1.66-1.52l-.58-.24c-1.64-.7-2.74-1.58-2.74-3.44 0-1.72 1.3-3.02 3.34-3.02 1.46 0 2.5.5 3.26 1.82l-1.78 1.14c-.4-.7-.82-.98-1.48-.98-.68 0-1.1.42-1.1.98 0 .68.44.96 1.44 1.38l.58.24c1.94.84 3.04 1.68 3.04 3.58 0 2.06-1.6 3.18-3.76 3.18-2.1 0-3.48-1.02-4.14-2.32h-.04z"
+      fill="#000"
+    />
+  </svg>
+);
+
+const ReactIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx="12" cy="12" r="12" fill="#20232A" />
+    <circle cx="12" cy="11.7" r="2.04" fill="#61DAFB" />
+    <ellipse
+      cx="12"
+      cy="11.7"
+      rx="7.2"
+      ry="2.76"
+      stroke="#61DAFB"
+      strokeWidth=".84"
+    />
+    <ellipse
+      cx="12"
+      cy="11.7"
+      rx="7.2"
+      ry="2.76"
+      stroke="#61DAFB"
+      strokeWidth=".84"
+      transform="rotate(60 12 11.7)"
+    />
+    <ellipse
+      cx="12"
+      cy="11.7"
+      rx="7.2"
+      ry="2.76"
+      stroke="#61DAFB"
+      strokeWidth=".84"
+      transform="rotate(120 12 11.7)"
+    />
+  </svg>
+);
+
+const TailwindIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="24" height="24" rx="4" fill="#0F172A" />
+    <path
+      d="M8 8.4c.8-3.2 2.8-4.8 6-4.8 4.8 0 5.4 3.6 7.8 4.2 1.6.4 3-.2 4.2-1.8-.8 3.2-2.8 4.8-6 4.8-4.8 0-5.4-3.6-7.8-4.2-1.6-.4-3 .2-4.2 1.8zM4 15.6c.8-3.2 2.8-4.8 6-4.8 4.8 0 5.4 3.6 7.8 4.2 1.6.4 3-.2 4.2-1.8-.8 3.2-2.8 4.8-6 4.8-4.8 0-5.4-3.6-7.8-4.2-1.6-.4-3 .2-4.2 1.8z"
+      fill="#38BDF8"
+      transform="scale(.5) translate(4 8)"
+    />
+  </svg>
+);
+
+const VSCodeIcon = () => (
+  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></g>
+    <g id="SVGRepo_iconCarrier">
+      {" "}
+      <path
+        d="M21.0016 3.11679C21.0016 2.23783 20.0175 2.23782 19.5801 2.34769C20.1924 1.86426 20.9105 1.98147 21.1656 2.12796L27.079 5.02747C27.6424 5.30375 27.9998 5.8786 27.9998 6.50857V25.5831C27.9998 26.2215 27.6329 26.8025 27.058 27.0743L21.4937 29.7054C21.1109 29.8701 20.2799 30.2767 19.5801 29.7053C20.4549 29.8702 20.9287 29.2476 21.0016 28.8264V3.11679Z"
+        fill="url(#paint0_linear_87_8101)"
+      ></path>{" "}
+      <path
+        d="M19.6512 2.3319C20.1154 2.24017 21.0018 2.28271 21.0018 3.11685V9.68254L3.07359 23.2453C2.76022 23.4824 2.3192 23.443 2.05229 23.1542L0.204532 21.1548C-0.0849358 20.8416 -0.0646824 20.3513 0.249624 20.0633L19.5802 2.34775L19.6512 2.3319Z"
+        fill="url(#paint1_linear_87_8101)"
+      ></path>{" "}
+      <path
+        d="M21.0018 22.3708L3.07359 8.80801C2.76022 8.57094 2.3192 8.61028 2.05229 8.8991L0.204532 10.8985C-0.0849358 11.2117 -0.0646824 11.702 0.249624 11.9901L19.5802 29.7056C20.455 29.8704 20.9289 29.2478 21.0018 28.8266V22.3708Z"
+        fill="url(#paint2_linear_87_8101)"
+      ></path>{" "}
+      <defs>
+        {" "}
+        <linearGradient
+          id="paint0_linear_87_8101"
+          x1="23.79"
+          y1="2"
+          x2="23.79"
+          y2="30"
+          gradientUnits="userSpaceOnUse"
+        >
+          {" "}
+          <stop stop-color="#32B5F1"></stop>{" "}
+          <stop offset="1" stop-color="#2B9FED"></stop>{" "}
+        </linearGradient>{" "}
+        <linearGradient
+          id="paint1_linear_87_8101"
+          x1="21.0018"
+          y1="5.53398"
+          x2="1.0217"
+          y2="22.3051"
+          gradientUnits="userSpaceOnUse"
+        >
+          {" "}
+          <stop stop-color="#0F6FB3"></stop>{" "}
+          <stop offset="0.270551" stop-color="#1279B7"></stop>{" "}
+          <stop offset="0.421376" stop-color="#1176B5"></stop>{" "}
+          <stop offset="0.618197" stop-color="#0E69AC"></stop>{" "}
+          <stop offset="0.855344" stop-color="#0F70AF"></stop>{" "}
+          <stop offset="1" stop-color="#0F6DAD"></stop>{" "}
+        </linearGradient>{" "}
+        <linearGradient
+          id="paint2_linear_87_8101"
+          x1="1.15522"
+          y1="9.98389"
+          x2="21.0791"
+          y2="26.4808"
+          gradientUnits="userSpaceOnUse"
+        >
+          {" "}
+          <stop stop-color="#1791D2"></stop>{" "}
+          <stop offset="1" stop-color="#1173C5"></stop>{" "}
+        </linearGradient>{" "}
+      </defs>{" "}
+    </g>
+  </svg>
+);
+
+const FramerIcon = () => (
+  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></g>
+    <g id="SVGRepo_iconCarrier">
+      {" "}
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M16 30C23.732 30 30 23.732 30 16C30 8.26801 23.732 2 16 2C8.26801 2 2 8.26801 2 16C2 23.732 8.26801 30 16 30Z"
+        fill="white"
+      ></path>{" "}
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M9 20.3335H16V27.0002L9 20.3335Z"
+        fill="#0055FF"
+      ></path>{" "}
+      <path d="M16 13.6665H9V20.3332H23L16 13.6665Z" fill="#00AAFF"></path>{" "}
+      <path d="M9 7L16 13.6667H23V7H9Z" fill="#88DDFF"></path>{" "}
+    </g>
+  </svg>
+);
+
+const NotionIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      width="24"
+      height="24"
+      rx="4"
+      fill="#fff"
+      stroke="#E0E0E0"
+      strokeWidth=".5"
+    />
+    <path
+      d="M5.54 4.26c.55.44.76.4 1.8.34l9.76-.58c.2 0 .04-.2-.04-.24l-1.62-1.16c-.32-.24-.74-.5-1.54-.44L4.72 3.06c-.52.04-.62.34-.4.56l1.22.64zm.58 2.18v10.28c0 .56.28.76.9.72l10.72-.62c.62-.04.7-.4.7-.84V5.76c0-.44-.18-.66-.56-.62l-11.2.64c-.42.04-.56.24-.56.66zm10.58.42c.06.3 0 .58-.3.62l-.52.1v7.58c-.44.24-.86.38-1.2.38-.56 0-.7-.18-1.12-.7l-3.42-5.38v5.2l1.06.24s0 .58-.82.58l-2.24.14c-.06-.14 0-.48.24-.54l.64-.18V9.08l-.88-.06c-.06-.3.1-.72.56-.76l2.42-.14 3.54 5.42V8.8l-.9-.1c-.06-.34.18-.6.54-.62l2.4-.12zM4.04 1.7L14.1.8c1.24-.1 1.56-.04 2.34.54l3.22 2.24c.54.38.7.5.7 1.02v15.14c0 .7-.26 1.1-1.16 1.16l-11.44.68c-.66.04-.98-.06-1.34-.5l-2.16-2.82c-.38-.52-.54-.9-.54-1.36V2.8c0-.6.26-1.06 1.16-1.12l-.84.02z"
+      fill="#000"
+    />
+  </svg>
+);
+
+const CorelDrawIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="24" height="24" rx="4" fill="#6FAC30" />
+    <path
+      d="M12 4C7.58 4 4 7.58 4 12s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 13.6c-3.09 0-5.6-2.51-5.6-5.6S8.91 6.4 12 6.4s5.6 2.51 5.6 5.6-2.51 5.6-5.6 5.6z"
+      fill="#fff"
+    />
+    <circle cx="12" cy="12" r="3" fill="#fff" />
+  </svg>
+);
+
+const GIMPIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="24" height="24" rx="4" fill="#584032" />
+    <circle cx="12" cy="10" r="5" fill="#8C6E56" />
+    <circle cx="12" cy="10" r="3.2" fill="#F9D67A" />
+    <circle cx="12" cy="10" r="1.6" fill="#584032" />
+    <path d="M10 15l2 5 2-5h-4z" fill="#8C6E56" />
+  </svg>
+);
+
+const AffinityDesignerIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="24" height="24" rx="4" fill="#1B72BE" />
+    <path d="M12 3.5L4.5 19h15L12 3.5zm0 4.5l4.2 8.4H7.8L12 8z" fill="#fff" />
+  </svg>
+);
+
+const AffinityPhotoIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="24" height="24" rx="4" fill="#7E4DD2" />
+    <circle cx="12" cy="12" r="6" stroke="#fff" strokeWidth="1.5" fill="none" />
+    <path
+      d="M12 6l2.6 4.5H12L9.4 6H12zm-6 6l2.6-4.5L11.2 12H6zm2.6 4.5L6 12h4.6l2.6 4.5H8.6zM12 18l-2.6-4.5H12l2.6 4.5H12zm6-6l-2.6 4.5L12.8 12H18zm-2.6-4.5L18 12h-4.6L10.8 7.5h4.6z"
+      fill="#fff"
+      fillOpacity=".7"
+    />
+  </svg>
+);
+
+const InVisionIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="24" height="24" rx="4" fill="#FF3366" />
+    <circle cx="9.6" cy="7.8" r="1.3" fill="#fff" />
+    <path
+      d="M8.2 10.4h2.8v7H8.2v-7zm4.5 0h2.6l.1.9c.5-.66 1.2-1.1 2.2-1.1 1.7 0 2.7 1.16 2.7 3.04v4.16h-2.8v-3.68c0-.86-.36-1.3-1.06-1.3-.72 0-1.14.5-1.14 1.34v3.64h-2.6V10.4z"
+      fill="#fff"
+    />
+  </svg>
+);
+
+const itemIconMap: Record<string, LucideIcon> = {
+  Billboards: Megaphone,
+  "Digital ads": Monitor,
+  "Magazines ads": BookOpen,
+  "Newspaper ads": Newspaper,
+  "Print ads": Printer,
+  "Retargeting ads": Target,
+  "Facebook ads": ThumbsUp,
+  "Google ads": Search,
+  "Animated ads": Play,
+  "Animated cover photos": Film,
+  "Animated logos": Sparkles,
+  "Animated graphics": Clapperboard,
+  Logos: Hexagon,
+  Wordmarks: Type,
+  Typography: ALargeSmall,
+  "Business cards": CreditCard,
+  Labels: Tag,
+  Letterheads: FileText,
+  Stationaries: PenTool,
+  Packaging: Package,
+  "Brand guidelines": BookMarked,
+  "Magazine covers": BookImage,
+  "Magazine internal pages": BookOpen,
+  "Booklets internal pages": BookText,
+  "Book covers": Book,
+  "Ebook internal pages": Tablet,
+  "Ebook covers": BookMarked,
+  "Character & Mascot": Drama,
+  "Custom illustrations": Paintbrush,
+  Icons: Shapes,
+  "Album art": Disc,
+  "Comic novels": MessageSquare,
+  "Concept art": Palette,
+  "Custom Infographics": BarChart3,
+  "Graphic novels": BookImage,
+  "Portraits & Caricatures": Frame,
+  "T-shirts": Shirt,
+  Tattoos: PenTool,
+  "Clothing & Apparel": Shirt,
+  Popsockets: Smartphone,
+  "Custom merch": Gift,
+  Mugs: Coffee,
+  "Bags & Totes": ShoppingBag,
+  Hats: Crown,
+  Hoodies: Shirt,
+  Pullovers: Shirt,
+  Tags: Tag,
+  "Greeting cards": Heart,
+  Presentations: Presentation,
+  Powerpoints: MonitorPlay,
+  "Slide decks": Layers,
+  Brochures: BookOpen,
+  "Email templates": Mail,
+  Infographics: BarChart3,
+  "Presentation & Pitch deck": MonitorPlay,
+  "Sales sheet": FileSpreadsheet,
+  Signage: Signpost,
+  "Email graphics": ImagePlus,
+  "Marketing graphics": TrendingUp,
+  "Greeting card": Heart,
+  "Custom tradeshow design": Store,
+  "Promotional items": Gift,
+  Flyers: FileText,
+  "Certificates & Awards": Award,
+  Invitation: MailOpen,
+  Catalogs: Book,
+  Menu: UtensilsCrossed,
+  "Post Card": Send,
+  Posters: Image,
+  Stickers: Sticker,
+  "Tradeshow banners": Flag,
+  "Step and repeat": Repeat,
+  "Restaurant menus": UtensilsCrossed,
+  "Retail bags": ShoppingBag,
+  "Rollup banners": ScrollText,
+  "Vehicle wrap": Car,
+  "Game designs": Gamepad2,
+  Mailers: Mail,
+  Coupons: Ticket,
+  Leaflets: Leaf,
+  "Youtube banner": Video,
+  "Youtube thumbnails": Video,
+  "Social media banners": Share2,
+  "Social media posts": MessageCircle,
+  "Instagram post": Aperture,
+  "Instagram story": Aperture,
+  "Twitch banner": Tv,
+  "Facebook cover photo": ThumbsUp,
+  "Facebook post": ThumbsUp,
+  "Facebook avatar": CircleUser,
+  "Linkedin banners": Briefcase,
+  "Linkedin posts": Briefcase,
+  "Twitter header": AtSign,
+  "Twitter banner": AtSign,
+  "App design": Smartphone,
+  "Landing pages": Layout,
+  "Website design": Globe,
+  "Web design - Ecommerce": ShoppingCart,
+  "Web design - Landing pages": LayoutDashboard,
+  "Web design - Shopify": Store,
+  "Web design - Squarespace": Square,
+  "Web design - Wix": Globe,
+  "Web design - Wordpress themes": Globe,
+  Wireframing: PenTool,
+  "UX/UI": MousePointerClick,
+  "UX/UI - Game interfaces": Gamepad2,
+  "UX/UI - Icons": Shapes,
+  "Blog graphics": FileImage,
+  "Hero images (for websites)": Image,
+  "Slider images": GalleryHorizontal,
+  "Photo edits": Camera,
+  "Podcast covers": Mic,
+  "Album cover": Disc,
+  "Custom projects": Wrench,
+  "Vectorized images": Spline,
+};
+
+function getItemIcon(name: string): LucideIcon {
+  return itemIconMap[name] || Shapes;
+}
+
+const ServiceIcon = ({ name }: { name: string }) => {
+  const Icon = getItemIcon(name);
+  return (
+    <span className={styles.squareBullet} aria-hidden="true">
+      <Icon size={16} strokeWidth={2.2} />
+    </span>
+  );
+};
 
 const sections: ServiceSection[] = [
   {
@@ -601,14 +1290,55 @@ const software = [
   { name: "Adobe Illustrator", icon: IllustratorIcon },
   { name: "Adobe InDesign", icon: InDesignIcon },
   { name: "Adobe XD", icon: XDIcon },
-  { name: "Microsoft PowerPoint", icon: PowerPointIcon },
-  { name: "Microsoft Word", icon: WordIcon },
-  { name: "Google Slides", icon: GoogleSlidesIcon },
-  { name: "Canva", icon: CanvaIcon },
+  { name: "After Effects", icon: AfterEffectsIcon },
+  { name: "Premiere Pro", icon: PremiereProIcon },
+  { name: "Lightroom", icon: LightroomIcon },
   { name: "Figma", icon: FigmaIcon },
+  { name: "Sketch", icon: SketchIcon },
+  { name: "Canva", icon: CanvaIcon },
+  { name: "Framer", icon: FramerIcon },
+  { name: "InVision", icon: InVisionIcon },
+  { name: "WordPress", icon: WordPressIcon },
+  { name: "Shopify", icon: ShopifyIcon },
+  { name: "Webflow", icon: WebflowIcon },
+  { name: "HTML5", icon: HTML5Icon },
+  { name: "CSS3", icon: CSS3Icon },
+  { name: "JavaScript", icon: JavaScriptIcon },
+  { name: "React", icon: ReactIcon },
+  { name: "Tailwind CSS", icon: TailwindIcon },
+  { name: "VS Code", icon: VSCodeIcon },
+  { name: "Notion", icon: NotionIcon },
+  { name: "MS PowerPoint", icon: PowerPointIcon },
+  { name: "MS Word", icon: WordIcon },
+  { name: "Google Slides", icon: GoogleSlidesIcon },
+  { name: "CorelDRAW", icon: CorelDrawIcon },
+  { name: "GIMP", icon: GIMPIcon },
+  { name: "Affinity Designer", icon: AffinityDesignerIcon },
+  { name: "Affinity Photo", icon: AffinityPhotoIcon },
 ];
 
 export default function ScopeOfServicePage() {
+  const [search, setSearch] = useState("");
+
+  const filteredSections = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return sections;
+    return sections
+      .map((section) => ({
+        ...section,
+        items: section.items.filter((item) => item.toLowerCase().includes(q)),
+      }))
+      .filter(
+        (section) =>
+          section.items.length > 0 || section.title.toLowerCase().includes(q),
+      );
+  }, [search]);
+
+  const totalResults = filteredSections.reduce(
+    (sum, s) => sum + s.items.length,
+    0,
+  );
+
   return (
     <div className={styles.page}>
       <Navbar />
@@ -616,20 +1346,65 @@ export default function ScopeOfServicePage() {
       <section className={styles.hero}>
         <div className={styles.heroInner}>
           <div className={styles.heroCopy}>
-            <h1>Scope of service</h1>
-            <p>WE CAN DO EVERYTHING YOU NEED</p>
-            <a href="#services-content" className={`${styles.readMoreBtn} u-iconSwapTrigger`}>
-              <span className={styles.readMoreLabel}>Read More</span>
-              <span className={`${styles.readMoreIcon} u-iconSwap`} aria-hidden="true">
-                <span className="u-iconSwap__a">
-                  <HiMiniArrowRight />
-                </span>
-                <span className="u-iconSwap__b">
-                  <HiMiniArrowRight />
-                </span>
-              </span>
-            </a>
+            <h1>
+              <VerticalCutReveal
+                splitBy="characters"
+                staggerDuration={0.025}
+                staggerFrom="first"
+                transition={{
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 21,
+                }}
+              >
+                {`WE CAN DO `}
+              </VerticalCutReveal>
+              <VerticalCutReveal
+                splitBy="characters"
+                staggerDuration={0.025}
+                staggerFrom="last"
+                reverse
+                transition={{
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 21,
+                }}
+              >
+                {`EVERYTHING`}
+              </VerticalCutReveal>
+              <VerticalCutReveal
+                splitBy="characters"
+                staggerDuration={0.025}
+                staggerFrom="last"
+                reverse
+                transition={{
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 21,
+                }}
+              >
+                {`YOU NEED`}
+              </VerticalCutReveal>
+            </h1>
           </div>
+
+          <a
+            href="#services-content"
+            className={`${styles.heroBottomBtn} u-iconSwapTrigger`}
+          >
+            <span className={styles.heroBottomBtnText}>and more</span>
+            <span
+              className={`${styles.heroBottomBtnIcon} u-iconSwap`}
+              aria-hidden="true"
+            >
+              <span className="u-iconSwap__a">
+                <HiMiniArrowDown />
+              </span>
+              <span className="u-iconSwap__b">
+                <HiMiniArrowDown />
+              </span>
+            </span>
+          </a>
         </div>
       </section>
 
@@ -637,8 +1412,29 @@ export default function ScopeOfServicePage() {
         <div className={styles.container}>
           <div className={styles.layout}>
             <section className={styles.contentArea}>
+              <div className={styles.searchWrap}>
+                <FiSearch className={styles.searchIcon} />
+                <input
+                  type="text"
+                  className={styles.searchInput}
+                  placeholder="Search services…"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+                {search && (
+                  <span className={styles.searchCount}>
+                    {totalResults} result{totalResults !== 1 && "s"}
+                  </span>
+                )}
+              </div>
+
               <div className={styles.contentCard}>
-                {sections.map((section) => (
+                {filteredSections.length === 0 && (
+                  <p className={styles.noResults}>
+                    No services found for &ldquo;{search}&rdquo;
+                  </p>
+                )}
+                {filteredSections.map((section) => (
                   <div key={section.title} className={styles.sectionBlock}>
                     <h2 className={styles.sectionTitle}>
                       {section.title} <span>({section.items.length})</span>
@@ -647,7 +1443,7 @@ export default function ScopeOfServicePage() {
                     <div className={styles.rows}>
                       {section.items.map((item) => (
                         <div key={item} className={styles.row}>
-                          <BrownSquareBullet />
+                          <ServiceIcon name={item} />
                           <span>{item}</span>
                         </div>
                       ))}

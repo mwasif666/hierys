@@ -1,4 +1,59 @@
+import { SERVICE_PAGE_PATH } from "@/lib/serviceRoute";
+
 export type NavCard = {
+  title: string;
+  href: string;
+};
+
+export type NavMegaTone = "blue" | "green" | "pink" | "ink" | "purple";
+
+export type NavMegaIcon =
+  | "wallet"
+  | "link"
+  | "globe"
+  | "handCoins"
+  | "layoutGrid"
+  | "network"
+  | "gift"
+  | "phone"
+  | "shield"
+  | "shoppingBag"
+  | "coins";
+
+export type NavMegaLink = {
+  title: string;
+  description: string;
+  href: string;
+  icon: NavMegaIcon;
+  tone: NavMegaTone;
+  external?: boolean;
+};
+
+export type NavMegaGroup = {
+  title?: string;
+  items: NavMegaLink[];
+};
+
+export type NavMegaColumn = {
+  groups: NavMegaGroup[];
+};
+
+export type NavTextMegaLink = {
+  title: string;
+  href: string;
+};
+
+export type NavTextMegaGroup = {
+  title: string;
+  items: NavTextMegaLink[];
+};
+
+export type NavTextMegaColumn = {
+  groups: NavTextMegaGroup[];
+};
+
+export type NavPromoCard = {
+  eyebrow: string;
   title: string;
   href: string;
 };
@@ -7,7 +62,10 @@ export type NavItem = {
   key: string;
   label: string;
   hoverLabel: string;
-  cards: NavCard[];
+  cards?: NavCard[];
+  megaColumns?: NavMegaColumn[];
+  textColumns?: NavTextMegaColumn[];
+  promoCard?: NavPromoCard;
 };
 
 export type HeroImageCard = {
@@ -172,13 +230,175 @@ export const NAV_ITEMS: NavItem[] = [
   {
     key: "service",
     label: "Services",
-    hoverLabel: "Services →",
-    cards: [],
+    hoverLabel: "Services ->",
+    megaColumns: [
+      {
+        groups: [
+          {
+            title: "Payments",
+            items: [
+              {
+                title: "Codapay",
+                description: "Unlock global payment coverage",
+                href: SERVICE_PAGE_PATH,
+                icon: "wallet",
+                tone: "blue",
+              },
+              {
+                title: "Coda Links",
+                description: "Your Comprehensive Link-Out Solution",
+                href: SERVICE_PAGE_PATH,
+                icon: "link",
+                tone: "blue",
+              },
+            ],
+          },
+          {
+            title: "Services",
+            items: [
+              {
+                title: "Marketing",
+                description: "Boost visibility, conversion and retention",
+                href: SERVICE_PAGE_PATH,
+                icon: "globe",
+                tone: "ink",
+              },
+              {
+                title: "Market Expansion",
+                description: "Grow your global footprint",
+                href: SERVICE_PAGE_PATH,
+                icon: "handCoins",
+                tone: "ink",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        groups: [
+          {
+            title: "Commerce & Rewards",
+            items: [
+              {
+                title: "Coda Webstore",
+                description: "Your webstore, your way",
+                href: SERVICE_PAGE_PATH,
+                icon: "layoutGrid",
+                tone: "green",
+              },
+              {
+                title: "Coda Distribution",
+                description: "Harness our partner network",
+                href: SERVICE_PAGE_PATH,
+                icon: "network",
+                tone: "pink",
+              },
+              {
+                title: "Giftcloud",
+                description: "Drive loyalty through digital rewards",
+                href: SERVICE_PAGE_PATH,
+                icon: "gift",
+                tone: "ink",
+                external: true,
+              },
+              {
+                title: "Recharge App",
+                description: "The App for instant top-ups worldwide",
+                href: SERVICE_PAGE_PATH,
+                icon: "phone",
+                tone: "ink",
+                external: true,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        groups: [
+          {
+            title: "Stores",
+            items: [
+              {
+                title: "Codashop",
+                description: "Our global store for digital content",
+                href: SERVICE_PAGE_PATH,
+                icon: "shield",
+                tone: "purple",
+              },
+              {
+                title: "Recharge.com",
+                description: "Our global store for all prepaid top-ups",
+                href: SERVICE_PAGE_PATH,
+                icon: "wallet",
+                tone: "purple",
+                external: true,
+              },
+              {
+                title: "Startselect.com",
+                description: "Our European digital gift and gaming cards store",
+                href: SERVICE_PAGE_PATH,
+                icon: "shoppingBag",
+                tone: "purple",
+                external: true,
+              },
+              {
+                title: "Guthaben.de",
+                description: "Our dedicated Germany & Austria store",
+                href: SERVICE_PAGE_PATH,
+                icon: "coins",
+                tone: "purple",
+                external: true,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        groups: [
+          {
+            items: [
+              {
+                title: "Beltegoed.nl",
+                description: "Our dedicated Netherlands store",
+                href: SERVICE_PAGE_PATH,
+                icon: "wallet",
+                tone: "purple",
+                external: true,
+              },
+              {
+                title: "Recharge.fr",
+                description: "Our dedicated France store",
+                href: SERVICE_PAGE_PATH,
+                icon: "wallet",
+                tone: "purple",
+                external: true,
+              },
+              {
+                title: "Mobiletopup.co.uk",
+                description: "Our dedicated UK store",
+                href: SERVICE_PAGE_PATH,
+                icon: "wallet",
+                tone: "purple",
+                external: true,
+              },
+              {
+                title: "Herladen.com",
+                description: "Our dedicated Benelux store",
+                href: SERVICE_PAGE_PATH,
+                icon: "wallet",
+                tone: "purple",
+                external: true,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     key: "work",
     label: "See Our Work",
-    hoverLabel: "See Our Work →",
+    hoverLabel: "See Our Work ->",
     cards: [
       { title: "Landing Pages", href: "#" },
       { title: "Campaign Visuals", href: "#" },
@@ -189,7 +409,7 @@ export const NAV_ITEMS: NavItem[] = [
   {
     key: "process",
     label: "How it Works",
-    hoverLabel: "How it Works →",
+    hoverLabel: "How it Works ->",
     cards: [
       { title: "Discovery", href: "#" },
       { title: "Creative Sprint", href: "#" },
@@ -200,7 +420,7 @@ export const NAV_ITEMS: NavItem[] = [
   {
     key: "why",
     label: "Why Choose Hierys",
-    hoverLabel: "Why Choose Hierys →",
+    hoverLabel: "Why Choose Hierys ->",
     cards: [
       { title: "Fast Turnarounds", href: "#" },
       { title: "High Taste", href: "#" },
@@ -211,13 +431,60 @@ export const NAV_ITEMS: NavItem[] = [
   {
     key: "faq",
     label: "Common Questions",
-    hoverLabel: "Common Questions →",
-    cards: [
-      { title: "Pricing", href: "#" },
-      { title: "Timelines", href: "#" },
-      { title: "Scope", href: "#" },
-      { title: "Communication", href: "#" },
+    hoverLabel: "Common Questions ->",
+    textColumns: [
+      {
+        groups: [
+          {
+            title: "GROW OUT-OF-APP COMMERCE",
+            items: [
+              { title: "Maximize Your Revenue", href: "#faq" },
+              { title: "Maximize Your Reach", href: "#faq" },
+            ],
+          },
+          {
+            title: "OFFER MORE WAYS TO PAY",
+            items: [
+              { title: "Accept Payments Everywhere", href: "#faq" },
+              { title: "Minimize Risk & Fraud", href: "#faq" },
+            ],
+          },
+        ],
+      },
+      {
+        groups: [
+          {
+            title: "EXPAND EFFORTLESSLY",
+            items: [
+              { title: "Operational Load Lifted", href: "#faq" },
+              { title: "Tax, risks & compliance handled", href: "#faq" },
+            ],
+          },
+          {
+            title: "GROW WITH CONTROL",
+            items: [
+              { title: "Stay In Control", href: "#faq" },
+              { title: "Stay True to Your Brand", href: "#faq" },
+            ],
+          },
+        ],
+      },
+      {
+        groups: [
+          {
+            title: "INDUSTRIES",
+            items: [
+              { title: "Mobile & Online Gaming Payments", href: "#faq" },
+            ],
+          },
+        ],
+      },
     ],
+    promoCard: {
+      eyebrow: "CODA PORTAL",
+      title: "Get started with Coda today",
+      href: "#faq",
+    },
   },
 ];
 
