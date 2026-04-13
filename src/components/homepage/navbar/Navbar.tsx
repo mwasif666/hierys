@@ -5,18 +5,32 @@ import React, {
   type MouseEvent as ReactMouseEvent,
 } from "react";
 import {
-  Coins,
-  Gift,
-  Globe,
-  HandCoins,
-  LayoutGrid,
-  Link2,
+  BadgeCheck,
+  BookOpenText,
+  BookMarked,
+  BrainCircuit,
+  CalendarDays,
+  ChartPie,
+  Clapperboard,
+  CirclePlay,
+  Component,
+  Database,
+  Goal,
+  Lightbulb,
+  Mail,
+  Megaphone,
+  Monitor,
+  PackageOpen,
+  Palette,
+  PenTool,
+  PencilLine,
+  Presentation,
+  Printer,
+  Share2,
+  Sparkles,
   type LucideIcon,
-  MonitorSmartphone,
-  Network,
-  ShieldCheck,
-  ShoppingBag,
-  WalletCards,
+  Video,
+  Workflow,
 } from "lucide-react";
 import {
   HiChevronDown,
@@ -34,6 +48,7 @@ import {
   NAV_ITEMS,
   type NavItem,
   type NavMegaLink,
+  type NavWorkLink,
   WHY_CHOOSE_CARDS,
   WORKFLOW_STEPS,
 } from "@/components/homepage/data/homepageData";
@@ -54,17 +69,35 @@ const cardVisual = (menuKey: string, title: string) =>
   `https://picsum.photos/seed/${encodeURIComponent(`hierys-${menuKey}-${title}`)}/900/560`;
 
 const serviceIcons: Record<NavMegaLink["icon"], LucideIcon> = {
-  wallet: WalletCards,
-  link: Link2,
-  globe: Globe,
-  handCoins: HandCoins,
-  layoutGrid: LayoutGrid,
-  network: Network,
-  gift: Gift,
-  phone: MonitorSmartphone,
-  shield: ShieldCheck,
-  shoppingBag: ShoppingBag,
-  coins: Coins,
+  adCreative: Megaphone,
+  socialCreative: Share2,
+  presentation: Presentation,
+  illustration: Palette,
+  branding: BadgeCheck,
+  ebookReport: BookOpenText,
+  concept: Lightbulb,
+  print: Printer,
+  packaging: PackageOpen,
+  video: Video,
+  motion: Clapperboard,
+  email: Mail,
+  web: Monitor,
+  designSystem: Component,
+  productDesign: PenTool,
+  copywriting: PencilLine,
+  aiCreative: Sparkles,
+  aiConsulting: BrainCircuit,
+  automation: Workflow,
+  data: Database,
+  campaign: Goal,
+};
+
+const workIcons: Record<NavWorkLink["icon"], LucideIcon> = {
+  event: CalendarDays,
+  guide: BookOpenText,
+  report: ChartPie,
+  videoLibrary: CirclePlay,
+  playbook: BookMarked,
 };
 
 const serviceToneClasses = {
@@ -105,7 +138,12 @@ const DESKTOP_CLOSE_DELAY_MS = 120;
 const MEGA_EXIT_DURATION_MS = 220;
 
 const itemHasDropdown = (item?: NavItem | null) =>
-  Boolean(item?.cards?.length || item?.megaColumns?.length || item?.textColumns?.length);
+  Boolean(
+    item?.cards?.length ||
+      item?.megaColumns?.length ||
+      item?.textColumns?.length ||
+      item?.workMega?.columns.length,
+  );
 
 const {
   stickerLabel: faqStickerLabel,
@@ -144,14 +182,23 @@ const positionMegaPanel = (
   const hasWideMenu = Boolean(
     activeItem.megaColumns?.length ||
       activeItem.textColumns?.length ||
+      activeItem.workMega?.columns.length ||
       activeItem.key === "process" ||
       activeItem.key === "why",
   );
-  const panelWidth = hasWideMenu
-    ? Math.min(1520, Math.max(700, slotWidth - 36))
-    : Math.min(920, Math.max(340, slotWidth - 36));
+  const isServiceMenu = activeItem.key === SERVICE_PAGE_KEY;
+  const maxAvailablePanelWidth = Math.max(340, slotWidth - 36);
+  const panelWidth = isServiceMenu
+    ? Math.min(1180, Math.max(860, slotWidth - 96), maxAvailablePanelWidth)
+    : hasWideMenu
+      ? Math.min(1520, Math.max(700, slotWidth - 36))
+      : Math.min(920, Math.max(340, slotWidth - 36));
 
-  let nextLeft = hasWideMenu ? slotLeft + 18 : targetRect.left - rootRect.left;
+  let nextLeft = isServiceMenu
+    ? slotLeft + Math.max(18, (slotWidth - panelWidth) / 2)
+    : hasWideMenu
+      ? slotLeft + 18
+      : targetRect.left - rootRect.left;
 
   nextLeft = Math.max(slotLeft + 18, nextLeft);
   nextLeft = Math.min(nextLeft, slotLeft + slotWidth - panelWidth - 18);
@@ -209,6 +256,7 @@ export default function Navbar() {
   useEffect(() => {
     const onDown = (event: MouseEvent) => {
       if (!rootRef.current) return;
+      if (!(event.target instanceof Node)) return;
       if (!rootRef.current.contains(event.target)) closeAll();
     };
 
@@ -324,8 +372,10 @@ export default function Navbar() {
   const megaVisible = !compactNav && itemHasDropdown(navItems.find((item) => item.key === openKey));
   const activeHasDirectory = Boolean(active?.megaColumns?.length);
   const activeHasTextMega = Boolean(active?.textColumns?.length);
+  const activeHasWorkMega = Boolean(active?.workMega?.columns.length);
   const activeHasProcessMega = active?.key === "process";
   const activeHasWhyMega = active?.key === "why";
+  const activePromoCard = active?.promoCard;
 
   const shouldHandleServiceNavigation = (event: ReactMouseEvent<HTMLElement>) =>
     event.button === 0 &&
@@ -451,7 +501,9 @@ export default function Navbar() {
                       hasDrop
                         ? openMenu(
                             item.key,
-                            event.currentTarget.closest(`.${styles.navItemWrap}`),
+                            event.currentTarget.closest<HTMLElement>(
+                              `.${styles.navItemWrap}`,
+                            ),
                           )
                         : setOpenKey(null)
                     }
@@ -530,6 +582,7 @@ export default function Navbar() {
                 activeHasProcessMega && styles.processMega,
                 activeHasWhyMega && styles.whyMega,
                 activeHasTextMega && styles.textMega,
+                activeHasWorkMega && styles.workMega,
               )}
               style={{ width: `${megaWidth}px` }}
             >
@@ -553,6 +606,81 @@ export default function Navbar() {
                         {card.description}
                       </p>
                     </article>
+                  ))}
+                </div>
+              ) : activeHasWorkMega ? (
+                <div className={styles.workMegaGrid}>
+                  {active.workMega?.columns.map((column) => (
+                    <section className={styles.workMegaColumn} key={column.title}>
+                      <a
+                        className={styles.workMegaTitle}
+                        href="#work-intro"
+                        onClick={(event) =>
+                          handleMenuLinkClick(event, "#work-intro")
+                        }
+                      >
+                        <span>{column.title}</span>
+                        <HiMiniArrowUpRight aria-hidden="true" />
+                      </a>
+
+                      {column.links ? (
+                        <div className={styles.workMegaLinks}>
+                          {column.links.map((link) => {
+                            const Icon = workIcons[link.icon];
+
+                            return (
+                              <a
+                                className={styles.workMegaLink}
+                                href={link.href}
+                                key={link.title}
+                                onClick={(event) =>
+                                  handleMenuLinkClick(event, link.href)
+                                }
+                              >
+                                <span className={styles.workMegaLinkBody}>
+                                  <span className={styles.workMegaLinkTitle}>
+                                    {link.title}
+                                  </span>
+                                  <span className={styles.workMegaLinkDescription}>
+                                    {link.description}
+                                  </span>
+                                </span>
+                                <span
+                                  className={styles.workMegaLinkIcon}
+                                  aria-hidden="true"
+                                >
+                                  <Icon />
+                                </span>
+                              </a>
+                            );
+                          })}
+                        </div>
+                      ) : null}
+
+                      {column.cards ? (
+                        <div className={styles.workMegaCards}>
+                          {column.cards.map((card) => (
+                            <a
+                              className={styles.workMegaCard}
+                              href={card.href}
+                              key={card.title}
+                              onClick={(event) =>
+                                handleMenuLinkClick(event, card.href)
+                              }
+                            >
+                              <img
+                                className={styles.workMegaCardImage}
+                                src={card.image}
+                                alt={card.alt}
+                              />
+                              <span className={styles.workMegaCardTitle}>
+                                {card.title}
+                              </span>
+                            </a>
+                          ))}
+                        </div>
+                      ) : null}
+                    </section>
                   ))}
                 </div>
               ) : activeHasProcessMega ? (
@@ -686,19 +814,19 @@ export default function Navbar() {
                       ))}
                     </div>
 
-                    {active.promoCard ? (
+                    {activePromoCard ? (
                       <a
                         className={styles.promoCard}
-                        href={active.promoCard.href}
+                        href={activePromoCard.href}
                         onClick={(event) =>
-                          handleMenuLinkClick(event, active.promoCard.href)
+                          handleMenuLinkClick(event, activePromoCard.href)
                         }
                       >
                         <span className={styles.promoEyebrow}>
-                          {active.promoCard.eyebrow}
+                          {activePromoCard.eyebrow}
                         </span>
                         <span className={styles.promoTitle}>
-                          {active.promoCard.title}
+                          {activePromoCard.title}
                         </span>
                         <span
                           className={cn(styles.promoOrb, styles.promoOrbPrimary)}
@@ -760,6 +888,12 @@ export default function Navbar() {
                                       <span className={styles.serviceLinkTitle}>
                                         {link.title}
                                       </span>
+
+                                      {link.badge ? (
+                                        <span className={styles.serviceBadge}>
+                                          {link.badge}
+                                        </span>
+                                      ) : null}
 
                                       {link.external ? (
                                         <span
@@ -855,14 +989,19 @@ export default function Navbar() {
             <div className={styles.drawerContent}>
               {navItems.map((item) => {
                 const hasDrop = Boolean(
-                  item.cards?.length || item.megaColumns?.length || item.textColumns?.length,
+                  item.cards?.length ||
+                    item.megaColumns?.length ||
+                    item.textColumns?.length ||
+                    item.workMega?.columns.length,
                 );
                 const hasDirectory = Boolean(item.megaColumns?.length);
                 const hasTextMega = Boolean(item.textColumns?.length);
+                const hasWorkMega = Boolean(item.workMega?.columns.length);
                 const hasProcessMega = item.key === "process";
                 const hasWhyMega = item.key === "why";
                 const isOpen = mobileKey === item.key;
                 const isServiceLink = item.key === SERVICE_PAGE_KEY;
+                const promoCard = item.promoCard;
 
                 if (!hasDrop) {
                   const navHref = isServiceLink ? SERVICE_PAGE_PATH : `#${item.key}`;
@@ -931,6 +1070,78 @@ export default function Navbar() {
                                 {card.description}
                               </p>
                             </article>
+                          ))}
+                        </div>
+                      ) : hasWorkMega ? (
+                        <div className={styles.mobileWorkPanel}>
+                          {item.workMega?.columns.map((column) => (
+                            <section
+                              className={styles.mobileWorkColumn}
+                              key={`mobile-work-${column.title}`}
+                            >
+                              <p className={styles.mobileWorkTitle}>
+                                {column.title}
+                              </p>
+
+                              {column.links ? (
+                                <div className={styles.mobileWorkLinks}>
+                                  {column.links.map((link) => {
+                                    const Icon = workIcons[link.icon];
+
+                                    return (
+                                      <a
+                                        className={styles.mobileWorkLink}
+                                        href={link.href}
+                                        key={link.title}
+                                        onClick={(event) =>
+                                          handleMenuLinkClick(event, link.href)
+                                        }
+                                      >
+                                        <span className={styles.mobileWorkLinkIcon}>
+                                          <Icon />
+                                        </span>
+                                        <span className={styles.mobileWorkLinkBody}>
+                                          <span className={styles.mobileWorkLinkTitle}>
+                                            {link.title}
+                                          </span>
+                                          <span
+                                            className={
+                                              styles.mobileWorkLinkDescription
+                                            }
+                                          >
+                                            {link.description}
+                                          </span>
+                                        </span>
+                                      </a>
+                                    );
+                                  })}
+                                </div>
+                              ) : null}
+
+                              {column.cards ? (
+                                <div className={styles.mobileWorkCards}>
+                                  {column.cards.map((card) => (
+                                    <a
+                                      className={styles.mobileWorkCard}
+                                      href={card.href}
+                                      key={card.title}
+                                      onClick={(event) =>
+                                        handleMenuLinkClick(event, card.href)
+                                      }
+                                    >
+                                      <img
+                                        className={styles.mobileWorkCardImage}
+                                        src={card.image}
+                                        alt={card.alt}
+                                      />
+                                      <span className={styles.mobileWorkCardTitle}>
+                                        {card.title}
+                                      </span>
+                                    </a>
+                                  ))}
+                                </div>
+                              ) : null}
+                            </section>
                           ))}
                         </div>
                       ) : hasProcessMega ? (
@@ -1077,19 +1288,19 @@ export default function Navbar() {
                               ))}
                             </div>
 
-                            {item.promoCard ? (
+                            {promoCard ? (
                               <a
                                 className={styles.mobilePromoCard}
-                                href={item.promoCard.href}
+                                href={promoCard.href}
                                 onClick={(event) =>
-                                  handleMenuLinkClick(event, item.promoCard.href)
+                                  handleMenuLinkClick(event, promoCard.href)
                                 }
                               >
                                 <span className={styles.promoEyebrow}>
-                                  {item.promoCard.eyebrow}
+                                  {promoCard.eyebrow}
                                 </span>
                                 <span className={styles.mobilePromoTitle}>
-                                  {item.promoCard.title}
+                                  {promoCard.title}
                                 </span>
                                 <span
                                   className={cn(styles.promoOrb, styles.promoOrbPrimary)}
@@ -1150,6 +1361,12 @@ export default function Navbar() {
                                               className={styles.mobileServiceTitleRow}
                                             >
                                               <span>{link.title}</span>
+
+                                              {link.badge ? (
+                                                <span className={styles.serviceBadge}>
+                                                  {link.badge}
+                                                </span>
+                                              ) : null}
 
                                               {link.external ? (
                                                 <span

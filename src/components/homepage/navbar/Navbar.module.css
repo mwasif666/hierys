@@ -277,7 +277,7 @@
 
 .serviceMegaGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr) minmax(0, 1.08fr) minmax(0, 0.92fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr) minmax(0, 1fr);
   gap: 28px;
 }
 
@@ -385,6 +385,22 @@
   place-items: center;
   color: #5c5449;
   font-size: 13px;
+  flex: 0 0 auto;
+}
+
+.serviceBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 18px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: rgba(17, 139, 86, 0.14);
+  color: #118b56;
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0.02em;
   flex: 0 0 auto;
 }
 
@@ -609,6 +625,144 @@
   line-height: 1.55;
 }
 
+.workMega {
+  background: #f7f1df;
+  border-radius: 30px;
+  border: 1px solid rgba(58, 42, 32, 0.08);
+  box-shadow: 0 26px 50px rgba(46, 32, 24, 0.14);
+  padding: 28px 30px;
+}
+
+.workMegaGrid {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.92fr) minmax(300px, 1fr) minmax(300px, 1fr);
+  gap: 26px;
+}
+
+.workMegaColumn {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.workMegaColumn + .workMegaColumn {
+  border-left: 1px solid rgba(58, 42, 32, 0.12);
+  padding-left: 26px;
+}
+
+.workMegaTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  color: #191411;
+  text-decoration: none;
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 500;
+}
+
+.workMegaTitle :global(svg) {
+  width: 13px;
+  height: 13px;
+  stroke-width: 1.9;
+}
+
+.workMegaLinks,
+.workMegaCards {
+  display: flex;
+  flex-direction: column;
+}
+
+.workMegaLink {
+  min-height: 70px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  color: #15110e;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(58, 42, 32, 0.12);
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+.workMegaLink:hover {
+  opacity: 0.78;
+  transform: translateX(2px);
+}
+
+.workMegaLinkBody {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.workMegaLinkTitle {
+  color: #15110e;
+  font-size: 15px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.workMegaLinkDescription {
+  color: #68706b;
+  font-size: 13px;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+.workMegaLinkIcon {
+  display: grid;
+  place-items: center;
+  color: #89908b;
+  flex: 0 0 auto;
+}
+
+.workMegaLinkIcon :global(svg) {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.7;
+}
+
+.workMegaCards {
+  gap: 24px;
+}
+
+.workMegaCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: #111;
+  text-decoration: none;
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+.workMegaCard:hover {
+  opacity: 0.86;
+  transform: translateY(-2px);
+}
+
+.workMegaCardImage {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 3px;
+  display: block;
+}
+
+.workMegaCardTitle {
+  color: #111;
+  font-size: 17px;
+  line-height: 1.42;
+  font-weight: 500;
+}
+
 .promoCard {
   position: relative;
   overflow: hidden;
@@ -736,7 +890,7 @@
   border-radius: 28px;
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 26px 50px rgba(19, 2, 8, 0.34);
-  padding: 28px 26px 24px;
+  padding: 28px 26px 80px;
 }
 
 .processMegaGrid {
@@ -748,33 +902,40 @@
 
 .processStep {
   min-width: 0;
+  opacity: 0.82;
+  transition: opacity 0.22s ease;
+}
+
+.processStep:hover {
+  opacity: 1;
 }
 
 .processIcon {
   position: relative;
-  width: 72px;
-  height: 72px;
-  border-radius: 18px;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
   background: #ef3f99;
   box-shadow: 0 12px 22px rgba(239, 63, 153, 0.16);
 }
 
 .processDot {
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
   border-radius: 999px;
   background: #25030d;
   transform: translate(-50%, -50%);
 }
 
 .processTitle {
-  margin: 16px 0 10px;
+  margin: 0;
+  padding: 18px 0 12px;
   display: flex;
   flex-direction: column;
   gap: 1px;
   color: #fff4e3;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 0.98;
   font-weight: 900;
   letter-spacing: -0.04em;
@@ -784,8 +945,8 @@
 .processDescription {
   margin: 0;
   color: #f1dfc8;
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 13px;
+  line-height: 1.55;
   font-style: italic;
   font-weight: 500;
 }
@@ -1162,6 +1323,108 @@
   font-size: 15px;
   line-height: 1.3;
   font-weight: 600;
+}
+
+.mobileWorkPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 10px 2px 2px;
+}
+
+.mobileWorkColumn {
+  border-radius: 14px;
+  border: 1px solid rgba(10, 42, 120, 0.08);
+  background: #fff;
+  padding: 12px;
+}
+
+.mobileWorkTitle {
+  margin: 0 0 10px;
+  color: #7f7568;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.mobileWorkLinks,
+.mobileWorkCards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobileWorkLink {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: #221813;
+  text-decoration: none;
+  border-radius: 12px;
+  padding: 6px;
+  margin: 0 -6px;
+}
+
+.mobileWorkLinkIcon {
+  width: 26px;
+  height: 26px;
+  border-radius: 9px;
+  border: 1px solid rgba(58, 42, 32, 0.14);
+  display: grid;
+  place-items: center;
+  color: #89908b;
+  flex: 0 0 auto;
+}
+
+.mobileWorkLinkIcon :global(svg) {
+  width: 15px;
+  height: 15px;
+  stroke-width: 1.8;
+}
+
+.mobileWorkLinkBody {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.mobileWorkLinkTitle {
+  color: #191411;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.mobileWorkLinkDescription {
+  color: #5f594f;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.mobileWorkCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #191411;
+  text-decoration: none;
+}
+
+.mobileWorkCardImage {
+  width: 100%;
+  height: 118px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+.mobileWorkCardTitle {
+  color: #191411;
+  font-size: 14px;
+  line-height: 1.35;
+  font-weight: 700;
 }
 
 .mobileFaqPanel {

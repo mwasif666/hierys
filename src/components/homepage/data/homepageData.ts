@@ -5,20 +5,61 @@ export type NavCard = {
   href: string;
 };
 
+export type NavWorkLinkIcon =
+  | "event"
+  | "guide"
+  | "report"
+  | "videoLibrary"
+  | "playbook";
+
+export type NavWorkLink = {
+  title: string;
+  description: string;
+  href: string;
+  icon: NavWorkLinkIcon;
+};
+
+export type NavWorkFeatureCard = {
+  title: string;
+  href: string;
+  image: string;
+  alt: string;
+};
+
+export type NavWorkMegaColumn = {
+  title: string;
+  links?: NavWorkLink[];
+  cards?: NavWorkFeatureCard[];
+};
+
+export type NavWorkMega = {
+  columns: NavWorkMegaColumn[];
+};
+
 export type NavMegaTone = "blue" | "green" | "pink" | "ink" | "purple";
 
 export type NavMegaIcon =
-  | "wallet"
-  | "link"
-  | "globe"
-  | "handCoins"
-  | "layoutGrid"
-  | "network"
-  | "gift"
-  | "phone"
-  | "shield"
-  | "shoppingBag"
-  | "coins";
+  | "adCreative"
+  | "socialCreative"
+  | "presentation"
+  | "illustration"
+  | "branding"
+  | "ebookReport"
+  | "concept"
+  | "print"
+  | "packaging"
+  | "video"
+  | "motion"
+  | "email"
+  | "web"
+  | "designSystem"
+  | "productDesign"
+  | "copywriting"
+  | "aiCreative"
+  | "aiConsulting"
+  | "automation"
+  | "data"
+  | "campaign";
 
 export type NavMegaLink = {
   title: string;
@@ -26,6 +67,7 @@ export type NavMegaLink = {
   href: string;
   icon: NavMegaIcon;
   tone: NavMegaTone;
+  badge?: "New";
   external?: boolean;
 };
 
@@ -65,6 +107,7 @@ export type NavItem = {
   cards?: NavCard[];
   megaColumns?: NavMegaColumn[];
   textColumns?: NavTextMegaColumn[];
+  workMega?: NavWorkMega;
   promoCard?: NavPromoCard;
 };
 
@@ -235,40 +278,70 @@ export const NAV_ITEMS: NavItem[] = [
       {
         groups: [
           {
-            title: "Payments",
+            title: "Creative design services",
             items: [
               {
-                title: "Codapay",
-                description: "Unlock global payment coverage",
+                title: "Ad creative",
+                description: "Eye-catching designs that perform",
                 href: SERVICE_PAGE_PATH,
-                icon: "wallet",
+                icon: "adCreative",
                 tone: "blue",
               },
               {
-                title: "Coda Links",
-                description: "Your Comprehensive Link-Out Solution",
+                title: "Social media creative",
+                description: "Engaging assets for all platforms",
                 href: SERVICE_PAGE_PATH,
-                icon: "link",
+                icon: "socialCreative",
                 tone: "blue",
               },
-            ],
-          },
-          {
-            title: "Services",
-            items: [
               {
-                title: "Marketing",
-                description: "Boost visibility, conversion and retention",
+                title: "Presentation design",
+                description: "Captivating slides that tell your story",
                 href: SERVICE_PAGE_PATH,
-                icon: "globe",
-                tone: "ink",
+                icon: "presentation",
+                tone: "blue",
               },
               {
-                title: "Market Expansion",
-                description: "Grow your global footprint",
+                title: "Illustration design",
+                description: "Visual storytelling for your brand",
                 href: SERVICE_PAGE_PATH,
-                icon: "handCoins",
-                tone: "ink",
+                icon: "illustration",
+                tone: "blue",
+              },
+              {
+                title: "Branding services",
+                description: "Expertise & custom design services",
+                href: SERVICE_PAGE_PATH,
+                icon: "branding",
+                tone: "blue",
+              },
+              {
+                title: "eBooks & report design",
+                description: "Your digital content supercharged",
+                href: SERVICE_PAGE_PATH,
+                icon: "ebookReport",
+                tone: "blue",
+              },
+              {
+                title: "Concept creation",
+                description: "Big ideas crafted for maximum impact",
+                href: SERVICE_PAGE_PATH,
+                icon: "concept",
+                tone: "blue",
+              },
+              {
+                title: "Print design",
+                description: "Tangible designs that leave a lasting impression",
+                href: SERVICE_PAGE_PATH,
+                icon: "print",
+                tone: "blue",
+              },
+              {
+                title: "Packaging & merchandise design",
+                description: "Bring your brand to life",
+                href: SERVICE_PAGE_PATH,
+                icon: "packaging",
+                tone: "blue",
               },
             ],
           },
@@ -277,117 +350,112 @@ export const NAV_ITEMS: NavItem[] = [
       {
         groups: [
           {
-            title: "Commerce & Rewards",
+            title: "Specialized production services",
             items: [
               {
-                title: "Coda Webstore",
-                description: "Your webstore, your way",
+                title: "Video production",
+                description: "Effortless video production at scale",
                 href: SERVICE_PAGE_PATH,
-                icon: "layoutGrid",
+                icon: "video",
                 tone: "green",
               },
               {
-                title: "Coda Distribution",
-                description: "Harness our partner network",
+                title: "Motion design",
+                description: "For websites, ads, and presentations",
                 href: SERVICE_PAGE_PATH,
-                icon: "network",
+                icon: "motion",
+                tone: "green",
+              },
+              {
+                title: "Email creation",
+                description: "Click-worthy emails that drive engagement",
+                href: SERVICE_PAGE_PATH,
+                icon: "email",
+                tone: "green",
+              },
+              {
+                title: "Web design",
+                description: "Stunning websites and landing pages built to engage",
+                href: SERVICE_PAGE_PATH,
+                icon: "web",
+                tone: "green",
+              },
+              {
+                title: "Design Systems",
+                description: "Robust design systems that drive visual consistency",
+                href: SERVICE_PAGE_PATH,
+                icon: "designSystem",
+                tone: "green",
+                badge: "New",
+              },
+              {
+                title: "Product Design",
+                description: "Engaging & intuitive experiences",
+                href: SERVICE_PAGE_PATH,
+                icon: "productDesign",
+                tone: "green",
+                badge: "New",
+              },
+              {
+                title: "Copywriting",
+                description: "Persuasive words for clarity and action",
+                href: SERVICE_PAGE_PATH,
+                icon: "copywriting",
+                tone: "green",
+                badge: "New",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        groups: [
+          {
+            title: "AI services",
+            items: [
+              {
+                title: "AI-powered creative",
+                description: "Human brilliance powered by AI",
+                href: SERVICE_PAGE_PATH,
+                icon: "aiCreative",
+                tone: "purple",
+              },
+              {
+                title: "AI consulting",
+                description: "Transform your team with AI",
+                href: SERVICE_PAGE_PATH,
+                icon: "aiConsulting",
+                tone: "purple",
+              },
+              {
+                title: "Automation",
+                description: "Move fast without compromising craft",
+                href: SERVICE_PAGE_PATH,
+                icon: "automation",
+                tone: "purple",
+                badge: "New",
+              },
+              {
+                title: "Data services",
+                description: "Train your AI with creative data",
+                href: SERVICE_PAGE_PATH,
+                icon: "data",
+                tone: "purple",
+                badge: "New",
+              },
+            ],
+          },
+          {
+            title: "Marketing services",
+            items: [
+              {
+                title: "Campaign strategy",
+                description:
+                  "Strategy, messaging, and concept for multi-market campaigns",
+                href: SERVICE_PAGE_PATH,
+                icon: "campaign",
                 tone: "pink",
-              },
-              {
-                title: "Giftcloud",
-                description: "Drive loyalty through digital rewards",
-                href: SERVICE_PAGE_PATH,
-                icon: "gift",
-                tone: "ink",
-                external: true,
-              },
-              {
-                title: "Recharge App",
-                description: "The App for instant top-ups worldwide",
-                href: SERVICE_PAGE_PATH,
-                icon: "phone",
-                tone: "ink",
-                external: true,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        groups: [
-          {
-            title: "Stores",
-            items: [
-              {
-                title: "Codashop",
-                description: "Our global store for digital content",
-                href: SERVICE_PAGE_PATH,
-                icon: "shield",
-                tone: "purple",
-              },
-              {
-                title: "Recharge.com",
-                description: "Our global store for all prepaid top-ups",
-                href: SERVICE_PAGE_PATH,
-                icon: "wallet",
-                tone: "purple",
-                external: true,
-              },
-              {
-                title: "Startselect.com",
-                description: "Our European digital gift and gaming cards store",
-                href: SERVICE_PAGE_PATH,
-                icon: "shoppingBag",
-                tone: "purple",
-                external: true,
-              },
-              {
-                title: "Guthaben.de",
-                description: "Our dedicated Germany & Austria store",
-                href: SERVICE_PAGE_PATH,
-                icon: "coins",
-                tone: "purple",
-                external: true,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        groups: [
-          {
-            items: [
-              {
-                title: "Beltegoed.nl",
-                description: "Our dedicated Netherlands store",
-                href: SERVICE_PAGE_PATH,
-                icon: "wallet",
-                tone: "purple",
-                external: true,
-              },
-              {
-                title: "Recharge.fr",
-                description: "Our dedicated France store",
-                href: SERVICE_PAGE_PATH,
-                icon: "wallet",
-                tone: "purple",
-                external: true,
-              },
-              {
-                title: "Mobiletopup.co.uk",
-                description: "Our dedicated UK store",
-                href: SERVICE_PAGE_PATH,
-                icon: "wallet",
-                tone: "purple",
-                external: true,
-              },
-              {
-                title: "Herladen.com",
-                description: "Our dedicated Benelux store",
-                href: SERVICE_PAGE_PATH,
-                icon: "wallet",
-                tone: "purple",
-                external: true,
+                badge: "New",
               },
             ],
           },
@@ -399,12 +467,86 @@ export const NAV_ITEMS: NavItem[] = [
     key: "work",
     label: "See Our Work",
     hoverLabel: "See Our Work ->",
-    cards: [
-      { title: "Landing Pages", href: "#" },
-      { title: "Campaign Visuals", href: "#" },
-      { title: "Brand Systems", href: "#" },
-      { title: "Decks & Launches", href: "#" },
-    ],
+    workMega: {
+      columns: [
+        {
+          title: "Learning Center",
+          links: [
+            {
+              title: "Events & summits",
+              description: "Our upcoming events and recordings",
+              href: "#work-intro",
+              icon: "event",
+            },
+            {
+              title: "Guides",
+              description: "Insights from marketing leaders",
+              href: "#work-intro",
+              icon: "guide",
+            },
+            {
+              title: "Reports",
+              description: "Data for smarter decisions",
+              href: "#work-intro",
+              icon: "report",
+            },
+            {
+              title: "Video library",
+              description: "Superside's latest videos",
+              href: "#work-intro",
+              icon: "videoLibrary",
+            },
+            {
+              title: "Playbooks",
+              description: "Quick ways to step up your game",
+              href: "#work-intro",
+              icon: "playbook",
+            },
+          ],
+        },
+        {
+          title: "Blog",
+          cards: [
+            {
+              title:
+                "The hidden AI features inside your favorite marketing & design tools",
+              href: "#work-intro",
+              image:
+                "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80",
+              alt: "Workspace with a laptop for marketing and design tools",
+            },
+            {
+              title:
+                "From AI uncertainty to creative superpower: 6 lessons from Superside's Shift summit",
+              href: "#work-intro",
+              image:
+                "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80",
+              alt: "Creative campaign portrait on a bright blue background",
+            },
+          ],
+        },
+        {
+          title: "Customer Stories",
+          cards: [
+            {
+              title:
+                "\"Superside really helped us solidify our approach towards AI.\" How Vimeo transformed their creative workflows.",
+              href: "#work-intro",
+              image:
+                "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80",
+              alt: "Team discussion for a creative customer story",
+            },
+            {
+              title: "How a Fortune 500 doubled their AI adoption",
+              href: "#work-intro",
+              image:
+                "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=80",
+              alt: "Business team working together in a meeting",
+            },
+          ],
+        },
+      ],
+    },
   },
   {
     key: "process",
