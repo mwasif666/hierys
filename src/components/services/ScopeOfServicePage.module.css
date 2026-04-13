@@ -338,144 +338,84 @@ a {
   place-items: center;
 }
 
-.row:nth-child(28n + 1) {
-  --serviceIconBg: #3f1729;
-  --serviceIconColor: #ff2f97;
+.rowTone1 {
+  --serviceIconBg: #42121f;
+  --serviceIconColor: #ff3f99;
 }
 
-.row:nth-child(28n + 2) {
-  --serviceIconBg: #ff2f97;
-  --serviceIconColor: #3f1729;
+.rowTone2 {
+  --serviceIconBg: #ff3f99;
+  --serviceIconColor: #42121f;
 }
 
-.row:nth-child(28n + 3) {
-  --serviceIconBg: #ff74ba;
-  --serviceIconColor: #3f1729;
+.rowTone3 {
+  --serviceIconBg: #083f2a;
+  --serviceIconColor: #27e58d;
 }
 
-.row:nth-child(28n + 4) {
-  --serviceIconBg: #ffc0de;
-  --serviceIconColor: #3f1729;
+.rowTone4 {
+  --serviceIconBg: #83efc1;
+  --serviceIconColor: #083f2a;
 }
 
-.row:nth-child(28n + 5) {
-  --serviceIconBg: #003f28;
-  --serviceIconColor: #00e979;
+.rowTone5 {
+  --serviceIconBg: #162f68;
+  --serviceIconColor: #67d4ff;
 }
 
-.row:nth-child(28n + 6) {
-  --serviceIconBg: #00d86f;
-  --serviceIconColor: #003f28;
-}
-
-.row:nth-child(28n + 7) {
-  --serviceIconBg: #73e7bb;
-  --serviceIconColor: #003f28;
-}
-
-.row:nth-child(28n + 8) {
-  --serviceIconBg: #c8f4e2;
-  --serviceIconColor: #003f28;
-}
-
-.row:nth-child(28n + 9) {
-  --serviceIconBg: #303611;
-  --serviceIconColor: #d8ff3f;
-}
-
-.row:nth-child(28n + 10) {
-  --serviceIconBg: #d8ff3f;
-  --serviceIconColor: #303611;
-}
-
-.row:nth-child(28n + 11) {
-  --serviceIconBg: #e7ff85;
-  --serviceIconColor: #303611;
-}
-
-.row:nth-child(28n + 12) {
-  --serviceIconBg: #f3f8cf;
-  --serviceIconColor: #303611;
-}
-
-.row:nth-child(28n + 13) {
-  --serviceIconBg: #3f104b;
-  --serviceIconColor: #ba6cff;
-}
-
-.row:nth-child(28n + 14) {
-  --serviceIconBg: #ba6cff;
-  --serviceIconColor: #3f104b;
-}
-
-.row:nth-child(28n + 15) {
-  --serviceIconBg: #cf8eff;
-  --serviceIconColor: #3f104b;
-}
-
-.row:nth-child(28n + 16) {
-  --serviceIconBg: #eed7ff;
-  --serviceIconColor: #3f104b;
-}
-
-.row:nth-child(28n + 17) {
-  --serviceIconBg: #4b170f;
-  --serviceIconColor: #ff604c;
-}
-
-.row:nth-child(28n + 18) {
-  --serviceIconBg: #ff604c;
-  --serviceIconColor: #4b170f;
-}
-
-.row:nth-child(28n + 19) {
-  --serviceIconBg: #ff8a75;
-  --serviceIconColor: #4b170f;
-}
-
-.row:nth-child(28n + 20) {
-  --serviceIconBg: #ffd2c7;
-  --serviceIconColor: #4b170f;
-}
-
-.row:nth-child(28n + 21) {
-  --serviceIconBg: #050505;
-  --serviceIconColor: #ffffff;
-}
-
-.row:nth-child(28n + 22) {
-  --serviceIconBg: #222222;
-  --serviceIconColor: #ffffff;
-}
-
-.row:nth-child(28n + 23) {
-  --serviceIconBg: #f2f4f3;
-  --serviceIconColor: #050505;
-}
-
-.row:nth-child(28n + 24) {
-  --serviceIconBg: #ffffff;
-  --serviceIconColor: #050505;
-}
-
-.row:nth-child(28n + 25) {
-  --serviceIconBg: #003f51;
-  --serviceIconColor: #007cff;
-}
-
-.row:nth-child(28n + 26) {
-  --serviceIconBg: #007cff;
-  --serviceIconColor: #003f51;
-}
-
-.row:nth-child(28n + 27) {
-  --serviceIconBg: #61c7ff;
-  --serviceIconColor: #003f51;
-}
-
-.row:nth-child(28n) {
+.rowTone6 {
   --serviceIconBg: #d4f0ff;
   --serviceIconColor: #003f51;
+}
+
+.rowTone7 {
+  --serviceIconBg: #41266e;
+  --serviceIconColor: #d08cff;
+}
+
+.rowTone8 {
+  --serviceIconBg: #e8c9ff;
+  --serviceIconColor: #3f104b;
+}
+
+.rowTone9 {
+  --serviceIconBg: #4f1c12;
+  --serviceIconColor: #ff725f;
+}
+
+.rowTone10 {
+  --serviceIconBg: #ffd2c7;
+  --serviceIconColor: #4f1c12;
+}
+
+.rowTone11 {
+  --serviceIconBg: #22320f;
+  --serviceIconColor: #d7ff54;
+}
+
+.rowTone12 {
+  --serviceIconBg: #eef8b8;
+  --serviceIconColor: #22320f;
+}
+
+.rowTone13 {
+  --serviceIconBg: #0a2f3b;
+  --serviceIconColor: #0fa8ff;
+}
+
+.rowTone14 {
+  --serviceIconBg: #62c8ff;
+  --serviceIconColor: #0a2f3b;
+}
+
+.rowTone15 {
+  --serviceIconBg: #3a143e;
+  --serviceIconColor: #ef6dff;
+}
+
+.rowTone16 {
+  --serviceIconBg: #2c2d33;
+  --serviceIconColor: #ffffff;
 }
 
 .sidebar {

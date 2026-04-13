@@ -1098,8 +1098,9 @@ function getItemIcon(name: string): LucideIcon {
   return itemIconMap[name] || Shapes;
 }
 
-const ServiceIcon = ({ name }: { name: string }) => {
-  const Icon = getItemIcon(name);
+const SERVICE_ICON_TONE_COUNT = 16;
+
+const ServiceIcon = ({ Icon }: { Icon: LucideIcon }) => {
   return (
     <span className={styles.squareBullet} aria-hidden="true">
       <Icon size={16} strokeWidth={2.2} />
@@ -1441,12 +1442,25 @@ export default function ScopeOfServicePage() {
                     </h2>
 
                     <div className={styles.rows}>
-                      {section.items.map((item) => (
-                        <div key={item} className={styles.row}>
-                          <ServiceIcon name={item} />
-                          <span>{item}</span>
-                        </div>
-                      ))}
+                      {section.items.map((item, itemIndex) => {
+                        const Icon = getItemIcon(item);
+
+                        return (
+                          <div
+                            key={item}
+                            className={`${styles.row} ${
+                              styles[
+                                `rowTone${
+                                  (itemIndex % SERVICE_ICON_TONE_COUNT) + 1
+                                }` as keyof typeof styles
+                              ]
+                            }`}
+                          >
+                            <ServiceIcon Icon={Icon} />
+                            <span>{item}</span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 ))}
