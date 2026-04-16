@@ -1098,6 +1098,73 @@ function getItemIcon(name: string): LucideIcon {
   return itemIconMap[name] || Shapes;
 }
 
+const itemThumbnailMap: Record<string, string> = {
+  Billboards:
+    "https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=240&h=140&fit=crop&auto=format&q=80",
+  "Digital ads":
+    "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=240&h=140&fit=crop&auto=format&q=80",
+  "Magazines ads":
+    "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?w=240&h=140&fit=crop&auto=format&q=80",
+  "Facebook ads":
+    "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=240&h=140&fit=crop&auto=format&q=80",
+  "Animated ads":
+    "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?w=240&h=140&fit=crop&auto=format&q=80",
+  "Animated cover photos":
+    "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=240&h=140&fit=crop&auto=format&q=80",
+  Logos:
+    "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=240&h=140&fit=crop&auto=format&q=80",
+  Packaging:
+    "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=240&h=140&fit=crop&auto=format&q=80",
+  "Video ads":
+    "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=240&h=140&fit=crop&auto=format&q=80",
+  "Story videos":
+    "https://images.unsplash.com/photo-1536240478700-b869070f9279?w=240&h=140&fit=crop&auto=format&q=80",
+  "Campaign videos":
+    "https://images.unsplash.com/photo-1574717024453-35405615f081?w=240&h=140&fit=crop&auto=format&q=80",
+  "Infographic videos":
+    "https://images.unsplash.com/photo-1551281044-8f1d7f940d7a?w=240&h=140&fit=crop&auto=format&q=80",
+  "Design audits":
+    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=240&h=140&fit=crop&auto=format&q=80",
+  "Website banners":
+    "https://images.unsplash.com/photo-1547658719-da2b51169166?w=240&h=140&fit=crop&auto=format&q=80",
+  "Social media templates":
+    "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=240&h=140&fit=crop&auto=format&q=80",
+  "Email campaigns":
+    "https://images.unsplash.com/photo-1557200134-90327ee9fafa?w=240&h=140&fit=crop&auto=format&q=80",
+  "Blog graphics":
+    "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=240&h=140&fit=crop&auto=format&q=80",
+  "Product labels":
+    "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=240&h=140&fit=crop&auto=format&q=80",
+  "LinkedIn posts":
+    "https://images.unsplash.com/photo-1611944212129-29977ae1398c?w=240&h=140&fit=crop&auto=format&q=80",
+  "Instagram carousel":
+    "https://images.unsplash.com/photo-1611262588019-db6cc2032da3?w=240&h=140&fit=crop&auto=format&q=80",
+  "Twitter graphics":
+    "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=240&h=140&fit=crop&auto=format&q=80",
+  "Event invitation":
+    "https://images.unsplash.com/photo-1511578314322-379afb476865?w=240&h=140&fit=crop&auto=format&q=80",
+  "Presentation design":
+    "https://images.unsplash.com/photo-1552664730-d307ca884978?w=240&h=140&fit=crop&auto=format&q=80",
+  "Campaign concept":
+    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=240&h=140&fit=crop&auto=format&q=80",
+  "Hero images (for websites)":
+    "https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=240&h=140&fit=crop&auto=format&q=80",
+  "App screenshots":
+    "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=240&h=140&fit=crop&auto=format&q=80",
+  "UI kit assets":
+    "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=240&h=140&fit=crop&auto=format&q=80",
+  "Ebook cover design":
+    "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=240&h=140&fit=crop&auto=format&q=80",
+  "Podcast covers":
+    "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=240&h=140&fit=crop&auto=format&q=80",
+  "Album cover":
+    "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=240&h=140&fit=crop&auto=format&q=80",
+};
+
+function getItemThumbnail(name: string): string | null {
+  return itemThumbnailMap[name] ?? null;
+}
+
 const SERVICE_ICON_TONE_COUNT = 16;
 
 const ServiceIcon = ({ Icon }: { Icon: LucideIcon }) => {
@@ -1444,6 +1511,7 @@ export default function ScopeOfServicePage() {
                     <div className={styles.rows}>
                       {section.items.map((item, itemIndex) => {
                         const Icon = getItemIcon(item);
+                        const thumbnail = getItemThumbnail(item);
 
                         return (
                           <div
@@ -1456,7 +1524,16 @@ export default function ScopeOfServicePage() {
                               ]
                             }`}
                           >
-                            <ServiceIcon Icon={Icon} />
+                            {thumbnail ? (
+                              <img
+                                className={styles.rowThumb}
+                                src={thumbnail}
+                                alt={item}
+                                loading="lazy"
+                              />
+                            ) : (
+                              <ServiceIcon Icon={Icon} />
+                            )}
                             <span>{item}</span>
                           </div>
                         );

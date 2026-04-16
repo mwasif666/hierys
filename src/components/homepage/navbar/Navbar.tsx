@@ -58,6 +58,8 @@ import {
   SERVICE_PAGE_PATH,
   navigateToHomepage,
   navigateToServicePage,
+  isInnerServicePath,
+  navigateToInnerService,
 } from "@/lib/serviceRoute";
 import { cn } from "@/lib/utils";
 
@@ -140,9 +142,9 @@ const MEGA_EXIT_DURATION_MS = 220;
 const itemHasDropdown = (item?: NavItem | null) =>
   Boolean(
     item?.cards?.length ||
-      item?.megaColumns?.length ||
-      item?.textColumns?.length ||
-      item?.workMega?.columns.length,
+    item?.megaColumns?.length ||
+    item?.textColumns?.length ||
+    item?.workMega?.columns.length,
   );
 
 const {
@@ -181,10 +183,10 @@ const positionMegaPanel = (
   const slotWidth = wrapRect.width;
   const hasWideMenu = Boolean(
     activeItem.megaColumns?.length ||
-      activeItem.textColumns?.length ||
-      activeItem.workMega?.columns.length ||
-      activeItem.key === "process" ||
-      activeItem.key === "why",
+    activeItem.textColumns?.length ||
+    activeItem.workMega?.columns.length ||
+    activeItem.key === "process" ||
+    activeItem.key === "why",
   );
   const isServiceMenu = activeItem.key === SERVICE_PAGE_KEY;
   const maxAvailablePanelWidth = Math.max(340, slotWidth - 36);
@@ -354,7 +356,10 @@ export default function Navbar() {
 
   const scheduleClose = () => {
     clearScheduledClose();
-    closeTimer.current = setTimeout(() => setOpenKey(null), DESKTOP_CLOSE_DELAY_MS);
+    closeTimer.current = setTimeout(
+      () => setOpenKey(null),
+      DESKTOP_CLOSE_DELAY_MS,
+    );
   };
 
   const handleDesktopHoverLeave = (event: ReactMouseEvent<HTMLElement>) => {
@@ -369,7 +374,9 @@ export default function Navbar() {
   const displayedKey = openKey ?? renderedKey;
   const active = navItems.find((item) => item.key === displayedKey);
   const activeHasMenu = !compactNav && itemHasDropdown(active);
-  const megaVisible = !compactNav && itemHasDropdown(navItems.find((item) => item.key === openKey));
+  const megaVisible =
+    !compactNav &&
+    itemHasDropdown(navItems.find((item) => item.key === openKey));
   const activeHasDirectory = Boolean(active?.megaColumns?.length);
   const activeHasTextMega = Boolean(active?.textColumns?.length);
   const activeHasWorkMega = Boolean(active?.workMega?.columns.length);
@@ -412,6 +419,15 @@ export default function Navbar() {
   ) => {
     if (href === SERVICE_PAGE_PATH) {
       handleServiceNavigation(event);
+      return;
+    }
+
+    if (isInnerServicePath(href)) {
+      if (!shouldHandleServiceNavigation(event)) return;
+      event.preventDefault();
+      closeAll();
+      setMobileOpen(false);
+      navigateToInnerService(href);
       return;
     }
 
@@ -462,8 +478,9 @@ export default function Navbar() {
               const hasDrop = itemHasDropdown(item);
               const isOpen = openKey === item.key;
               const isServiceLink = item.key === SERVICE_PAGE_KEY;
-              const navHref =
-                isServiceLink ? SERVICE_PAGE_PATH : `#${item.key}`;
+              const navHref = isServiceLink
+                ? SERVICE_PAGE_PATH
+                : `#${item.key}`;
 
               return (
                 <div
@@ -509,7 +526,9 @@ export default function Navbar() {
                     }
                   >
                     <span className={styles.pillTextSwap}>
-                      <span className={styles.pillTextPrimary}>{item.label}</span>
+                      <span className={styles.pillTextPrimary}>
+                        {item.label}
+                      </span>
                       <span className={styles.pillTextSecondary}>
                         {item.hoverLabel}
                       </span>
@@ -611,7 +630,10 @@ export default function Navbar() {
               ) : activeHasWorkMega ? (
                 <div className={styles.workMegaGrid}>
                   {active.workMega?.columns.map((column) => (
-                    <section className={styles.workMegaColumn} key={column.title}>
+                    <section
+                      className={styles.workMegaColumn}
+                      key={column.title}
+                    >
                       <a
                         className={styles.workMegaTitle}
                         href="#work-intro"
@@ -641,7 +663,9 @@ export default function Navbar() {
                                   <span className={styles.workMegaLinkTitle}>
                                     {link.title}
                                   </span>
-                                  <span className={styles.workMegaLinkDescription}>
+                                  <span
+                                    className={styles.workMegaLinkDescription}
+                                  >
                                     {link.description}
                                   </span>
                                 </span>
@@ -710,7 +734,9 @@ export default function Navbar() {
                         ))}
                       </h3>
 
-                      <p className={styles.processDescription}>{step.description}</p>
+                      <p className={styles.processDescription}>
+                        {step.description}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -718,7 +744,9 @@ export default function Navbar() {
                 active.key === "faq" ? (
                   <div className={styles.faqMegaGrid}>
                     <div className={styles.faqMegaIntro}>
-                      <span className={styles.faqMegaSticker}>{faqStickerLabel}</span>
+                      <span className={styles.faqMegaSticker}>
+                        {faqStickerLabel}
+                      </span>
                       <h3 className={styles.faqMegaHeading}>
                         {faqHeadingLines.map((line) => (
                           <span key={`faq-heading-${line}`}>{line}</span>
@@ -736,7 +764,10 @@ export default function Navbar() {
                             const isOpen = faqOpenIndex === index;
 
                             return (
-                              <article className={styles.faqItem} key={faqItem.question}>
+                              <article
+                                className={styles.faqItem}
+                                key={faqItem.question}
+                              >
                                 <button
                                   type="button"
                                   aria-expanded={isOpen}
@@ -757,8 +788,12 @@ export default function Navbar() {
                                     )}
                                     aria-hidden="true"
                                   >
-                                    <span className={styles.faqMarkerLineHorizontal} />
-                                    <span className={styles.faqMarkerLineVertical} />
+                                    <span
+                                      className={styles.faqMarkerLineHorizontal}
+                                    />
+                                    <span
+                                      className={styles.faqMarkerLineVertical}
+                                    />
                                   </span>
                                 </button>
 
@@ -769,7 +804,9 @@ export default function Navbar() {
                                   )}
                                 >
                                   <div className={styles.faqAnswerInner}>
-                                    <p className={styles.faqAnswer}>{faqItem.answer}</p>
+                                    <p className={styles.faqAnswer}>
+                                      {faqItem.answer}
+                                    </p>
                                   </div>
                                 </div>
                               </article>
@@ -792,7 +829,9 @@ export default function Navbar() {
                               key={`${active.key}-text-group-${columnIndex}-${groupIndex}`}
                               className={styles.textGroup}
                             >
-                              <p className={styles.textGroupTitle}>{group.title}</p>
+                              <p className={styles.textGroupTitle}>
+                                {group.title}
+                              </p>
 
                               <div className={styles.textLinks}>
                                 {group.items.map((link) => (
@@ -829,15 +868,24 @@ export default function Navbar() {
                           {activePromoCard.title}
                         </span>
                         <span
-                          className={cn(styles.promoOrb, styles.promoOrbPrimary)}
+                          className={cn(
+                            styles.promoOrb,
+                            styles.promoOrbPrimary,
+                          )}
                           aria-hidden="true"
                         />
                         <span
-                          className={cn(styles.promoOrb, styles.promoOrbSecondary)}
+                          className={cn(
+                            styles.promoOrb,
+                            styles.promoOrbSecondary,
+                          )}
                           aria-hidden="true"
                         />
                         <span
-                          className={cn(styles.promoOrb, styles.promoOrbTertiary)}
+                          className={cn(
+                            styles.promoOrb,
+                            styles.promoOrbTertiary,
+                          )}
                           aria-hidden="true"
                         />
                       </a>
@@ -857,7 +905,9 @@ export default function Navbar() {
                           className={styles.serviceGroup}
                         >
                           {group.title ? (
-                            <p className={styles.serviceGroupTitle}>{group.title}</p>
+                            <p className={styles.serviceGroupTitle}>
+                              {group.title}
+                            </p>
                           ) : null}
 
                           <div className={styles.serviceLinks}>
@@ -884,7 +934,9 @@ export default function Navbar() {
                                   </span>
 
                                   <span className={styles.serviceLinkBody}>
-                                    <span className={styles.serviceLinkTitleRow}>
+                                    <span
+                                      className={styles.serviceLinkTitleRow}
+                                    >
                                       <span className={styles.serviceLinkTitle}>
                                         {link.title}
                                       </span>
@@ -905,7 +957,9 @@ export default function Navbar() {
                                       ) : null}
                                     </span>
 
-                                    <span className={styles.serviceLinkDescription}>
+                                    <span
+                                      className={styles.serviceLinkDescription}
+                                    >
                                       {link.description}
                                     </span>
                                   </span>
@@ -921,10 +975,18 @@ export default function Navbar() {
               ) : (
                 <div className={styles.grid}>
                   {active.cards?.map((card) => (
-                    <a key={card.title} className={styles.card} href={card.href || "#"}>
-                      <div className={cn(styles.cardThumb, "u-iconSwapTrigger")}>
+                    <a
+                      key={card.title}
+                      className={styles.card}
+                      href={card.href || "#"}
+                    >
+                      <div
+                        className={cn(styles.cardThumb, "u-iconSwapTrigger")}
+                      >
                         <span className={styles.cardArrow} aria-hidden="true">
-                          <span className={cn(styles.cardArrowIcon, "u-iconSwap")}>
+                          <span
+                            className={cn(styles.cardArrowIcon, "u-iconSwap")}
+                          >
                             <span className="u-iconSwap__a">
                               <HiMiniArrowUpRight />
                             </span>
@@ -990,9 +1052,9 @@ export default function Navbar() {
               {navItems.map((item) => {
                 const hasDrop = Boolean(
                   item.cards?.length ||
-                    item.megaColumns?.length ||
-                    item.textColumns?.length ||
-                    item.workMega?.columns.length,
+                  item.megaColumns?.length ||
+                  item.textColumns?.length ||
+                  item.workMega?.columns.length,
                 );
                 const hasDirectory = Boolean(item.megaColumns?.length);
                 const hasTextMega = Boolean(item.textColumns?.length);
@@ -1004,7 +1066,9 @@ export default function Navbar() {
                 const promoCard = item.promoCard;
 
                 if (!hasDrop) {
-                  const navHref = isServiceLink ? SERVICE_PAGE_PATH : `#${item.key}`;
+                  const navHref = isServiceLink
+                    ? SERVICE_PAGE_PATH
+                    : `#${item.key}`;
                   return (
                     <a
                       key={item.key}
@@ -1097,11 +1161,19 @@ export default function Navbar() {
                                           handleMenuLinkClick(event, link.href)
                                         }
                                       >
-                                        <span className={styles.mobileWorkLinkIcon}>
+                                        <span
+                                          className={styles.mobileWorkLinkIcon}
+                                        >
                                           <Icon />
                                         </span>
-                                        <span className={styles.mobileWorkLinkBody}>
-                                          <span className={styles.mobileWorkLinkTitle}>
+                                        <span
+                                          className={styles.mobileWorkLinkBody}
+                                        >
+                                          <span
+                                            className={
+                                              styles.mobileWorkLinkTitle
+                                            }
+                                          >
                                             {link.title}
                                           </span>
                                           <span
@@ -1134,7 +1206,9 @@ export default function Navbar() {
                                         src={card.image}
                                         alt={card.alt}
                                       />
-                                      <span className={styles.mobileWorkCardTitle}>
+                                      <span
+                                        className={styles.mobileWorkCardTitle}
+                                      >
                                         {card.title}
                                       </span>
                                     </a>
@@ -1158,16 +1232,18 @@ export default function Navbar() {
                                 )}
                                 aria-hidden="true"
                               >
-                                {PROCESS_STEP_DOTS[index]?.map((dot, dotIndex) => (
-                                  <span
-                                    key={`mobile-process-dot-${index}-${dotIndex}`}
-                                    className={cn(
-                                      styles.processDot,
-                                      styles.mobileProcessDot,
-                                    )}
-                                    style={{ top: dot.top, left: dot.left }}
-                                  />
-                                ))}
+                                {PROCESS_STEP_DOTS[index]?.map(
+                                  (dot, dotIndex) => (
+                                    <span
+                                      key={`mobile-process-dot-${index}-${dotIndex}`}
+                                      className={cn(
+                                        styles.processDot,
+                                        styles.mobileProcessDot,
+                                      )}
+                                      style={{ top: dot.top, left: dot.left }}
+                                    />
+                                  ),
+                                )}
                               </div>
 
                               <div className={styles.mobileProcessBody}>
@@ -1191,10 +1267,14 @@ export default function Navbar() {
                         item.key === "faq" ? (
                           <div className={styles.mobileFaqPanel}>
                             <div className={styles.mobileFaqIntro}>
-                              <span className={styles.faqMegaSticker}>{faqStickerLabel}</span>
+                              <span className={styles.faqMegaSticker}>
+                                {faqStickerLabel}
+                              </span>
                               <h3 className={styles.mobileFaqHeading}>
                                 {faqHeadingLines.map((line) => (
-                                  <span key={`mobile-faq-heading-${line}`}>{line}</span>
+                                  <span key={`mobile-faq-heading-${line}`}>
+                                    {line}
+                                  </span>
                                 ))}
                               </h3>
                             </div>
@@ -1228,8 +1308,16 @@ export default function Navbar() {
                                         )}
                                         aria-hidden="true"
                                       >
-                                        <span className={styles.faqMarkerLineHorizontal} />
-                                        <span className={styles.faqMarkerLineVertical} />
+                                        <span
+                                          className={
+                                            styles.faqMarkerLineHorizontal
+                                          }
+                                        />
+                                        <span
+                                          className={
+                                            styles.faqMarkerLineVertical
+                                          }
+                                        />
                                       </span>
                                     </button>
 
@@ -1249,7 +1337,6 @@ export default function Navbar() {
                                 );
                               })}
                             </div>
-
                           </div>
                         ) : (
                           <div className={styles.mobileTextPanel}>
@@ -1264,7 +1351,9 @@ export default function Navbar() {
                                       key={`${item.key}-mobile-text-group-${columnIndex}-${groupIndex}`}
                                       className={styles.mobileTextGroup}
                                     >
-                                      <p className={styles.mobileTextGroupTitle}>
+                                      <p
+                                        className={styles.mobileTextGroupTitle}
+                                      >
                                         {group.title}
                                       </p>
 
@@ -1275,7 +1364,10 @@ export default function Navbar() {
                                             className={styles.mobileTextLink}
                                             href={link.href}
                                             onClick={(event) =>
-                                              handleMenuLinkClick(event, link.href)
+                                              handleMenuLinkClick(
+                                                event,
+                                                link.href,
+                                              )
                                             }
                                           >
                                             {link.title}
@@ -1303,11 +1395,17 @@ export default function Navbar() {
                                   {promoCard.title}
                                 </span>
                                 <span
-                                  className={cn(styles.promoOrb, styles.promoOrbPrimary)}
+                                  className={cn(
+                                    styles.promoOrb,
+                                    styles.promoOrbPrimary,
+                                  )}
                                   aria-hidden="true"
                                 />
                                 <span
-                                  className={cn(styles.promoOrb, styles.promoOrbSecondary)}
+                                  className={cn(
+                                    styles.promoOrb,
+                                    styles.promoOrbSecondary,
+                                  )}
                                   aria-hidden="true"
                                 />
                               </a>
@@ -1327,7 +1425,9 @@ export default function Navbar() {
                                   className={styles.mobileServiceGroup}
                                 >
                                   {group.title ? (
-                                    <p className={styles.mobileServiceGroupTitle}>
+                                    <p
+                                      className={styles.mobileServiceGroupTitle}
+                                    >
                                       {group.title}
                                     </p>
                                   ) : null}
@@ -1342,35 +1442,50 @@ export default function Navbar() {
                                           className={styles.mobileServiceLink}
                                           href={link.href}
                                           onClick={(event) =>
-                                            handleMenuLinkClick(event, link.href)
+                                            handleMenuLinkClick(
+                                              event,
+                                              link.href,
+                                            )
                                           }
                                         >
                                           <span
                                             className={cn(
                                               styles.serviceIcon,
                                               styles.mobileServiceIcon,
-                                              styles[serviceToneClasses[link.tone]],
+                                              styles[
+                                                serviceToneClasses[link.tone]
+                                              ],
                                             )}
                                             aria-hidden="true"
                                           >
                                             <Icon />
                                           </span>
 
-                                          <span className={styles.mobileServiceBody}>
+                                          <span
+                                            className={styles.mobileServiceBody}
+                                          >
                                             <span
-                                              className={styles.mobileServiceTitleRow}
+                                              className={
+                                                styles.mobileServiceTitleRow
+                                              }
                                             >
                                               <span>{link.title}</span>
 
                                               {link.badge ? (
-                                                <span className={styles.serviceBadge}>
+                                                <span
+                                                  className={
+                                                    styles.serviceBadge
+                                                  }
+                                                >
                                                   {link.badge}
                                                 </span>
                                               ) : null}
 
                                               {link.external ? (
                                                 <span
-                                                  className={styles.serviceExternal}
+                                                  className={
+                                                    styles.serviceExternal
+                                                  }
                                                   aria-hidden="true"
                                                 >
                                                   <HiMiniArrowUpRight />
@@ -1379,7 +1494,9 @@ export default function Navbar() {
                                             </span>
 
                                             <span
-                                              className={styles.mobileServiceDescription}
+                                              className={
+                                                styles.mobileServiceDescription
+                                              }
                                             >
                                               {link.description}
                                             </span>
@@ -1398,13 +1515,19 @@ export default function Navbar() {
                           {item.cards?.map((card) => (
                             <a
                               key={card.title}
-                              className={cn(styles.mobileCard, "u-iconSwapTrigger")}
+                              className={cn(
+                                styles.mobileCard,
+                                "u-iconSwapTrigger",
+                              )}
                               href={card.href || "#"}
                               onClick={() => setMobileOpen(false)}
                             >
                               <div className={styles.mobileCardTop}>
                                 <span
-                                  className={cn(styles.mobileCardArrow, "u-iconSwap")}
+                                  className={cn(
+                                    styles.mobileCardArrow,
+                                    "u-iconSwap",
+                                  )}
                                   aria-hidden="true"
                                 >
                                   <span className="u-iconSwap__a">
@@ -1433,7 +1556,10 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(false)}
               >
                 <span>Start A Project</span>
-                <span className={cn(styles.mobileCtaIcon, "u-iconSwap")} aria-hidden="true">
+                <span
+                  className={cn(styles.mobileCtaIcon, "u-iconSwap")}
+                  aria-hidden="true"
+                >
                   <span className="u-iconSwap__a">
                     <HiMiniArrowUpRight />
                   </span>

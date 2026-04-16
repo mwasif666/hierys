@@ -1,4 +1,7 @@
-import { SERVICE_PAGE_PATH } from "@/lib/serviceRoute";
+import {
+  SERVICE_PAGE_PATH,
+  buildInnerServicePath,
+} from "@/lib/serviceRoute";
 
 export type NavCard = {
   title: string;
@@ -283,63 +286,63 @@ export const NAV_ITEMS: NavItem[] = [
               {
                 title: "Ad creative",
                 description: "Eye-catching designs that perform",
-                href: SERVICE_PAGE_PATH,
+                href: buildInnerServicePath("Ad creative"),
                 icon: "adCreative",
                 tone: "blue",
               },
               {
                 title: "Social media creative",
                 description: "Engaging assets for all platforms",
-                href: SERVICE_PAGE_PATH,
+                href: buildInnerServicePath("Social media creative"),
                 icon: "socialCreative",
                 tone: "blue",
               },
               {
                 title: "Presentation design",
                 description: "Captivating slides that tell your story",
-                href: SERVICE_PAGE_PATH,
+                href: buildInnerServicePath("Presentation design"),
                 icon: "presentation",
                 tone: "blue",
               },
               {
                 title: "Illustration design",
                 description: "Visual storytelling for your brand",
-                href: SERVICE_PAGE_PATH,
+                href: buildInnerServicePath("Illustration design"),
                 icon: "illustration",
                 tone: "blue",
               },
               {
                 title: "Branding services",
                 description: "Expertise & custom design services",
-                href: SERVICE_PAGE_PATH,
+                href: buildInnerServicePath("Branding services"),
                 icon: "branding",
                 tone: "blue",
               },
               {
                 title: "eBooks & report design",
                 description: "Your digital content supercharged",
-                href: SERVICE_PAGE_PATH,
+                href: buildInnerServicePath("eBooks & report design"),
                 icon: "ebookReport",
                 tone: "blue",
               },
               {
                 title: "Concept creation",
                 description: "Big ideas crafted for maximum impact",
-                href: SERVICE_PAGE_PATH,
+                href: buildInnerServicePath("Concept creation"),
                 icon: "concept",
                 tone: "blue",
               },
               {
                 title: "Print design",
                 description: "Tangible designs that leave a lasting impression",
-                href: SERVICE_PAGE_PATH,
+                href: buildInnerServicePath("Print design"),
                 icon: "print",
                 tone: "blue",
               },
               {
                 title: "Packaging & merchandise design",
                 description: "Bring your brand to life",
-                href: SERVICE_PAGE_PATH,
+                href: buildInnerServicePath("Packaging & merchandise design"),
                 icon: "packaging",
                 tone: "blue",
               },
@@ -355,35 +358,37 @@ export const NAV_ITEMS: NavItem[] = [
               {
                 title: "Video production",
                 description: "Effortless video production at scale",
-                href: SERVICE_PAGE_PATH,
+                href: buildInnerServicePath("Video production"),
                 icon: "video",
                 tone: "green",
               },
               {
                 title: "Motion design",
                 description: "For websites, ads, and presentations",
-                href: SERVICE_PAGE_PATH,
+                href: buildInnerServicePath("Motion design"),
                 icon: "motion",
                 tone: "green",
               },
               {
                 title: "Email creation",
                 description: "Click-worthy emails that drive engagement",
-                href: SERVICE_PAGE_PATH,
+                href: buildInnerServicePath("Email creation"),
                 icon: "email",
                 tone: "green",
               },
               {
                 title: "Web design",
-                description: "Stunning websites and landing pages built to engage",
-                href: SERVICE_PAGE_PATH,
+                description:
+                  "Stunning websites and landing pages built to engage",
+                href: buildInnerServicePath("Web design"),
                 icon: "web",
                 tone: "green",
               },
               {
                 title: "Design Systems",
-                description: "Robust design systems that drive visual consistency",
-                href: SERVICE_PAGE_PATH,
+                description:
+                  "Robust design systems that drive visual consistency",
+                href: buildInnerServicePath("Design Systems"),
                 icon: "designSystem",
                 tone: "green",
                 badge: "New",
@@ -391,7 +396,7 @@ export const NAV_ITEMS: NavItem[] = [
               {
                 title: "Product Design",
                 description: "Engaging & intuitive experiences",
-                href: SERVICE_PAGE_PATH,
+                href: buildInnerServicePath("Product Design"),
                 icon: "productDesign",
                 tone: "green",
                 badge: "New",
@@ -399,7 +404,7 @@ export const NAV_ITEMS: NavItem[] = [
               {
                 title: "Copywriting",
                 description: "Persuasive words for clarity and action",
-                href: SERVICE_PAGE_PATH,
+                href: buildInnerServicePath("Copywriting"),
                 icon: "copywriting",
                 tone: "green",
                 badge: "New",
@@ -416,21 +421,21 @@ export const NAV_ITEMS: NavItem[] = [
               {
                 title: "AI-powered creative",
                 description: "Human brilliance powered by AI",
-                href: SERVICE_PAGE_PATH,
+                href: buildInnerServicePath("AI-powered creative"),
                 icon: "aiCreative",
                 tone: "purple",
               },
               {
                 title: "AI consulting",
                 description: "Transform your team with AI",
-                href: SERVICE_PAGE_PATH,
+                href: buildInnerServicePath("AI consulting"),
                 icon: "aiConsulting",
                 tone: "purple",
               },
               {
                 title: "Automation",
                 description: "Move fast without compromising craft",
-                href: SERVICE_PAGE_PATH,
+                href: buildInnerServicePath("Automation"),
                 icon: "automation",
                 tone: "purple",
                 badge: "New",
@@ -438,7 +443,7 @@ export const NAV_ITEMS: NavItem[] = [
               {
                 title: "Data services",
                 description: "Train your AI with creative data",
-                href: SERVICE_PAGE_PATH,
+                href: buildInnerServicePath("Data services"),
                 icon: "data",
                 tone: "purple",
                 badge: "New",
@@ -452,7 +457,7 @@ export const NAV_ITEMS: NavItem[] = [
                 title: "Campaign strategy",
                 description:
                   "Strategy, messaging, and concept for multi-market campaigns",
-                href: SERVICE_PAGE_PATH,
+                href: buildInnerServicePath("Campaign strategy"),
                 icon: "campaign",
                 tone: "pink",
                 badge: "New",
@@ -530,7 +535,7 @@ export const NAV_ITEMS: NavItem[] = [
           cards: [
             {
               title:
-                "\"Superside really helped us solidify our approach towards AI.\" How Vimeo transformed their creative workflows.",
+                '"Superside really helped us solidify our approach towards AI." How Vimeo transformed their creative workflows.',
               href: "#work-intro",
               image:
                 "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80",
@@ -615,9 +620,7 @@ export const NAV_ITEMS: NavItem[] = [
         groups: [
           {
             title: "INDUSTRIES",
-            items: [
-              { title: "Mobile & Online Gaming Payments", href: "#faq" },
-            ],
+            items: [{ title: "Mobile & Online Gaming Payments", href: "#faq" }],
           },
         ],
       },

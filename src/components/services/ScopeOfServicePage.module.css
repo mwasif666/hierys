@@ -245,7 +245,9 @@ a {
   font-family: var(--font-display);
   color: var(--text);
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .searchInput::placeholder {
@@ -306,116 +308,122 @@ a {
 .rows {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px 14px;
 }
 
 .row {
   width: fit-content;
-  padding: 10px 20px 10px 10px;
-  border-radius: 10px;
-  background: var(--softRow);
+  padding: 8px 18px 8px 10px;
+  border-radius: 22px;
+  background: var(--rowBg, #f3f6f9);
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  color: #2d2d2d;
-  font-size: clamp(14px, 1vw, 16px);
-  line-height: 1.35;
-  transition: background 0.15s ease;
-}
-
-.row:hover {
-  background: #ede8df;
+  color: var(--rowText, #1d2a32);
+  font-size: clamp(18px, 1.4vw, 20px);
+  font-weight: 500;
+  line-height: 1.05;
+  border: 1px solid rgba(11, 23, 31, 0.14);
+  min-height: 56px;
 }
 
 .squareBullet {
-  width: 32px;
-  height: 32px;
+  width: 38px;
+  height: 38px;
   border-radius: 8px;
-  background: var(--serviceIconBg, #3f1729);
-  color: var(--serviceIconColor, #ff2f97);
-  flex: 0 0 32px;
+  background: rgba(8, 30, 40, 0.86);
+  color: #e6f0f4;
+  flex: 0 0 38px;
   display: inline-grid;
   place-items: center;
 }
 
 .rowTone1 {
-  --serviceIconBg: #42121f;
-  --serviceIconColor: #ff3f99;
+  --rowBg: #ff4aa3;
+  --rowText: #2a0f1d;
 }
 
 .rowTone2 {
-  --serviceIconBg: #ff3f99;
-  --serviceIconColor: #42121f;
+  --rowBg: #0f2430;
+  --rowText: #f4fcff;
 }
 
 .rowTone3 {
-  --serviceIconBg: #083f2a;
-  --serviceIconColor: #27e58d;
+  --rowBg: #00e48f;
+  --rowText: #083224;
 }
 
 .rowTone4 {
-  --serviceIconBg: #83efc1;
-  --serviceIconColor: #083f2a;
+  --rowBg: #bfffee;
+  --rowText: #10353a;
 }
 
 .rowTone5 {
-  --serviceIconBg: #162f68;
-  --serviceIconColor: #67d4ff;
+  --rowBg: #d7ef57;
+  --rowText: #26300d;
 }
 
 .rowTone6 {
-  --serviceIconBg: #d4f0ff;
-  --serviceIconColor: #003f51;
+  --rowBg: #24172a;
+  --rowText: #efe8f7;
 }
 
 .rowTone7 {
-  --serviceIconBg: #41266e;
-  --serviceIconColor: #d08cff;
+  --rowBg: #b283ff;
+  --rowText: #2b163f;
 }
 
 .rowTone8 {
-  --serviceIconBg: #e8c9ff;
-  --serviceIconColor: #3f104b;
+  --rowBg: #d5bbff;
+  --rowText: #28143f;
 }
 
 .rowTone9 {
-  --serviceIconBg: #4f1c12;
-  --serviceIconColor: #ff725f;
+  --rowBg: #ff6838;
+  --rowText: #35160f;
 }
 
 .rowTone10 {
-  --serviceIconBg: #ffd2c7;
-  --serviceIconColor: #4f1c12;
+  --rowBg: #ffe4dc;
+  --rowText: #3a1912;
 }
 
 .rowTone11 {
-  --serviceIconBg: #22320f;
-  --serviceIconColor: #d7ff54;
+  --rowBg: #ffffff;
+  --rowText: #111111;
 }
 
 .rowTone12 {
-  --serviceIconBg: #eef8b8;
-  --serviceIconColor: #22320f;
+  --rowBg: #111820;
+  --rowText: #f2f7ff;
 }
 
 .rowTone13 {
-  --serviceIconBg: #0a2f3b;
-  --serviceIconColor: #0fa8ff;
+  --rowBg: #0082ff;
+  --rowText: #eaf5ff;
 }
 
 .rowTone14 {
-  --serviceIconBg: #62c8ff;
-  --serviceIconColor: #0a2f3b;
+  --rowBg: #7fd0ff;
+  --rowText: #0f2b3d;
 }
 
 .rowTone15 {
-  --serviceIconBg: #3a143e;
-  --serviceIconColor: #ef6dff;
+  --rowBg: #eaf4ff;
+  --rowText: #132433;
 }
 
 .rowTone16 {
-  --serviceIconBg: #2c2d33;
-  --serviceIconColor: #ffffff;
+  --rowBg: #2a3038;
+  --rowText: #e8edf4;
+}
+
+.rowThumb {
+  width: 66px;
+  height: 40px;
+  border-radius: 11px;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .sidebar {
@@ -790,14 +798,21 @@ a {
   }
 
   .row {
-    font-size: 13px;
+    font-size: 15px;
     padding: 8px 14px 8px 8px;
+    min-height: 52px;
   }
 
   .squareBullet {
-    width: 28px;
-    height: 28px;
-    flex-basis: 28px;
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+  }
+
+  .rowThumb {
+    width: 54px;
+    height: 34px;
+    border-radius: 9px;
   }
 
   .searchInput {

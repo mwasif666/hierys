@@ -27,7 +27,9 @@ export const isServicePageRoute = (
 
 export const canonicalizeServicePageLocation = (
   location: Pick<Location, "hash" | "pathname">,
-) => location.hash === SERVICE_PAGE_HASH || location.pathname === SERVICE_PAGE_PATH;
+) =>
+  location.hash === SERVICE_PAGE_HASH ||
+  location.pathname === SERVICE_PAGE_PATH;
 
 const dispatchAppNavigation = () => {
   window.dispatchEvent(new Event(APP_NAVIGATION_EVENT));
@@ -77,4 +79,46 @@ export const replaceWithCanonicalServicePageRoute = () => {
 
   window.history.replaceState({}, "", SERVICE_PAGE_PATH);
   return true;
+};
+
+export const INNER_SERVICE_PREFIX = `${SERVICE_PAGE_PATH}/`;
+
+export const slugifyServiceTitle = (title: string): string =>
+  title
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+export const buildInnerServicePath = (title: string): string =>
+  `${INNER_SERVICE_PREFIX}${slugifyServiceTitle(title)}`;
+
+export const isInnerServiceRoute = (
+  location: Pick<Location, "pathname">,
+): boolean =>
+  location.pathname.startsWith(INNER_SERVICE_PREFIX) &&
+  location.pathname.length > INNER_SERVICE_PREFIX.length;
+
+export const isInnerServicePath = (path: string): boolean =>
+  path.startsWith(INNER_SERVICE_PREFIX) &&
+  path.length > INNER_SERVICE_PREFIX.length;
+
+export const getInnerServiceSlug = (
+  location: Pick<Location, "pathname">,
+): string | null => {
+  if (!isInnerServiceRoute(location)) return null;
+  return location.pathname.slice(INNER_SERVICE_PREFIX.length);
+};
+
+export const navigateToInnerService = (path: string): void => {
+  if (typeof window === "undefined") return;
+  if (window.location.pathname === path && !window.location.hash) {
+    dispatchAppNavigation();
+    return;
+  }
+  window.history.pushState({}, "", path);
+  dispatchAppNavigation();
+  window.requestAnimationFrame(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  });
 };
