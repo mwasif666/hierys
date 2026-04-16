@@ -43,7 +43,9 @@ export default function Brands() {
     const updateStickerWidth = () => {
       if (!measureGroupRef.current) return;
 
-      const children = Array.from(measureGroupRef.current.children) as HTMLElement[];
+      const children = Array.from(
+        measureGroupRef.current.children,
+      ) as HTMLElement[];
       const widths = children.map((node) =>
         Math.ceil(node.getBoundingClientRect().width),
       );
@@ -61,7 +63,9 @@ export default function Brands() {
         : null;
 
     if (measureGroupRef.current && resizeObserver) {
-      const children = Array.from(measureGroupRef.current.children) as Element[];
+      const children = Array.from(
+        measureGroupRef.current.children,
+      ) as Element[];
       children.forEach((node) => {
         resizeObserver.observe(node);
       });
@@ -80,7 +84,7 @@ export default function Brands() {
       <div className={styles.inner}>
         <div
           className={styles.headingWrap}
-          style={{ "--sticker-width": `${stickerWidth}px` }}
+          style={{ "--sticker-brnad-width": `${stickerWidth}px` }}
         >
           <span
             ref={measureGroupRef}

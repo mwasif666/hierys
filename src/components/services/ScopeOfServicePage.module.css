@@ -331,11 +331,12 @@ a {
   width: 38px;
   height: 38px;
   border-radius: 8px;
-  background: rgba(8, 30, 40, 0.86);
-  color: #e6f0f4;
+  background: rgba(255, 255, 255, 0.72);
+  color: #17303a;
   flex: 0 0 38px;
   display: inline-grid;
   place-items: center;
+  border: 1px solid rgba(11, 23, 31, 0.08);
 }
 
 .rowTone1 {
@@ -344,8 +345,8 @@ a {
 }
 
 .rowTone2 {
-  --rowBg: #0f2430;
-  --rowText: #f4fcff;
+  --rowBg: #d8edf7;
+  --rowText: #163747;
 }
 
 .rowTone3 {
@@ -364,8 +365,8 @@ a {
 }
 
 .rowTone6 {
-  --rowBg: #24172a;
-  --rowText: #efe8f7;
+  --rowBg: #eadbff;
+  --rowText: #3f2459;
 }
 
 .rowTone7 {
@@ -394,8 +395,8 @@ a {
 }
 
 .rowTone12 {
-  --rowBg: #111820;
-  --rowText: #f2f7ff;
+  --rowBg: #dce7f5;
+  --rowText: #1d3347;
 }
 
 .rowTone13 {
@@ -414,8 +415,8 @@ a {
 }
 
 .rowTone16 {
-  --rowBg: #2a3038;
-  --rowText: #e8edf4;
+  --rowBg: #e6eaef;
+  --rowText: #28313b;
 }
 
 .rowThumb {

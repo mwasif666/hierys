@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   Presentation,
   Handshake,
@@ -10,17 +12,21 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/homepage/Navbar";
 import Brands from "@/components/homepage/brands/Brands";
+import ComparisonSection from "@/components/homepage/comparison/ComparisonSection";
+import FaqSection from "@/components/homepage/faq/FaqSection";
+import NeedPromptSection from "@/components/homepage/need-prompt/NeedPromptSection";
+import WorkIntroSection from "@/components/homepage/work-intro/WorkIntroSection";
 import FooterSection from "@/components/homepage/footer/FooterSection";
-import {
-  APP_NAVIGATION_EVENT,
-  getInnerServiceSlug,
-} from "@/lib/serviceRoute";
+import { APP_NAVIGATION_EVENT, getInnerServiceSlug } from "@/lib/serviceRoute";
 import {
   SERVICE_DATA,
   DEFAULT_SERVICE_SLUG,
   type SlideCard,
 } from "./innerServiceData";
 import styles from "./InnerServicePage.module.css";
+import ReviewsSection from "../homepage/reviews/ReviewsSection";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const COL_SPEEDS = [0.3, 0.5, 0.35];
 const HELP_ITEMS = [
@@ -59,6 +65,49 @@ const HELP_ITEMS = [
     description:
       "For teams that constantly need decks, updates, last-minute changes, and polished slides without turning every request into a whole project.",
     icon: RefreshCcw,
+  },
+];
+
+const PRAISE_ITEMS = [
+  {
+    label: "Clarity",
+    image:
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=240&h=160&fit=crop&auto=format&q=80",
+  },
+  {
+    label: "Audience attention",
+    image:
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=240&h=160&fit=crop&auto=format&q=80",
+  },
+  {
+    label: "Slide-to-slide flow",
+    image:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?w=240&h=160&fit=crop&auto=format&q=80",
+  },
+  {
+    label: "Confidence in the room",
+    image:
+      "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=240&h=160&fit=crop&auto=format&q=80",
+  },
+  {
+    label: "Time saved on prep",
+    image:
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=240&h=160&fit=crop&auto=format&q=80",
+  },
+  {
+    label: "Approval speed",
+    image:
+      "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=240&h=160&fit=crop&auto=format&q=80",
+  },
+  {
+    label: "Response rate",
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=240&h=160&fit=crop&auto=format&q=80",
+  },
+  {
+    label: "Conversion potential",
+    image:
+      "https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=240&h=160&fit=crop&auto=format&q=80",
   },
 ];
 
@@ -122,7 +171,7 @@ function ImageGrid({ slides }: { slides: SlideCard[] }) {
           offsets.current[i] -= COL_SPEEDS[i];
         }
         if (h > 0) {
-          offsets.current[i] = ((offsets.current[i] % h) + h) % h - h;
+          offsets.current[i] = (((offsets.current[i] % h) + h) % h) - h;
         }
         if (t) {
           t.style.transform = `translateY(${offsets.current[i]}px)`;
@@ -194,6 +243,10 @@ function ImageGrid({ slides }: { slides: SlideCard[] }) {
 
 export default function InnerServicePage() {
   const slug = useActiveSlug();
+  const praiseTones = [styles.tone1, styles.tone2, styles.tone3];
+  const proofSectionRef = useRef<HTMLElement | null>(null);
+  const proofStageRef = useRef<HTMLDivElement | null>(null);
+  const proofPanelRefs = useRef<Array<HTMLElement | null>>([]);
 
   const service = useMemo(
     () => SERVICE_DATA[slug] ?? SERVICE_DATA[DEFAULT_SERVICE_SLUG],
@@ -203,6 +256,70 @@ export default function InnerServicePage() {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }, [slug]);
+
+  useEffect(() => {
+    const panels = proofPanelRefs.current.filter(
+      (panel): panel is HTMLElement => panel !== null,
+    );
+
+    if (
+      !proofSectionRef.current ||
+      !proofStageRef.current ||
+      panels.length < 2
+    ) {
+      return undefined;
+    }
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(panels, { clearProps: "all" });
+      return undefined;
+    }
+
+    const media = gsap.matchMedia();
+    const context = gsap.context(() => {
+      media.add("(min-width: 992px)", () => {
+        gsap.set(panels[0], { yPercent: 0, zIndex: 1 });
+        gsap.set(panels[1], { yPercent: 100, zIndex: 2 });
+
+        const timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: proofSectionRef.current,
+            start: "top top",
+            end: () => `+=${Math.round(window.innerHeight * 1.7)}`,
+            pin: proofStageRef.current,
+            pinSpacing: true,
+            scrub: 0.8,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        timeline.to({}, { duration: 0.24 }).to(
+          panels[1],
+          {
+            yPercent: 0,
+            ease: "none",
+            duration: 0.76,
+          },
+          ">",
+        );
+
+        return () => {
+          timeline.scrollTrigger?.kill();
+          timeline.kill();
+        };
+      });
+
+      media.add("(max-width: 991px)", () => {
+        gsap.set(panels, { clearProps: "all" });
+      });
+    }, proofSectionRef);
+
+    return () => {
+      media.revert();
+      context.revert();
+    };
+  }, []);
 
   return (
     <div className={styles.page}>
@@ -233,17 +350,22 @@ export default function InnerServicePage() {
         </div>
 
         <section className={styles.helpSection}>
-          <div className={styles.helpInner}>
+          <div className={`container ${styles.helpInner}`}>
             <p className={styles.helpEyebrow}>Channel-tailored</p>
             <h2 className={styles.helpTitle}>
-              <span className={styles.helpTitleMain}>What we can help with</span>
-              <span className={styles.helpTitleAccent}>for your channel</span>
+              <span className={styles.helpTitleMain}>
+                What we can help with
+              </span>
+              <span className={styles.helpTitleMain}>for your channel</span>
             </h2>
-            <div className={styles.helpGrid}>
+            <div className={`row ${styles.helpGrid}`}>
               {HELP_ITEMS.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <article key={item.title} className={styles.helpCard}>
+                  <article
+                    key={item.title}
+                    className={`col-12 col-md-6 col-lg-4 ${styles.helpCard}`}
+                  >
                     <span className={styles.helpIcon} aria-hidden="true">
                       <Icon size={18} />
                     </span>
@@ -256,78 +378,112 @@ export default function InnerServicePage() {
           </div>
         </section>
 
-        <section className={styles.proofSection}>
-          <div className={styles.proofInner}>
-            <article className={styles.proofRow}>
-              <div className={styles.proofText}>
-                <p className={styles.proofEyebrow}>Presentation impact</p>
-                <h3 className={styles.proofTitle}>
-                  <span className={styles.proofTitleLine}>
-                    What good presentation
-                  </span>
-                  <span className={styles.proofTitleLine}>
-                    design{" "}
-                    <em className={styles.proofTitleAccent}>actually helps with</em>
-                  </span>
-                </h3>
-                <p className={styles.proofParagraph}>
-                  A good presentation is not just prettier slides. It helps you
-                  explain faster, hold attention longer, and make your point
-                  without losing people halfway through.
-                </p>
-                <p className={styles.proofParagraph}>
-                  It helps founders pitch better, sales teams present better,
-                  leadership communicate better, and brands show up better. If
-                  your slides are too busy, too boring, too messy, or too
-                  unclear, the message usually gets lost before it gets a chance
-                  to work.
-                </p>
-              </div>
-              <div className={styles.proofMedia}>
-                <img
-                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=760&fit=crop&auto=format&q=80"
-                  alt="Team reviewing presentation slides"
-                  loading="lazy"
-                />
-                <span className={styles.proofPlayBadge} aria-hidden="true">
-                  <Play size={18} fill="currentColor" />
-                </span>
+        <section className={styles.proofSection} ref={proofSectionRef}>
+          <div className={styles.proofStage} ref={proofStageRef}>
+            <article
+              className={styles.proofRow}
+              ref={(node) => {
+                proofPanelRefs.current[0] = node;
+              }}
+            >
+              <div className={`container ${styles.proofInner}`}>
+                <div
+                  className={`row align-items-center ${styles.proofRowInner}`}
+                >
+                  <div className={`col-12 col-lg-6 ${styles.proofText}`}>
+                    <p className={styles.proofEyebrow}>Presentation impact</p>
+                    <h3 className={styles.proofTitle}>
+                      <span className={styles.proofTitleLine}>What good</span>
+                      <span className={styles.proofTitleLine}>
+                        presentation design
+                      </span>
+                      <span className={styles.proofTitleLine}>
+                        actually helps with
+                      </span>
+                    </h3>
+                  </div>
+                  <div className={`col-12 col-lg-6`}>
+                    <div>
+                      <p className={styles.proofParagraph}>
+                        A good presentation is not just prettier slides. It
+                        helps you explain faster, hold attention longer, and
+                        make your point without losing people halfway through.
+                      </p>
+                      <p className={styles.proofParagraph}>
+                        It helps founders pitch better, sales teams present
+                        better, leadership communicate better, and brands show
+                        up better. If your slides are too busy, too boring, too
+                        messy, or too unclear, the message usually gets lost
+                        before it gets a chance to work.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </article>
 
-            <article className={styles.proofRow}>
-              <div className={styles.proofMedia}>
-                <img
-                  src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&h=760&fit=crop&auto=format&q=80"
-                  alt="Presentation team collaboration"
-                  loading="lazy"
-                />
-              </div>
-              <div className={styles.proofText}>
-                <p className={styles.proofEyebrow}>Client feedback</p>
-                <h3 className={styles.proofTitle}>
-                  <span className={styles.proofTitleLine}>
-                    What Hireys&apos; Presentations
-                  </span>
-                  <span className={styles.proofTitleLine}>
-                    have been{" "}
-                    <em className={styles.proofTitleAccent}>praised for</em>
-                  </span>
-                </h3>
-                <ul className={styles.proofList}>
-                  <li>Clarity</li>
-                  <li>Audience attention</li>
-                  <li>Slide-to-slide flow</li>
-                  <li>Confidence in the room</li>
-                  <li>Time saved on prep</li>
-                  <li>Approval speed</li>
-                  <li>Response rate</li>
-                  <li>Conversion potential</li>
-                </ul>
+            <article
+              className={styles.proofRow}
+              ref={(node) => {
+                proofPanelRefs.current[1] = node;
+              }}
+            >
+              <div className={`container ${styles.proofInner}`}>
+                <div
+                  className={`row align-items-center ${styles.proofRowInner}`}
+                >
+                  <div className={`col-12 col-lg-6 ${styles.proofMediaCol}`}>
+                    <div className={styles.deliverables}>
+                      {PRAISE_ITEMS.map((item, index) => (
+                        <div
+                          key={item.label}
+                          className={`${styles.deliverable} ${
+                            praiseTones[index % praiseTones.length]
+                          }`}
+                        >
+                          <img
+                            className={styles.deliverableThumb}
+                            src={item.image}
+                            alt={item.label}
+                            loading="lazy"
+                          />
+                          <span className={styles.deliverableLabel}>
+                            {item.label}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className={`col-12 col-lg-6 ${styles.proofText}`}>
+                    <p className={styles.proofEyebrow}>Client feedback</p>
+                    <h3 className={styles.proofTitle}>
+                      <span className={styles.proofTitleLine}>What Hireys</span>
+                      <span className={styles.proofTitleLine}>
+                        Presentations have
+                      </span>
+                      <span className={styles.proofTitleLine}>
+                        been praised for
+                      </span>
+                    </h3>
+                  </div>
+                </div>
               </div>
             </article>
           </div>
         </section>
+
+        <WorkIntroSection />
+        <ComparisonSection />
+        <ReviewsSection />
+        <NeedPromptSection
+          onStartHereClick={() => {
+            const el = document.getElementById("contact");
+            if (el) {
+              el.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          }}
+        />
+        <FaqSection />
       </main>
 
       <FooterSection />

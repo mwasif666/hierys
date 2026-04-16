@@ -68,6 +68,13 @@
   border-radius: 3px;
   background: #2a1118;
   flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  color: #f7eed4;
+}
+
+.serviceIcon :global(svg) {
+  display: block;
 }
 
 .linksGrid {

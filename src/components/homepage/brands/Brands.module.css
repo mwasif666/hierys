@@ -12,9 +12,9 @@
 }
 
 .headingWrap {
-  --sticker-width: 220px;
+  --sticker-brnad-width: 200px !important;
   --sticker-overhang: 22px;
-  --sticker-gap: 20px;
+  --sticker-gap: 05px;
   position: relative;
   isolation: isolate;
   width: fit-content;
@@ -43,16 +43,16 @@
 
 .sticker {
   position: absolute;
-  top: -8px;
+  top: 0px;
   left: calc(-1 * var(--sticker-overhang));
   z-index: 0;
-  width: var(--sticker-width);
-  height: 78px;
+  width: var(--sticker-brnad-width);
+  height: 48px;
   border-radius: 8px;
   background: #2769ba;
   color: #fff5d8;
   font-family: "Inter Tight", system-ui, sans-serif;
-  font-size: 47.9px;
+  font-size: 30px;
   font-weight: 800;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -107,14 +107,14 @@
 
 .headingLineTop {
   padding-left: calc(
-    var(--sticker-width) - var(--sticker-overhang) + var(--sticker-gap)
+    var(--sticker-brnad-width) - var(--sticker-overhang) + var(--sticker-gap)
   );
   white-space: nowrap;
 }
 
 .headingLineBottom {
   padding-left: 0;
-  margin-top: 24px;
+  margin-top: 05px;
   white-space: nowrap;
 }
 
@@ -236,7 +236,7 @@
 
   .headingLineTop {
     padding-left: calc(
-      var(--sticker-width) - var(--sticker-overhang) + var(--sticker-gap)
+      var(--sticker-brnad-width) - var(--sticker-overhang) + var(--sticker-gap)
     );
   }
 }
@@ -267,7 +267,7 @@
 
   .headingLineTop {
     padding-left: calc(
-      var(--sticker-width) - var(--sticker-overhang) + var(--sticker-gap)
+      var(--sticker-brnad-width) - var(--sticker-overhang) + var(--sticker-gap)
     );
   }
 
@@ -313,7 +313,7 @@
 
   .headingLineTop {
     padding-left: calc(
-      var(--sticker-width) - var(--sticker-overhang) + var(--sticker-gap)
+      var(--sticker-brnad-width) - var(--sticker-overhang) + var(--sticker-gap)
     );
   }
 

@@ -1,5 +1,42 @@
+import {
+  BriefcaseBusiness,
+  Boxes,
+  Code2,
+  FilePenLine,
+  Globe,
+  LayoutTemplate,
+  Megaphone,
+  MonitorSmartphone,
+  Package,
+  PenSquare,
+  Presentation,
+  SearchCheck,
+  Share2,
+  Sparkles,
+  SwatchBook,
+  type LucideIcon,
+} from "lucide-react";
 import { FOOTER_SECTION } from "@/components/homepage/data/homepageData";
 import styles from "@/components/homepage/footer/FooterSection.module.css";
+
+const SERVICE_ICON_MAP: Record<string, LucideIcon> = {
+  "Ad Creatives": Megaphone,
+  "Social Media Design": Share2,
+  "Brand Guidelines": SwatchBook,
+  "Pitch Decks": Presentation,
+  "Brand Identity": BriefcaseBusiness,
+  "Presentation Design": LayoutTemplate,
+  "Logo Design": Sparkles,
+  "Website Design": Globe,
+  "Website Development": Code2,
+  Copywriting: PenSquare,
+  "Content Writing": FilePenLine,
+  "SEO & AEO": SearchCheck,
+  "Packaging Design": Package,
+  Marketing: MonitorSmartphone,
+  "Creative Strategy": Boxes,
+  "Custom Requests": Sparkles,
+};
 
 function FooterAnchor({
   label,
@@ -35,7 +72,12 @@ export default function FooterSection() {
               <div className={styles.serviceColumn} key={`footer-services-${columnIndex}`}>
                 {column.map((service) => (
                   <div className={styles.servicePill} key={service}>
-                    <span aria-hidden="true" className={styles.serviceIcon} />
+                    <span aria-hidden="true" className={styles.serviceIcon}>
+                      {(() => {
+                        const Icon = SERVICE_ICON_MAP[service] ?? Sparkles;
+                        return <Icon size={15} strokeWidth={2.1} />;
+                      })()}
+                    </span>
                     <span>{service}</span>
                   </div>
                 ))}
