@@ -122,3 +122,25 @@ export const navigateToInnerService = (path: string): void => {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   });
 };
+
+export const PROJECTS_PAGE_PATH = "/projects";
+
+export const isProjectsRoute = (
+  location: Pick<Location, "pathname">,
+): boolean => location.pathname === PROJECTS_PAGE_PATH;
+
+export const navigateToProjects = (): void => {
+  if (typeof window === "undefined") return;
+  if (
+    window.location.pathname === PROJECTS_PAGE_PATH &&
+    !window.location.hash
+  ) {
+    dispatchAppNavigation();
+    return;
+  }
+  window.history.pushState({}, "", PROJECTS_PAGE_PATH);
+  dispatchAppNavigation();
+  window.requestAnimationFrame(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  });
+};

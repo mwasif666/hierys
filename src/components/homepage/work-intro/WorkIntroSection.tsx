@@ -1,9 +1,10 @@
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useMemo } from "react";
 
 import { HiMiniArrowRight } from "react-icons/hi2";
 
 import { WORK_INTRO_SECTION } from "@/components/homepage/data/homepageData";
 import styles from "@/components/homepage/work-intro/WorkIntroSection.module.css";
+import { navigateToProjects } from "@/lib/serviceRoute";
 import { cn } from "@/lib/utils";
 
 const INITIAL_VISIBLE_PROJECTS = 6;
@@ -43,13 +44,12 @@ function renderLines(lines: string[]) {
 }
 
 export default function WorkIntroSection() {
-  const [showAllProjects, setShowAllProjects] = useState<boolean>(false);
   const { stickerLabel, primaryLines, secondaryLines, projects } = WORK_INTRO_SECTION;
   const visibleProjects = useMemo(
-    () => (showAllProjects ? projects : projects.slice(0, INITIAL_VISIBLE_PROJECTS)),
-    [projects, showAllProjects],
+    () => projects.slice(0, INITIAL_VISIBLE_PROJECTS),
+    [projects],
   );
-  const hasHiddenProjects = projects.length > INITIAL_VISIBLE_PROJECTS && !showAllProjects;
+  const hasMoreWork = projects.length > 0;
 
   return (
     <>
@@ -96,9 +96,9 @@ export default function WorkIntroSection() {
             ))}
           </div>
 
-          {hasHiddenProjects ? (
+          {hasMoreWork ? (
             <div className={styles.ctaRow}>
-              <CtaButton label="More Work" onClick={() => setShowAllProjects(true)} />
+              <CtaButton label="More Work" onClick={navigateToProjects} />
             </div>
           ) : null}
         </div>
